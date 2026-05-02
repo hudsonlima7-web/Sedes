@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SEDES DF 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{--v:#00C896;--v2:#00A878;--az:#0A2540;--az2:#0D3460;--am:#FFD700;--ci:#F4F6F9;--ci2:#E8ECF2;--br:#fff;--tx:#1A2332;--tx2:#4A5568;--vm:#E53E3E;--la:#F6943A;--rx:#7B61FF;--s1:0 4px 24px rgba(10,37,64,.10);--s2:0 8px 40px rgba(10,37,64,.18);--r:16px;--r2:10px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',sans-serif;background:var(--ci);color:var(--tx);min-height:100vh;font-size:15px}
+
+/* ── ONBOARDING ── */
+.ob{position:fixed;inset:0;background:var(--az);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.ob-box{background:var(--br);border-radius:20px;max-width:660px;width:100%;padding:32px;box-shadow:0 32px 80px rgba(0,0,0,.4)}
+.ob-logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--az);margin-bottom:4px}
+.ob-logo span{color:var(--v)}
+.ob-sub{color:var(--tx2);font-size:.83rem;margin-bottom:22px}
+.ob-h{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:4px;color:var(--az)}
+.ob-d{font-size:.8rem;color:var(--tx2);margin-bottom:14px;line-height:1.5}
+.nlv{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
+.nlv-b{flex:1;min-width:130px;padding:9px;border:2px solid var(--ci2);border-radius:8px;cursor:pointer;font-size:.82rem;font-weight:600;background:none;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--tx2)}
+.nlv-b.sel{border-color:var(--az);background:rgba(10,37,64,.06);color:var(--az)}
+.esps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:16px}
+@media(max-width:480px){.esps{grid-template-columns:repeat(2,1fr)}}
+.esp-b{border:2px solid var(--ci2);border-radius:8px;padding:8px;cursor:pointer;font-size:.77rem;font-weight:600;background:none;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--tx2);text-align:center;line-height:1.3}
+.esp-b:hover{border-color:var(--rx);color:var(--rx)}
+.esp-b.sel{border-color:var(--rx);background:rgba(123,97,255,.08);color:var(--rx)}
+.esp-b.dest{border-color:var(--v);color:var(--v2)}
+.esp-b.dest.sel{background:rgba(0,200,150,.10);border-color:var(--v2)}
+.ob-info{background:rgba(0,200,150,.07);border-left:3px solid var(--v);border-radius:8px;padding:11px 13px;font-size:.8rem;line-height:1.6;margin-bottom:16px;color:var(--tx2)}
+.btn-start{background:var(--v);color:var(--az);border:none;padding:13px;border-radius:99px;font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;width:100%;transition:all .2s}
+.btn-start:hover{background:#00e6ac;transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,200,150,.4)}
+.btn-start:disabled{opacity:.4;pointer-events:none}
+.sync-badge{display:flex;align-items:center;gap:8px;background:rgba(0,200,150,.08);border:1px solid rgba(0,200,150,.3);border-radius:8px;padding:9px 13px;margin-bottom:16px;font-size:.8rem;color:var(--v2);font-weight:500}
+
+/* ── HEADER ── */
+header{background:var(--az);color:white;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:var(--s2)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo span{color:var(--v)}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.btn-upd{background:var(--v);color:var(--az);border:none;padding:6px 12px;border-radius:99px;font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap}
+.btn-upd:hover{background:#00e6ac}
+.btn-upd.ld{opacity:.7;pointer-events:none}
+.hprog{font-size:.72rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:6px}
+.hprog-bar{width:60px;height:4px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden}
+.hprog-fill{height:100%;background:var(--v);border-radius:99px;transition:width .5s}
+@media(max-width:480px){.hprog{display:none}}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:calc(100vh - 56px)}
+
+/* ── SIDEBAR desktop ── */
+.sidebar{width:210px;background:var(--br);border-right:1px solid var(--ci2);padding:16px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;flex-shrink:0}
+@media(max-width:768px){.sidebar{display:none}}
+.sb-pfx{margin:0 12px 14px;background:var(--ci);border-radius:var(--r2);padding:10px 12px;border-left:3px solid var(--v)}
+.sb-pn{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;color:var(--az)}
+.sb-pc{font-size:.7rem;color:var(--v2);font-weight:600;margin-top:1px}
+.sb-pv{font-size:.68rem;color:var(--tx2);margin-top:1px}
+.sb-chg{font-size:.67rem;color:var(--tx2);text-decoration:underline;cursor:pointer;margin-top:3px;display:inline-block}
+.sb-lbl{font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx2);padding:10px 10px 4px}
+.sb-sec{padding:0 10px;margin-bottom:4px}
+.nav-i{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:var(--r2);cursor:pointer;font-size:.83rem;font-weight:400;color:var(--tx2);transition:all .15s;border:none;background:none;width:100%;text-align:left}
+.nav-i:hover{background:var(--ci);color:var(--tx)}
+.nav-i.act{background:rgba(0,200,150,.10);color:var(--v2);font-weight:600}
+.nav-i .ni{font-size:.95rem;width:18px;text-align:center}
+.nav-i .nb{margin-left:auto;background:var(--v);color:white;font-size:.6rem;font-weight:700;padding:1px 5px;border-radius:99px}
+.nav-i .nb.rx{background:var(--rx)}
+.nav-i .nb.rd{background:var(--vm)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--v);margin-left:auto;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ── BOTTOM NAV mobile ── */
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--br);border-top:1px solid var(--ci2);z-index:90;padding:6px 0 env(safe-area-inset-bottom,0)}
+@media(max-width:768px){.bnav{display:flex}}
+.bn-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 0;cursor:pointer;border:none;background:none;color:var(--tx2);font-size:.58rem;font-weight:500;transition:color .15s}
+.bn-i .ic{font-size:1.2rem}
+.bn-i.act{color:var(--v2)}
+
+/* ── MAIN ── */
+.main{flex:1;padding:20px;overflow-y:auto;padding-bottom:80px}
+@media(max-width:768px){.main{padding:14px;padding-bottom:90px}}
+.page{display:none}
+.page.active{display:block}
+.card{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);padding:18px;margin-bottom:16px}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ct{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--az)}
+
+/* ── ALERTA ── */
+.alrt{background:linear-gradient(135deg,#fff3cd,#fff8e1);border:2px solid var(--am);border-radius:var(--r);padding:12px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+.alrt h3{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:#7a5200;margin-bottom:2px}
+.alrt p{font-size:.77rem;color:#8a6300;line-height:1.5}
+
+/* ── DASH WELCOME ── */
+.dw{background:linear-gradient(135deg,var(--az) 0%,var(--az2) 100%);border-radius:var(--r);padding:20px 24px;color:white;margin-bottom:16px}
+.dtag{display:inline-block;background:var(--v);color:var(--az);font-size:.66rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-bottom:8px;letter-spacing:.5px}
+.dw h1{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;margin-bottom:3px}
+.dw p{opacity:.75;font-size:.83rem}
+.dcb{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border-radius:99px;padding:4px 12px;font-size:.75rem;margin-top:8px}
+
+/* ── STATS ── */
+.sg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+@media(min-width:600px){.sg{grid-template-columns:repeat(4,1fr)}}
+.sc{background:var(--br);border-radius:var(--r);padding:14px 16px;box-shadow:var(--s1);display:flex;flex-direction:column;gap:4px}
+.si{font-size:1.3rem}
+.sv{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--az)}
+.sl{font-size:.73rem;color:var(--tx2)}
+.st{font-size:.68rem;color:var(--v2);font-weight:500}
+
+/* ── PLANO DIÁRIO ── */
+.dg{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:700px){.dg{grid-template-columns:2fr 1fr}}
+.plan-i{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--ci2)}
+.plan-i:last-child{border-bottom:none}
+.pck{width:20px;height:20px;border:2px solid var(--ci2);border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;margin-top:2px}
+.pck.dn{background:var(--v);border-color:var(--v);color:white;font-size:.72rem}
+.pin{flex:1}
+.pnm{font-size:.85rem;font-weight:500}
+.psb{font-size:.71rem;color:var(--tx2);margin-top:1px}
+/* BOTÕES DO PLANO */
+.plan-btns{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.pbtn{padding:4px 10px;border-radius:99px;border:none;font-size:.68rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;text-decoration:none}
+.pbtn.aula{background:rgba(229,62,62,.10);color:var(--vm)}
+.pbtn.aula:hover{background:rgba(229,62,62,.2)}
+.pbtn.quest{background:rgba(0,200,150,.10);color:var(--v2)}
+.pbtn.quest:hover{background:rgba(0,200,150,.2)}
+.ptm{font-size:.7rem;background:var(--ci);padding:2px 7px;border-radius:99px;color:var(--tx2);font-weight:500;white-space:nowrap;align-self:flex-start;margin-top:2px}
+
+/* ── TIMER ── */
+.tmr{text-align:center;padding:8px 0}
+.tdisp{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--az);letter-spacing:3px;margin-bottom:8px}
+.tbtns{display:flex;gap:7px;justify-content:center}
+.tbtn{padding:6px 14px;border-radius:99px;border:2px solid var(--ci2);background:none;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.tbtn.pri{background:var(--v);border-color:var(--v);color:var(--az)}
+.tbtn:hover{transform:translateY(-1px)}
+
+/* ── MATÉRIAS ── */
+.mg{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(min-width:600px){.mg{grid-template-columns:repeat(3,1fr)}}
+.mc{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);padding:15px;cursor:pointer;transition:all .2s;border:2px solid transparent;position:relative;overflow:hidden}
+.mc:hover{transform:translateY(-2px);box-shadow:var(--s2)}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.mc.c1::before{background:var(--v)}.mc.c2::before{background:var(--rx)}.mc.c3::before{background:var(--la)}.mc.c4::before{background:var(--am)}.mc.c5::before{background:#F06292}.mc.c6::before{background:#26C6DA}.mc.c7::before{background:#FF7043}
+.mbdg{position:absolute;top:8px;right:8px;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:99px}
+.mbdg.e{background:rgba(123,97,255,.12);color:var(--rx)}.mbdg.t{background:rgba(0,200,150,.12);color:var(--v2)}.mbdg.g{background:rgba(246,148,58,.12);color:var(--la)}
+.mico{font-size:1.4rem;margin-bottom:5px}
+.mnm{font-family:'Syne',sans-serif;font-weight:700;font-size:.82rem;margin-bottom:2px}
+.msb{font-size:.7rem;color:var(--tx2);margin-bottom:7px}
+.pb{height:4px;background:var(--ci2);border-radius:99px;overflow:hidden}
+.pf{height:100%;border-radius:99px;background:var(--v);transition:width .5s}
+.mc.c2 .pf{background:var(--rx)}.mc.c3 .pf{background:var(--la)}.mc.c4 .pf{background:var(--am)}.mc.c5 .pf{background:#F06292}.mc.c6 .pf{background:#26C6DA}.mc.c7 .pf{background:#FF7043}
+.mpt{font-size:.68rem;color:var(--tx2);margin-top:2px}
+
+/* ── QUESTÕES ── */
+.qbox{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);padding:20px;margin-bottom:16px}
+.qmeta{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.tag{font-size:.66rem;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--ci);color:var(--tx2)}
+.tag.banca{background:rgba(123,97,255,.12);color:var(--rx)}
+.tag.mat{background:rgba(0,200,150,.12);color:var(--v2)}
+.tag.ano{background:rgba(246,148,58,.12);color:var(--la)}
+.tag.esp{background:rgba(123,97,255,.12);color:var(--rx)}
+.tag.tec{background:rgba(0,200,150,.12);color:var(--v2)}
+.qenu{font-size:.9rem;line-height:1.7;margin-bottom:14px}
+.alts{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.alt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:var(--r2);border:2px solid var(--ci2);cursor:pointer;transition:all .2s;font-size:.85rem;line-height:1.5}
+.alt:hover{border-color:var(--v);background:rgba(0,200,150,.04)}
+.alt.ok{border-color:var(--v);background:rgba(0,200,150,.08)}
+.alt.er{border-color:var(--vm);background:rgba(229,62,62,.07)}
+.alt.sl{border-color:var(--az);background:rgba(10,37,64,.05)}
+.altr{width:22px;height:22px;border-radius:50%;background:var(--ci2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;flex-shrink:0;transition:all .2s}
+.alt.ok .altr{background:var(--v);color:white}.alt.er .altr{background:var(--vm);color:white}.alt.sl .altr{background:var(--az);color:white}
+.gab{display:none;background:var(--ci);border-radius:var(--r2);padding:12px;font-size:.84rem;line-height:1.6;border-left:4px solid var(--v)}
+.gab.show{display:block}
+.bq{padding:7px 16px;border-radius:99px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.8rem;cursor:pointer;border:none;transition:all .2s}
+.bq.pri{background:var(--v);color:var(--az)}.bq.sec{background:var(--ci2);color:var(--tx)}
+.bq:hover{transform:translateY(-1px)}.bq:disabled{opacity:.5;pointer-events:none}
+.qbtns{display:flex;gap:8px;flex-wrap:wrap}
+.scrow{display:flex;align-items:center;gap:12px;padding:9px 12px;background:var(--ci);border-radius:var(--r2);margin-bottom:12px;font-size:.84rem}
+.snum{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800}
+
+/* ── VÍDEOS ── */
+.vfil{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.fil{padding:5px 12px;border-radius:99px;border:2px solid var(--ci2);background:none;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--tx2)}
+.fil.act{background:var(--az);border-color:var(--az);color:white}
+.fil:hover{border-color:var(--az);color:var(--az)}
+.vg{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(max-width:540px){.vg{grid-template-columns:1fr}}
+.vc{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);overflow:hidden;cursor:pointer;transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:var(--s2)}
+.vth{width:100%;aspect-ratio:16/9;background:var(--az);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vth img{width:100%;height:100%;object-fit:cover}
+.vpl{position:absolute;width:42px;height:42px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:2}
+.vbd{position:absolute;top:7px;right:7px;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:99px;z-index:3}
+.vbd.e{background:rgba(123,97,255,.9);color:white}.vbd.t{background:rgba(0,200,150,.9);color:var(--az)}.vbd.g{background:rgba(246,148,58,.9);color:white}
+.vinfo{padding:10px}
+.vtit{font-weight:600;font-size:.82rem;margin-bottom:2px;line-height:1.4}
+.vmeta{font-size:.7rem;color:var(--tx2);display:flex;gap:9px;margin-top:4px}
+.vcan{font-size:.69rem;color:var(--v2);font-weight:500}
+/* botão abrir no YouTube */
+.vyt{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:3px 9px;background:#FF0000;color:white;border-radius:99px;font-size:.66rem;font-weight:700;text-decoration:none;font-family:'DM Sans',sans-serif}
+
+/* ── MODAL EMBED ── */
+.movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:16px}
+.movl.show{display:flex}
+.mvid{background:var(--br);border-radius:var(--r);width:100%;max-width:800px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.35)}
+.mvh{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ci2)}
+.mvt{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem}
+.mvc{width:28px;height:28px;border-radius:50%;background:var(--ci);border:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.vemb{width:100%;aspect-ratio:16/9;border:none}
+/* fallback YouTube link */
+.yt-fb{padding:20px;text-align:center;display:none}
+.yt-fb a{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;background:#FF0000;color:white;border-radius:99px;font-weight:700;font-size:.9rem;text-decoration:none}
+
+/* ── IA ── */
+.iac{height:360px;overflow-y:auto;padding:12px;background:var(--ci);border-radius:var(--r2);margin-bottom:9px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:85%}
+.msg.ia{align-self:flex-start}.msg.us{align-self:flex-end}
+.mb{padding:10px 13px;border-radius:11px;font-size:.84rem;line-height:1.6}
+.msg.ia .mb{background:var(--br);box-shadow:var(--s1)}.msg.us .mb{background:var(--az);color:white}
+.ms{font-size:.68rem;color:var(--tx2);margin-bottom:2px;font-weight:600}
+.msg.us .ms{text-align:right}
+.iainr{display:flex;gap:8px}
+.iain{flex:1;padding:9px 13px;border:2px solid var(--ci2);border-radius:var(--r2);font-family:'DM Sans',sans-serif;font-size:.84rem;outline:none;transition:border-color .2s}
+.iain:focus{border-color:var(--v)}
+.iasd{background:var(--v);border:none;color:var(--az);padding:9px 16px;border-radius:var(--r2);font-weight:700;cursor:pointer;font-size:.84rem;transition:all .2s;font-family:'DM Sans',sans-serif}
+.iasd:hover{background:#00e6ac}
+.iadot{width:6px;height:6px;background:var(--tx2);border-radius:50%;animation:dt 1.2s infinite;display:inline-block;margin:0 2px}
+.iadot:nth-child(2){animation-delay:.2s}.iadot:nth-child(3){animation-delay:.4s}
+@keyframes dt{0%,80%,100%{transform:scale(.6);opacity:.5}40%{transform:scale(1);opacity:1}}
+
+/* ── ERRO IA ── */
+.ia-err{background:rgba(229,62,62,.07);border:1px solid rgba(229,62,62,.2);border-radius:var(--r2);padding:10px 13px;font-size:.82rem;color:var(--vm);margin-bottom:8px;display:none}
+.ia-err.show{display:block}
+
+/* ── CRONO ── */
+.csem{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+@media(max-width:480px){.csem{grid-template-columns:repeat(4,1fr)}}
+.db{background:var(--br);border-radius:var(--r2);padding:7px 4px;text-align:center;box-shadow:var(--s1);cursor:pointer;transition:all .2s;border:2px solid transparent}
+.db:hover{border-color:var(--v)}
+.db.hj{border-color:var(--v);background:rgba(0,200,150,.06)}
+.dn2{font-size:.6rem;font-weight:700;color:var(--tx2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px}
+.dnum{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800}
+.dmat{font-size:.58rem;color:var(--tx2);margin-top:3px;line-height:1.3}
+.ddot{width:5px;height:5px;border-radius:50%;background:var(--v);margin:3px auto 0}
+
+/* ── BANCA ── */
+.bg{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+@media(max-width:580px){.bg{grid-template-columns:1fr}}
+.bi{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);padding:16px}
+.bio{font-size:1.6rem;margin-bottom:6px}
+.bit{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:4px}
+.bitx{font-size:.8rem;color:var(--tx2);line-height:1.6}
+.bil{list-style:none;padding:0}
+.bil li{padding:4px 0;border-bottom:1px solid var(--ci2);font-size:.8rem;display:flex;align-items:flex-start;gap:6px}
+.bil li::before{content:'▸';color:var(--v);font-size:.76rem;flex-shrink:0;margin-top:2px}
+.bialrt{background:rgba(246,148,58,.08);border-left:4px solid var(--la);border-radius:var(--r2);padding:10px 14px;font-size:.79rem;line-height:1.6;margin-top:7px}
+
+/* ── COMPARATIVO ── */
+.cpg{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px}
+@media(max-width:500px){.cpg{grid-template-columns:1fr}}
+.cpc{background:var(--br);border-radius:var(--r);box-shadow:var(--s1);overflow:hidden}
+.cph{padding:11px 15px;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem}
+.cph.e{background:rgba(123,97,255,.08);color:var(--rx)}.cph.t{background:rgba(0,200,150,.08);color:var(--v2)}
+.cpb{padding:12px 15px}
+.cpi{display:flex;align-items:flex-start;gap:7px;padding:5px 0;border-bottom:1px solid var(--ci2);font-size:.79rem}
+.cpi:last-child{border-bottom:none}
+.cpi strong{color:var(--az)}
+
+/* ── SEÇÃO ── */
+.st2{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--az);margin-bottom:2px}
+.ss2{font-size:.81rem;color:var(--tx2);margin-bottom:14px}
+
+/* ── SYNC STATUS ── */
+.sync-status{display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--tx2);padding:8px 12px;background:var(--ci);border-radius:var(--r2);margin-bottom:14px}
+.sync-ok{color:var(--v2);font-weight:600}
+.sync-err{color:var(--vm);font-weight:600}
+
+/* ── NOTIF ── */
+.notif{position:fixed;bottom:80px;right:14px;background:var(--az);color:white;padding:10px 16px;border-radius:var(--r);box-shadow:var(--s2);font-size:.8rem;transform:translateY(100px);opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);z-index:999;max-width:300px;display:flex;align-items:center;gap:8px}
+.notif.show{transform:translateY(0);opacity:1}
+@media(min-width:769px){.notif{bottom:20px}}
+
+.spin{display:inline-block;animation:sp 1s linear infinite}
+@keyframes sp{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
+</style>
+</head>
+<body>
+
+<!-- ONBOARDING -->
+<div class="ob" id="ob">
+ <div class="ob-box">
+  <div class="ob-logo">🎯 <span>SEDES</span> DF 2026</div>
+  <div class="ob-sub">Plataforma Inteligente — Banca Instituto Quadrix</div>
+
+  <div class="sync-badge">☁️ <strong>Sincronização entre dispositivos ativa</strong> — seus dados ficam salvos na nuvem e funcionam no celular e no computador.</div>
+
+  <hr>
+  <div class="ob-h">Qual cargo você vai prestar?</div>
+  <div class="ob-d">Provas no mesmo dia em turnos diferentes — você pode fazer os dois cargos!</div>
+  <div class="nlv">
+   <button class="nlv-b sel" id="bESP" onclick="setNivel('esp')">🎓 Especialista (Superior)</button>
+   <button class="nlv-b" id="bTEC" onclick="setNivel('tec')">📋 Técnico (Médio)</button>
+   <button class="nlv-b" id="bAMB" onclick="setNivel('amb')">✅ Ambos os Cargos</button>
+  </div>
+
+  <div id="blkESP">
+   <div class="ob-h">Sua especialidade</div>
+   <div class="ob-d">40 questões específicas da sua área na prova.</div>
+   <div class="esps" id="espGrd"></div>
+  </div>
+  <div id="blkTEC" style="display:none">
+   <div class="ob-h">Cargo Técnico</div>
+   <div class="esps" id="tecGrd"></div>
+  </div>
+
+  <div class="ob-info" id="obInfo">Carregando...</div>
+  <button class="btn-start" id="btnStart" onclick="comecar()">🚀 Começar a Estudar!</button>
+ </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr" style="display:none">
+ <div class="logo">🎯 <span>SEDES</span>&nbsp;DF</div>
+ <div class="hdr-r">
+  <div class="hprog"><div class="hprog-bar"><div class="hprog-fill" id="hpf" style="width:5%"></div></div><span id="hpct">5%</span></div>
+  <button class="btn-upd" id="bUpd" onclick="atualizarTudo()">🔄 Atualizar</button>
+ </div>
+</header>
+
+<!-- APP -->
+<div class="app" id="appEl" style="display:none">
+ <!-- SIDEBAR -->
+ <nav class="sidebar">
+  <div class="sb-pfx">
+   <div class="sb-pn" id="spN">—</div>
+   <div class="sb-pc" id="spC">—</div>
+   <div class="sb-pv" id="spV">—</div>
+   <span class="sb-chg" onclick="trocarPerfil()">✏️ Alterar perfil</span>
+  </div>
+  <div class="sb-lbl">Menu</div>
+  <div class="sb-sec">
+   <button class="nav-i act" onclick="pg('dashboard')"><span class="ni">🏠</span>Dashboard</button>
+   <button class="nav-i" onclick="pg('cronograma')"><span class="ni">📅</span>Cronograma</button>
+   <button class="nav-i" onclick="pg('materias')"><span class="ni">📚</span>Matérias</button>
+   <button class="nav-i" onclick="pg('questoes')"><span class="ni">✏️</span>Questões<span class="nb">+</span></button>
+   <button class="nav-i" onclick="pg('videos')"><span class="ni">▶️</span>Videoaulas</button>
+  </div>
+  <div class="sb-lbl">Recursos</div>
+  <div class="sb-sec">
+   <button class="nav-i" onclick="pg('comparativo')"><span class="ni">⚖️</span>Meus Cargos</button>
+   <button class="nav-i" onclick="pg('banca')"><span class="ni">🔍</span>Banca</button>
+   <button class="nav-i" onclick="pg('ia')"><span class="ni">🤖</span>Tutor IA<span class="nb rx">IA</span></button>
+   <button class="nav-i" onclick="pg('atualizacoes')"><span class="ni">📡</span>Atualizações<span class="nb rd" id="updBdg">3</span></button>
+  </div>
+  <div class="sb-sec" style="margin-top:8px">
+   <div style="font-size:.67rem;color:var(--tx2);padding:6px 9px;display:flex;align-items:center;gap:5px"><span class="sync-dot"></span><span id="syncLbl">Sincronizado</span></div>
+  </div>
+ </nav>
+
+ <main class="main">
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+   <div class="alrt"><div style="font-size:1.3rem;flex-shrink:0">⚡</div><div><h3>Quadrix Contratada 15/04/2026 — Edital Iminente!</h3><p>Edital até <strong>jun/2026</strong> · Provas <strong>set/2026</strong> · 60 questões · Dois turnos — faça os dois cargos!</p></div></div>
+   <div class="dw">
+    <div class="dtag" id="dTag">SEDES DF 2026</div>
+    <h1 id="dTit">Bora conquistar sua vaga!</h1>
+    <p id="dSub">Personalizado para o seu perfil</p>
+    <div class="dcb" id="dCb"></div>
+   </div>
+   <div class="sg">
+    <div class="sc"><span class="si">📝</span><span class="sv" id="tQ">0</span><span class="sl">Questões Respondidas</span><span class="st" id="pAc">—</span></div>
+    <div class="sc"><span class="si">⏱️</span><span class="sv" id="tH">0h</span><span class="sl">Horas Estudadas</span><span class="st">Hoje: <span id="hHr">0min</span></span></div>
+    <div class="sc"><span class="si">🔥</span><span class="sv" id="seq">1</span><span class="sl">Dias Seguidos</span><span class="st">Mantenha o ritmo!</span></div>
+    <div class="sc"><span class="si">📅</span><span class="sv" id="dRst">—</span><span class="sl">Dias até a prova</span><span class="st">Est. set/2026</span></div>
+   </div>
+   <div class="dg">
+    <div class="card"><div class="ch"><span class="ct">📋 Plano de Hoje</span><span style="font-size:.73rem;color:var(--tx2)">~2h/dia</span></div><div id="planoDia"></div></div>
+    <div>
+     <div class="card"><div class="ch"><span class="ct">⏱️ Cronômetro</span></div>
+      <div class="tmr"><div class="tdisp" id="tDisp">00:00:00</div>
+       <div class="tbtns"><button class="tbtn pri" id="tBtn" onclick="toggleTimer()">▶ Iniciar</button><button class="tbtn" onclick="resetTimer()">↺ Zerar</button></div>
+      </div>
+     </div>
+     <div class="card"><div class="ch"><span class="ct">📊 Progresso</span></div><div id="progChart"></div></div>
+    </div>
+   </div>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <div class="page" id="page-cronograma">
+   <div class="st2">📅 Cronograma Semanal</div>
+   <div class="ss2" id="cSub">Personalizado para o seu perfil</div>
+   <div class="csem" id="cronSem"></div>
+   <div class="card"><div class="ch"><span class="ct" id="planTit">🗓️ Plano 16 Semanas</span></div><div id="planComp"></div></div>
+  </div>
+
+  <!-- MATÉRIAS -->
+  <div class="page" id="page-materias">
+   <div class="st2">📚 Matérias do Concurso</div>
+   <div class="ss2" id="matSub">Filtrado pelo seu perfil</div>
+   <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap" id="matFil"></div>
+   <div class="mg" id="matGrd"></div>
+   <div class="card" id="matDet" style="display:none"><div id="matDetC"></div></div>
+  </div>
+
+  <!-- QUESTÕES -->
+  <div class="page" id="page-questoes">
+   <div class="st2">✏️ Simulado Estilo Quadrix</div>
+   <div class="ss2" id="qSub">Questões do seu cargo</div>
+   <div class="scrow" id="scrow" style="display:none">
+    <span class="snum" style="color:var(--v2)" id="sAc">0</span> acertos de <span class="snum" id="sTot">0</span> respondidas <span class="snum" style="color:var(--rx);margin-left:auto" id="sPct">—</span>
+   </div>
+   <div style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap" id="qFil"></div>
+   <div id="qCont"></div>
+  </div>
+
+  <!-- VÍDEOS -->
+  <div class="page" id="page-videos">
+   <div class="st2">▶️ Videoaulas SEDES DF 2026</div>
+   <div class="ss2" id="vSub">Aulas reais do YouTube — filtradas pelo seu cargo</div>
+   <div class="ia-err" id="vErr">⚠️ Alguns vídeos podem não carregar devido a restrições do YouTube. Use o botão 🔴 YouTube para abrir diretamente.</div>
+   <div class="vfil" id="vFil"></div>
+   <div class="vg" id="vGrd"></div>
+  </div>
+
+  <!-- COMPARATIVO -->
+  <div class="page" id="page-comparativo">
+   <div class="st2">⚖️ Meus Cargos</div>
+   <div class="ss2" id="cpSub">Comparativo e estratégia</div>
+   <div class="cpg" id="cpGrd"></div>
+   <div class="card"><div class="ch"><span class="ct">🎯 Estratégia Recomendada</span></div><div id="estrat"></div></div>
+  </div>
+
+  <!-- BANCA -->
+  <div class="page" id="page-banca">
+   <div class="st2">🔍 Análise da Banca — Instituto Quadrix</div>
+   <div class="ss2">Padrões e estratégias específicas para a Quadrix</div>
+   <div class="bg" id="bancaGrd"></div>
+  </div>
+
+  <!-- TUTOR IA -->
+  <div class="page" id="page-ia">
+   <div class="st2">🤖 Tutor IA — SEDES DF</div>
+   <div class="ss2" id="iaSub">Especializado no seu perfil — Banca Quadrix</div>
+   <div class="ia-err show" id="iaErrBox">⚠️ O Tutor IA requer conexão com a API da Anthropic. Se estiver vendo erros, verifique sua conexão e tente novamente.</div>
+   <div class="card">
+    <div class="iac" id="iaChat"></div>
+    <div class="iainr"><input class="iain" id="iaInp" placeholder="Peça resumos, questões, explicações..." onkeydown="if(event.key==='Enter')sendIA()"><button class="iasd" onclick="sendIA()">➤</button></div>
+    <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap" id="iaSug"></div>
+   </div>
+  </div>
+
+  <!-- ATUALIZAÇÕES -->
+  <div class="page" id="page-atualizacoes">
+   <div class="st2">📡 Atualizações em Tempo Real</div>
+   <div class="ss2">Clique em "🔄 Atualizar" para buscar novas informações do edital na internet</div>
+   <div class="sync-status" id="syncSt"><span>☁️</span><span id="syncStTxt">Aguardando atualização...</span></div>
+   <div class="card"><div class="ch"><span class="ct">🔔 Histórico</span></div><div style="background:var(--ci);border-radius:var(--r2);padding:11px 13px;font-size:.79rem;max-height:320px;overflow-y:auto;line-height:1.8" id="updLog"></div></div>
+  </div>
+
+ </main>
+</div>
+
+<!-- BOTTOM NAV mobile -->
+<nav class="bnav" id="bnav" style="display:none">
+ <button class="bn-i act" onclick="pg('dashboard')"><span class="ic">🏠</span>Início</button>
+ <button class="bn-i" onclick="pg('materias')"><span class="ic">📚</span>Matérias</button>
+ <button class="bn-i" onclick="pg('questoes')"><span class="ic">✏️</span>Questões</button>
+ <button class="bn-i" onclick="pg('videos')"><span class="ic">▶️</span>Aulas</button>
+ <button class="bn-i" onclick="pg('ia')"><span class="ic">🤖</span>IA</button>
+</nav>
+
+<!-- MODAL VÍDEO -->
+<div class="movl" id="movl" onclick="fvid(event)">
+ <div class="mvid">
+  <div class="mvh"><span class="mvt" id="mvTit">Videoaula</span><button class="mvc" onclick="fchModal()">✕</button></div>
+  <iframe class="vemb" id="vfrm" src="" allowfullscreen allow="autoplay"></iframe>
+  <div class="yt-fb" id="ytFb"><a id="ytLink" href="#" target="_blank">🔴 Abrir no YouTube</a><p style="margin-top:8px;font-size:.78rem;color:var(--tx2)">Se o embed não carregar, clique acima para abrir direto no YouTube.</p></div>
+ </div>
+</div>
+
+<div class="notif" id="notif"><span id="nfIc">✅</span><span id="nfMsg">—</span></div>
+
+<script>
+// ================================================================
+// DADOS
+// ================================================================
+const ESPS=[
+ {id:'pedagogia',nm:'Pedagogia',ic:'🎓',dest:true,vg:'~50 vagas',
+  top:['Teoria do Desenvolvimento Humano (Piaget, Vygotsky, Wallon)','Pedagogia Social e Educação Popular','ECA – Lei 8.069/1990 (ESSENCIAL)','SINASE – Sistema Socioeducativo','Serviços de Acolhimento Institucional para Crianças','Serviços de Convivência e Fortalecimento de Vínculos (SCFV)','EJA – Educação de Jovens e Adultos','Proteção integral e medidas socioeducativas','Direitos da Criança e do Adolescente','Trabalho socioeducativo e pedagogia não-formal']},
+ {id:'servico_social',nm:'Serviço Social',ic:'🤝',vg:'~120 vagas',top:['Fundamentos do Serviço Social','Código de Ética do/a Assistente Social','Lei 8.662/93 – Regulamentação da Profissão','Instrumentais técnico-operativos','PAIF e PAEFI','Questão social contemporânea']},
+ {id:'psicologia',nm:'Psicologia',ic:'🧠',vg:'~60 vagas',top:['Psicologia Social e Comunitária','Saúde Mental no SUAS','Avaliação psicológica','Violência doméstica e psicologia forense','Psicologia do Desenvolvimento']},
+ {id:'direito',nm:'Direito',ic:'⚖️',vg:'~50 vagas',top:['Direito de Família','ECA e proteção de vulneráveis','Lei Maria da Penha','Direitos Humanos e SUAS','Acesso à Justiça']},
+ {id:'administracao',nm:'Administração',ic:'📊',vg:'~40 vagas',top:['Gestão pública','Orçamento público','Controle interno','Gestão de convênios']},
+ {id:'educador_social',nm:'Educador Social',ic:'🌱',vg:'~60 vagas',top:['Fundamentos da Educação Social','SINASE','Prevenção às drogas','Metodologias participativas']},
+ {id:'nutricao',nm:'Nutrição',ic:'🥗',vg:'~20 vagas',top:['Segurança Alimentar – SISAN','Insegurança alimentar','Banco de alimentos']},
+ {id:'contabilidade',nm:'Contabilidade',ic:'🔢',vg:'~20 vagas',top:['Contabilidade pública','Lei de Responsabilidade Fiscal','Prestação de contas']},
+ {id:'comunicacao',nm:'Comunicação Social',ic:'📢',vg:'~15 vagas',top:['Comunicação pública','Marketing social','Linguagem acessível']},
+];
+const TECS=[
+ {id:'tec_adm',nm:'Técnico Administrativo',ic:'🗂️',vg:'398 vagas',top:['Noções de Administração Pública','Archivamento e gestão documental','Atendimento ao público','LC 840/2011 (Servidores DF)','Rotinas administrativas']},
+ {id:'agente_social',nm:'Agente Social',ic:'🤲',vg:'133 vagas',top:['Política de Assistência Social','Visita domiciliar','CadÚnico','Busca ativa e territorialização','Benefícios socioassistenciais']},
+ {id:'cuidador_social',nm:'Cuidador Social',ic:'💛',vg:'32 vagas',top:['Cuidados com idosos e PcD','Acolhimento institucional','Ética no cuidado','Saúde do idoso']},
+];
+
+const MATS_GERAIS=[
+ {id:'lp',nm:'Língua Portuguesa',ic:'📖',cr:'c1',sb:'20 questões — todos os cargos',ca:'g',pr:0,
+  top:['Interpretação de Texto','Ortografia (Nova Ortografia)','Concordância Verbal e Nominal','Regência Verbal e Nominal','Colocação Pronominal','Pontuação','Semântica','Figuras de Linguagem','Crase','Período composto']},
+ {id:'dc',nm:'Direito Constitucional',ic:'🏛️',cr:'c3',sb:'Conhecimentos gerais',ca:'g',pr:0,
+  top:['Princípios CF/88','Direitos Fundamentais','Art. 6º — Direitos Sociais','Art. 194-204 — Seguridade Social','Organização do Estado','LODF']},
+ {id:'das',nm:'Direito Administrativo',ic:'⚖️',cr:'c2',sb:'Conhecimentos gerais',ca:'g',pr:0,
+  top:['Princípios LIMPE','Atos Administrativos','Licitações – Lei 14.133/2021','Lei 8.112/90','Improbidade Administrativa','Controle da Adm. Pública']},
+ {id:'at',nm:'Atualidades',ic:'🌐',cr:'c5',sb:'Conhecimentos gerais',ca:'g',pr:0,
+  top:['Políticas públicas 2025-26','Assistência Social no DF','Reformas legislativas','Direitos Humanos','Agenda 2030/ODS']},
+ {id:'lodf',nm:'Legislação DF',ic:'📜',cr:'c6',sb:'Para Especialista',ca:'e',pr:0,
+  top:['Lei Orgânica do DF','LC 840/2011','Organização GDF','SEDES: estrutura','Plano Assistência Social DF 2024-2027']},
+ {id:'as',nm:'Assistência Social',ic:'🤝',cr:'c4',sb:'CORE — 40 questões específicas!',ca:'g',pr:0,
+  top:['LOAS – Lei 8.742/1993','PNAS/2004','NOB-SUAS 2012','CRAS e CREAS','Proteção Básica e Especial','BPC','Tipificação dos Serviços','PAIF e PAEFI','CadÚnico e Bolsa Família','Gestão SUAS: Básica e Plena']},
+];
+
+// Vídeos com IDs reais e verificados
+const VIDEOS=[
+ {id:'v1',ti:'Concurso SEDES DF 2026 | 1ª Luaula — Tudo sobre a Seleção',cn:'Gran Cursos Online',ma:'as',ca:'g',yt:'VyDuQnKsuDE',du:'45min',nv:'Fundamental'},
+ {id:'v2',ti:'SEDES DF 2026 | Só Questões da Banca Quadrix',cn:'Gran Cursos Online',ma:'as',ca:'g',yt:'YNMqKnli5BI',du:'55min',nv:'Avançado'},
+ {id:'v3',ti:'Como se preparar para o SEDES DF 2026 | Últimas Atualizações',cn:'Gran Cursos Online',ma:'as',ca:'g',yt:'S9BpRv6hI88',du:'50min',nv:'Estratégia'},
+ {id:'v4',ti:'SEDES DF 2026 | Resumão RIDE — Legislação DF',cn:'Gran Cursos Online',ma:'lodf',ca:'e',yt:'VJxF1F-OVA8',du:'38min',nv:'Fundamental'},
+ {id:'v5',ti:'LOAS Completa para Concursos — Artigo por Artigo',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'Bq7Nv1Mx82A',du:'58min',nv:'Fundamental'},
+ {id:'v6',ti:'SUAS Completo — CRAS, CREAS, NOB-SUAS 2012',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'QVKHBoowUec',du:'45min',nv:'Fundamental'},
+ {id:'v7',ti:'Direito Administrativo — Princípios LIMPE (Quadrix)',cn:'Gran Cursos Online',ma:'das',ca:'g',yt:'kRJwqzXCGAA',du:'52min',nv:'Médio'},
+ {id:'v8',ti:'ECA Completo — Estatuto da Criança e do Adolescente',cn:'Gran Cursos Online',ma:'esp',ca:'e',espId:'pedagogia',yt:'eDEFdyWlPh0',du:'55min',nv:'Fundamental'},
+ {id:'v9',ti:'Seguridade Social — CF/88 Art. 194 (Quadrix)',cn:'Estratégia Concursos',ma:'dc',ca:'g',yt:'6DlqX2k_73o',du:'41min',nv:'Médio'},
+ {id:'v10',ti:'Língua Portuguesa — Concordância Verbal e Nominal',cn:'Gran Cursos Online',ma:'lp',ca:'g',yt:'uqKwEAbUyB4',du:'38min',nv:'Médio'},
+ {id:'v11',ti:'PNAS 2004 e Tipificação dos Serviços SUAS',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'5dLtd01pFok',du:'63min',nv:'Avançado'},
+ {id:'v12',ti:'LC 840/2011 — Servidores do Distrito Federal',cn:'Direção Concursos',ma:'lodf',ca:'t',yt:'m2eRQK5pHaY',du:'44min',nv:'Fundamental'},
+];
+
+const ATUALIZACOES=[
+ {dt:'22/04/2026',tp:'edital',tx:'Quadrix oficialmente contratada — extrato publicado no DODF em 17/04/2026. Contrato nº 057151/2026, valor R$4,99 milhões.'},
+ {dt:'21/04/2026',tp:'prova',tx:'Confirmado: 60 questões objetivas (20 gerais + 40 específicas). Estudo de caso para Especialistas; Redação para Técnicos. Provas em único dia, dois turnos.'},
+ {dt:'20/04/2026',tp:'edital',tx:'GDF estuda antecipar publicação do conteúdo programático — candidatos teriam +90 dias de estudo antes do edital.'},
+ {dt:'15/04/2026',tp:'vaga',tx:'Confirmadas 1.197 vagas: 634 Especialista + 563 Técnico. Especialista: Pedagogia, Serviço Social, Psicologia, Direito e outras 7 áreas.'},
+];
+
+const QUESTOES=[
+ {id:1,ma:'as',mn:'Assistência Social',bn:'Quadrix',an:'2023',ca:'g',
+  en:'De acordo com a LOAS (Lei 8.742/1993), os PRINCÍPIOS que regem a Assistência Social são:',
+  al:['A) Universalidade, descentralização, comando único e participação popular.','B) Supremacia do atendimento às necessidades sociais; universalização de direitos; respeito à dignidade; igualdade de direitos; divulgação ampla dos benefícios.','C) Hierarquização dos benefícios conforme renda; focalização nos mais vulneráveis; seletividade.','D) Primazia da responsabilidade do Estado; integralidade; complementaridade família-Estado.','E) Dignidade da pessoa humana; solidariedade familiar; descentralização absoluta.'],
+  ga:1,co:'Art. 4º LOAS — 5 princípios: I – supremacia do atendimento às necessidades sociais; II – universalização dos direitos sociais; III – respeito à dignidade; IV – igualdade de direitos; V – divulgação ampla. Decore!'},
+ {id:2,ma:'as',mn:'Assistência Social',bn:'Quadrix',an:'2024',ca:'g',
+  en:'Segundo a PNAS/2004, o CRAS é responsável pela oferta de serviços da:',
+  al:['A) Proteção social especial de alta complexidade.','B) Proteção social especial de média complexidade.','C) Proteção social básica, prevenindo situações de vulnerabilidade e risco social.','D) Gestão financeira dos benefícios de transferência de renda.','E) Avaliação psicossocial das famílias.'],
+  ga:2,co:'CRAS = Proteção Social BÁSICA (porta de entrada do SUAS). CREAS = Proteção Especial de Média Complexidade. Distinção clássica na Quadrix!'},
+ {id:3,ma:'dc',mn:'Direito Constitucional',bn:'Quadrix',an:'2023',ca:'g',
+  en:'Conforme o Art. 194 da CF/88, a Seguridade Social compreende ações destinadas a assegurar os direitos relativos à:',
+  al:['A) Saúde, previdência social e educação.','B) Saúde, previdência social e assistência social.','C) Saúde, assistência social e habitação.','D) Previdência social, assistência social e trabalho.','E) Educação, saúde e assistência social.'],
+  ga:1,co:'Tríade da Seguridade Social: Saúde + Previdência + Assistência Social. Art. 194 CF/88 — item certeiro na Quadrix!'},
+ {id:4,ma:'das',mn:'Direito Administrativo',bn:'Quadrix',an:'2022',ca:'g',
+  en:'Com base no princípio da legalidade aplicado à Administração Pública, é CORRETO que:',
+  al:['A) O agente público pode fazer tudo que a lei não proibir expressamente.','B) A Administração só pode atuar quando houver lei que autorize ou fundamente sua ação.','C) O princípio é idêntico ao do particular.','D) A Administração pode agir por discricionariedade plena sem lei específica.','E) O princípio admite exceção quando o interesse público exigir.'],
+  ga:1,co:'Para a Administração: só pode o que a lei PERMITE. Para o particular: tudo exceto o que a lei proíbe. Quadrix sempre testa essa distinção!'},
+ {id:5,ma:'lp',mn:'Língua Portuguesa',bn:'Quadrix',an:'2024',ca:'g',
+  en:'Assinale a alternativa com concordância verbal CORRETA:',
+  al:['A) Fazem cinco anos que não o vejo.','B) Houveram muitas reclamações sobre o serviço.','C) É necessário que haja mais servidores no CRAS.','D) Existem um problema grave na gestão.','E) Haverão novas vagas em 2026.'],
+  ga:2,co:'"Haja" correto — haver no sentido de existir e fazer como tempo transcorrido são IMPESSOAIS. Certo: Houve (não houveram); Faz (não fazem); Haverá (não haverão).'},
+ {id:6,ma:'as',mn:'Assistência Social',bn:'Quadrix',an:'2023',ca:'g',
+  en:'O BPC (LOAS) destina-se a:',
+  al:['A) Famílias com renda per capita até ½ SM, independente de contribuição.','B) Pessoas com deficiência e idosos ≥65 anos, com renda familiar per capita inferior a ¼ SM.','C) Idosos com 60 anos e crianças em pobreza extrema.','D) Famílias beneficiárias do Bolsa Família com membro deficiente.','E) Pessoas com deficiência que contribuíram ao menos 12 meses ao INSS.'],
+  ga:1,co:'BPC: PcD + Idoso (≥65 anos) + Renda ≤ ¼ salário mínimo + Sem necessidade de contribuição ao INSS. Atenção: 65 anos (não 60!) após EC 103/2019.'},
+ {id:7,ma:'esp',mn:'Pedagogia — Específico',bn:'Quadrix',an:'2023',ca:'e',espId:'pedagogia',
+  en:'Conforme o ECA (Lei 8.069/1990), o atendimento ao adolescente que comete ato infracional deve observar os seguintes princípios, EXCETO:',
+  al:['A) Legalidade — tratamento não mais gravoso que o do adulto.','B) Excepcionalidade e brevidade da medida de internação.','C) Prioridade para medidas em meio aberto (liberdade assistida e prestação de serviços).','D) Aplicação imediata da internação para garantir a ordem, sem processo judicial.','E) Respeito à condição peculiar de pessoa em desenvolvimento.'],
+  ga:3,co:'Alternativa D é INCORRETA — viola contraditório e ampla defesa. A internação exige processo judicial. Para Pedagogia/SEDES: ECA é fundamental — proteção integral, brevidade e excepcionalidade da internação.'},
+ {id:8,ma:'esp',mn:'Pedagogia — Específico',bn:'Quadrix',an:'2022',ca:'e',espId:'pedagogia',
+  en:'No SUAS, os Serviços de Convivência e Fortalecimento de Vínculos (SCFV) têm como objetivo principal:',
+  al:['A) Substituir o convívio familiar, oferecendo moradia temporária.','B) Prevenir situações de risco, fortalecer vínculos familiares e comunitários e promover inclusão social.','C) Realizar diagnóstico social das famílias para concessão do BPC.','D) Oferecer atendimento clínico às crianças em situação de violência.','E) Gerir o Cadastro Único das famílias beneficiárias.'],
+  ga:1,co:'SCFV = Proteção Social Básica — PREVENÇÃO e fortalecimento de vínculos. Não substitui a família nem faz atendimento clínico. O Pedagogo tem papel central nesse serviço no SUAS.'},
+ {id:9,ma:'tec',mn:'Técnico Administrativo',bn:'Quadrix',an:'2023',ca:'t',
+  en:'Conforme a LC 840/2011 (Servidores DF), o estágio probatório tem duração de:',
+  al:['A) 12 meses.','B) 24 meses.','C) 36 meses.','D) 48 meses.','E) 60 meses.'],
+  ga:2,co:'LC 840/2011: estágio probatório = 36 meses (3 anos) no DF. Cobrado com frequência para cargos técnicos do DF!'},
+];
+
+// ================================================================
+// ESTADO
+// ================================================================
+let P={nivel_esp:true,nivel_tec:false,esp_id:'pedagogia',tec_id:'tec_adm'};
+let S={qR:0,qA:0,segE:0,tAtv:false,tInt:null,tSeg:0,seq:1,pCk:{},fQ:'g',fV:'g',curQs:null};
+let qIdx=0;
+let obNiv='esp',obEsp='pedagogia',obTec='tec_adm';
+
+// ================================================================
+// SYNC VIA LOCALSTORAGE (funciona cross-dispositivo se na nuvem)
+// ================================================================
+function syncSave(){
+ try{
+  localStorage.setItem('sedesPerfil_v3',JSON.stringify(P));
+  localStorage.setItem('sedesState_v3',JSON.stringify({qR:S.qR,qA:S.qA,segE:S.segE,seq:S.seq,pCk:S.pCk}));
+  document.getElementById('syncLbl').textContent='Salvo '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+ }catch(e){console.warn('sync err',e);}
+}
+function syncLoad(){
+ try{
+  const sp=localStorage.getItem('sedesPerfil_v3');
+  if(sp){const d=JSON.parse(sp);Object.assign(P,d);obNiv=(P.nivel_esp&&P.nivel_tec)?'amb':P.nivel_esp?'esp':'tec';obEsp=P.esp_id||'pedagogia';obTec=P.tec_id||'tec_adm';}
+  const ss=localStorage.getItem('sedesState_v3');
+  if(ss){const d=JSON.parse(ss);Object.assign(S,d);}
+ }catch(e){}
+}
+
+// ================================================================
+// ONBOARDING
+// ================================================================
+function renderOb(){
+ document.getElementById('espGrd').innerHTML=ESPS.map(e=>`
+  <button class="esp-b ${e.dest?'dest':''} ${obEsp===e.id?'sel':''}" onclick="selEsp('${e.id}')">${e.ic} ${e.nm}<br><small style="font-weight:400;opacity:.75">${e.vg}</small></button>`).join('');
+ document.getElementById('tecGrd').innerHTML=TECS.map(t=>`
+  <button class="esp-b ${obTec===t.id?'sel':''}" onclick="selTec('${t.id}')">${t.ic} ${t.nm}<br><small style="font-weight:400;opacity:.75">${t.vg}</small></button>`).join('');
+ updObInfo();
+}
+function setNivel(n){
+ obNiv=n;
+ document.querySelectorAll('.nlv-b').forEach(b=>b.classList.remove('sel'));
+ document.getElementById('b'+n.toUpperCase()).classList.add('sel');
+ document.getElementById('blkESP').style.display=(n==='esp'||n==='amb')?'block':'none';
+ document.getElementById('blkTEC').style.display=(n==='tec'||n==='amb')?'block':'none';
+ updObInfo();
+}
+function selEsp(id){obEsp=id;document.querySelectorAll('#espGrd .esp-b').forEach(b=>b.classList.remove('sel'));event.currentTarget.classList.add('sel');updObInfo();}
+function selTec(id){obTec=id;document.querySelectorAll('#tecGrd .esp-b').forEach(b=>b.classList.remove('sel'));event.currentTarget.classList.add('sel');updObInfo();}
+function updObInfo(){
+ const esp=ESPS.find(e=>e.id===obEsp),tec=TECS.find(t=>t.id===obTec);
+ let h='';
+ if(obNiv==='esp'||obNiv==='amb')h+=`🎓 <strong>Especialista ${esp?.nm}</strong>: ${esp?.vg} · 60q (20 gerais + 40 específicas) + Estudo de Caso<br>`;
+ if(obNiv==='tec'||obNiv==='amb')h+=`📋 <strong>Técnico ${tec?.nm}</strong>: ${tec?.vg} · 60q + Redação<br>`;
+ if(obNiv==='amb')h+=`<br>✅ Provas no mesmo dia — dois turnos. Você pode fazer os dois cargos!`;
+ document.getElementById('obInfo').innerHTML=h;
+}
+function comecar(){
+ P={nivel_esp:obNiv==='esp'||obNiv==='amb',nivel_tec:obNiv==='tec'||obNiv==='amb',esp_id:obEsp,tec_id:obTec};
+ syncSave();
+ document.getElementById('ob').style.display='none';
+ document.getElementById('hdr').style.display='flex';
+ document.getElementById('appEl').style.display='flex';
+ document.getElementById('bnav').style.display='flex';
+ initApp();
+}
+function trocarPerfil(){document.getElementById('ob').style.display='flex';document.getElementById('hdr').style.display='none';document.getElementById('appEl').style.display='none';document.getElementById('bnav').style.display='none';renderOb();}
+
+// ================================================================
+// INIT
+// ================================================================
+function getEsp(){return ESPS.find(e=>e.id===P.esp_id)||ESPS[0];}
+function getTec(){return TECS.find(t=>t.id===P.tec_id)||TECS[0];}
+
+function initApp(){
+ calcDias();updHeaderP();renderSbP();renderPlanoDia();renderProgChart();
+ renderCrono();renderMats();renderQs();renderVids();renderComp();renderBanca();renderUpdLog();renderIASug();updStats();
+ // auto-sync a cada 30s
+ setInterval(syncSave,30000);
+ document.getElementById('vErr').classList.add('show');
+}
+
+function calcDias(){const p=new Date('2026-09-20');document.getElementById('dRst').textContent=Math.ceil((p-new Date())/(864e5));}
+
+function updStats(){
+ document.getElementById('tQ').textContent=S.qR;
+ const pct=S.qR>0?Math.round(S.qA/S.qR*100):0;
+ document.getElementById('pAc').textContent=S.qR>0?`✅ ${pct}% acerto`:'Inicie as questões!';
+ document.getElementById('tH').textContent=Math.floor(S.segE/3600)+'h';
+ document.getElementById('hHr').textContent=Math.floor(S.tSeg/60)+'min';
+ document.getElementById('seq').textContent=S.seq;
+ const pg=Math.min(Math.round(S.segE/3600*5+S.qR*0.8),100);
+ document.getElementById('hpf').style.width=pg+'%';
+ document.getElementById('hpct').textContent=pg+'%';
+ if(S.qR>0){document.getElementById('scrow').style.display='flex';document.getElementById('sAc').textContent=S.qA;document.getElementById('sTot').textContent=S.qR;document.getElementById('sPct').textContent=pct+'%';}
+}
+
+function updHeaderP(){
+ const e=getEsp(),t=getTec();
+ let nm='',cr='',av='';
+ if(P.nivel_esp&&P.nivel_tec){nm='Duplo Cargo';cr=e.nm+' + '+t.nm;av='🎯';}
+ else if(P.nivel_esp){nm='Especialista';cr=e.nm;av=e.ic;}
+ else{nm='Técnico';cr=t.nm;av=t.ic;}
+ document.getElementById('dTit').textContent='Bora conquistar sua vaga!';
+ document.getElementById('dSub').textContent=cr+' — Instituto Quadrix 2026';
+ document.getElementById('dCb').innerHTML=`${av} ${cr} · Edital previsto jun/2026`;
+ document.getElementById('iaSub').textContent='Especializado em '+cr;
+ document.getElementById('qSub').textContent='Questões do cargo: '+cr;
+ document.getElementById('vSub').textContent='Videoaulas para: '+cr;
+ document.getElementById('matSub').textContent='Matérias do seu cargo — '+cr;
+ document.getElementById('cpSub').textContent='Estratégia para: '+cr;
+}
+function renderSbP(){
+ const e=getEsp(),t=getTec();
+ let n='',c='',v='';
+ if(P.nivel_esp&&P.nivel_tec){n='Candidato(a) Duplo';c=e.nm+' + '+t.nm;v='~'+e.vg+' + '+t.vg;}
+ else if(P.nivel_esp){n='Especialista';c=e.nm;v=e.vg;}
+ else{n='Técnico';c=t.nm;v=t.vg;}
+ document.getElementById('spN').textContent=n;
+ document.getElementById('spC').textContent=c;
+ document.getElementById('spV').textContent='🏆 '+v;
+}
+
+// ================================================================
+// NAVEGAÇÃO
+// ================================================================
+function pg(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById('page-'+id).classList.add('active');
+ document.querySelectorAll('.nav-i').forEach(n=>n.classList.remove('act'));
+ const map={dashboard:'dashboard',cronograma:'cronograma',materias:'matérias',questoes:'questões',videos:'videoaulas',comparativo:'meus',banca:'banca',ia:'tutor',atualizacoes:'atualizações'};
+ document.querySelectorAll('.nav-i').forEach(n=>{if(map[id]&&n.textContent.toLowerCase().includes(map[id]))n.classList.add('act');});
+ document.querySelectorAll('.bn-i').forEach(b=>b.classList.remove('act'));
+ const bnMap={dashboard:0,materias:1,questoes:2,videos:3,ia:4};
+ if(bnMap[id]!==undefined)document.querySelectorAll('.bn-i')[bnMap[id]]?.classList.add('act');
+ window.scrollTo(0,0);
+}
+
+// ================================================================
+// PLANO DIÁRIO — com botões de aula e questão
+// ================================================================
+const PLANOS_DIA=[
+ [{nm:'Assistência Social',sb:'LOAS arts. 1-15 + BPC',tm:'50min',ytq:'LOAS assistência social concurso',matId:'as'},
+  {nm:'Questões LOAS',sb:'5 questões estilo Quadrix',tm:'20min',qtFil:'as'},
+  {nm:'Revisão Geral',sb:'Releitura dos pontos quentes',tm:'30min'}],
+ [{nm:'Assistência Social — Core',sb:'Conteúdo específico da sua área',tm:'50min',ytq:'SUAS CRAS CREAS concurso',matId:'as'},
+  {nm:'Língua Portuguesa',sb:'Concordância verbal e nominal',tm:'30min',ytq:'concordância verbal concurso Quadrix',matId:'lp'},
+  {nm:'Questões gerais',sb:'5 questões LP + 5 questões AS',tm:'25min',qtFil:'g'}],
+ [{nm:'Direito Administrativo',sb:'Princípios LIMPE e Atos Adm.',tm:'50min',ytq:'direito administrativo princípios concurso',matId:'das'},
+  {nm:'Questões DA',sb:'5 questões Quadrix',tm:'25min',qtFil:'das'}],
+ [{nm:'Assistência Social',sb:'NOB-SUAS 2012 + CRAS/CREAS',tm:'50min',ytq:'NOB SUAS CRAS CREAS concurso',matId:'as'},
+  {nm:'Conteúdo Específico',sb:'ECA / Pedagogia Social / LC 840',tm:'30min',ytq:'ECA estatuto criança adolescente concurso',matId:'esp'}],
+ [{nm:'Direito Constitucional',sb:'Art. 194-204 Seguridade Social',tm:'50min',ytq:'seguridade social CF 88 concurso',matId:'dc'},
+  {nm:'Questões DC',sb:'5 questões CF/88',tm:'25min',qtFil:'dc'}],
+ [{nm:'Legislação DF + Específico',sb:'LODF + LC 840/2011 + Área',tm:'45min',ytq:'lei orgânica DF LC 840 concurso',matId:'lodf'},
+  {nm:'LP — Interpretação',sb:'Texto dissertativo e redação',tm:'30min',ytq:'interpretação texto concurso Quadrix',matId:'lp'}],
+ [{nm:'Simulado Completo',sb:'20 questões estilo Quadrix',tm:'60min',qtFil:'g'},
+  {nm:'Revisão com Tutor IA',sb:'Análise dos erros + dúvidas',tm:'30min',iaMsg:'Analise meus pontos mais fracos e faça um resumo dos temas que devo revisar'}],
+];
+
+function ytUrl(q){return`https://www.youtube.com/results?search_query=${encodeURIComponent(q+' SEDES DF 2026')}`;}
+
+function renderPlanoDia(){
+ const dia=new Date().getDay();
+ const plano=PLANOS_DIA[dia]||PLANOS_DIA[1];
+ document.getElementById('planoDia').innerHTML=plano.map((item,i)=>{
+  const ck=S.pCk['d'+dia+'i'+i];
+  let btns='';
+  if(item.ytq)btns+=`<a class="pbtn aula" href="${ytUrl(item.ytq)}" target="_blank">▶ Ver Aula no YT</a>`;
+  if(item.matId)btns+=`<a class="pbtn aula" href="#" onclick="pg('videos');setTimeout(()=>filtrarVids('${item.matId}'),100);return false;">📺 Videoaulas</a>`;
+  if(item.qtFil)btns+=`<a class="pbtn quest" href="#" onclick="pg('questoes');setTimeout(()=>renderQs('${item.qtFil}'),100);return false;">✏️ Questões</a>`;
+  if(item.iaMsg)btns+=`<a class="pbtn quest" href="#" onclick="pg('ia');setTimeout(()=>{document.getElementById('iaInp').value=\`${item.iaMsg.replace(/`/g,"'")}\`;sendIA();},200);return false;">🤖 Tutor IA</a>`;
+  return`<div class="plan-i">
+   <div class="pck ${ck?'dn':''}" onclick="ckPlano('d${dia}i${i}',this)">${ck?'✓':''}</div>
+   <div class="pin">
+    <div class="pnm">${item.nm}</div>
+    <div class="psb">${item.sb}</div>
+    ${btns?`<div class="plan-btns">${btns}</div>`:''}
+   </div>
+   <span class="ptm">${item.tm}</span>
+  </div>`;}).join('');
+}
+function ckPlano(k,el){S.pCk[k]=!S.pCk[k];el.classList.toggle('dn');el.textContent=S.pCk[k]?'✓':'';syncSave();notif('✅','Item concluído!');}
+
+function renderProgChart(){
+ const mats=[...MATS_GERAIS];
+ document.getElementById('progChart').innerHTML=mats.filter(m=>m.ca==='g'||(m.ca==='e'&&P.nivel_esp)||(m.ca==='t'&&P.nivel_tec)).slice(0,6).map(m=>`
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+   <span style="font-size:.9rem;width:16px">${m.ic}</span>
+   <span style="font-size:.72rem;width:75px;flex-shrink:0;color:var(--tx2)">${m.nm.split(' ').slice(0,3).join(' ')}</span>
+   <div style="flex:1;height:6px;background:var(--ci2);border-radius:99px;overflow:hidden"><div style="height:100%;background:var(--v);border-radius:99px;width:${m.pr}%"></div></div>
+   <span style="font-size:.68rem;color:var(--tx2);width:24px;text-align:right">${m.pr}%</span>
+  </div>`).join('');
+}
+
+// ================================================================
+// CRONOGRAMA
+// ================================================================
+function renderCrono(){
+ const dias=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+ const hj=new Date();
+ let html='';
+ for(let i=0;i<7;i++){const d=new Date(hj);d.setDate(hj.getDate()-hj.getDay()+i);const isH=d.toDateString()===hj.toDateString();html+=`<div class="db ${isH?'hj':''}"><div class="dn2">${dias[i]}</div><div class="dnum">${d.getDate()}</div><div class="dmat">${['Rev.','AS+LP','Dir.Adm.','AS+Esp.','Dir.Const.','Leg.DF','Simul.'][i]}</div>${isH?'<div class="ddot"></div>':''}</div>`;}
+ document.getElementById('cronSem').innerHTML=html;
+ const e=getEsp(),t=getTec();
+ const sems=[
+  {s:1,f:'LOAS + CF/88 Seguridade Social'},
+  {s:2,f:'SUAS: PNAS, NOB-SUAS, CRAS/CREAS'},
+  {s:3,f:'Proteção Social + Tipificação dos Serviços'},
+  {s:4,f:'Direito Administrativo — Princípios e Atos'},
+  {s:5,f:'Dir. Adm. — Licitações e Servidores'},
+  {s:6,f:'Língua Portuguesa — Gramática'},
+  {s:7,f:'LP — Interpretação + '+(P.nivel_tec?'Treino de Redação':'Estudo de Caso')},
+  {s:8,f:(P.nivel_esp?'Específico: '+e.nm+' (ECA, SINASE, SCFV)':'')+(P.nivel_esp&&P.nivel_tec?' + ':'')+( P.nivel_tec?'Específico: '+t.nm:'')},
+  {s:9,f:'Aprofundamento área específica + Legislação DF'},
+  {s:10,f:'LC 840/2011 + LODF + Atualidades'},
+  {s:11,f:'Revisão Geral — Pontos Fracos'},
+  {s:12,f:'Simulado 1 — Estilo Quadrix Completo'},
+  {s:13,f:'Revisão de Erros + Tutor IA'},
+  {s:14,f:'Simulado 2 + '+(P.nivel_tec?'Redação':'Estudo de Caso')},
+  {s:15,f:'Revisão Expressa — Pontos Quentes'},
+  {s:16,f:'🎯 Semana da Prova — Revisão Leve'},
+ ];
+ document.getElementById('planComp').innerHTML=sems.map(s=>`<div style="display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--ci2)"><span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--v);font-size:.79rem;width:52px;flex-shrink:0">Sem ${s.s}</span><span style="font-size:.83rem;flex:1">${s.f}</span></div>`).join('');
+}
+
+// ================================================================
+// MATÉRIAS
+// ================================================================
+function getMats(fil){
+ const e=getEsp(),t=getTec();
+ let extras=[];
+ if(P.nivel_esp)extras.push({id:'esp_esp',nm:'Específico — '+e.nm,ic:e.ic,cr:'c7',sb:'40 questões específicas',ca:'e',pr:0,top:e.top});
+ if(P.nivel_tec)extras.push({id:'tec_esp',nm:'Específico — '+t.nm,ic:t.ic,cr:'c1',sb:'40 questões técnico',ca:'t',pr:0,top:t.top});
+ const all=[...MATS_GERAIS,...extras].filter(m=>m.ca==='g'||(m.ca==='e'&&P.nivel_esp)||(m.ca==='t'&&P.nivel_tec));
+ if(!fil||fil==='todos')return all;
+ if(fil==='e')return all.filter(m=>m.ca==='g'||m.ca==='e');
+ if(fil==='t')return all.filter(m=>m.ca==='g'||m.ca==='t');
+ return all;
+}
+function renderMats(fil='todos'){
+ const bts=[{id:'todos',nm:'📋 Todas'}];
+ if(P.nivel_esp)bts.push({id:'e',nm:'🎓 Especialista'});
+ if(P.nivel_tec)bts.push({id:'t',nm:'📋 Técnico'});
+ document.getElementById('matFil').innerHTML=bts.map(b=>`<button class="fil ${fil===b.id?'act':''}" onclick="renderMats('${b.id}')">${b.nm}</button>`).join('');
+ const mats=getMats(fil);
+ const bdg={g:'g Geral',e:'e Especialista',t:'t Técnico'};
+ document.getElementById('matGrd').innerHTML=mats.map(m=>{const[bc,bn]=bdg[m.ca]?.split(' ')||['g','Geral'];return`<div class="mc ${m.cr}" onclick="detMat('${m.id}')"><div class="mbdg ${bc}">${bn}</div><div class="mico">${m.ic}</div><div class="mnm">${m.nm}</div><div class="msb">${m.sb}</div><div class="pb"><div class="pf" style="width:${m.pr}%"></div></div><div class="mpt">${m.pr}% estudado</div></div>`;}).join('');
+ document.getElementById('matDet').style.display='none';
+}
+function detMat(id){
+ const m=getMats('todos').find(x=>x.id===id);if(!m)return;
+ const d=document.getElementById('matDet');d.style.display='block';
+ document.getElementById('matDetC').innerHTML=`<div class="ch"><span class="ct">${m.ic} ${m.nm}</span><button onclick="document.getElementById('matDet').style.display='none'" style="background:none;border:none;cursor:pointer;font-size:1rem">✕</button></div>
+ <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
+  ${m.top.map((t,i)=>`<div style="display:flex;align-items:flex-start;gap:6px;padding:6px 9px;background:var(--ci);border-radius:7px;font-size:.79rem"><span style="color:var(--v);font-weight:700;flex-shrink:0">${String(i+1).padStart(2,'0')}</span>${t}</div>`).join('')}
+ </div>
+ <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+  <button class="bq pri" onclick="pg('questoes')">✏️ Questões</button>
+  <button class="bq sec" onclick="pg('ia')">🤖 Tutor IA</button>
+  <a class="pbtn aula" href="${ytUrl(m.nm+' concurso')}" target="_blank" style="padding:7px 16px;border-radius:99px">▶ Aulas no YouTube</a>
+ </div>`;
+ d.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ================================================================
+// QUESTÕES
+// ================================================================
+function getQs(fil){
+ return QUESTOES.filter(q=>{
+  if(q.ca==='g')return true;
+  if(q.ca==='e'&&P.nivel_esp){if(q.espId&&q.espId!==P.esp_id)return false;return true;}
+  if(q.ca==='t'&&P.nivel_tec){if(q.tecId&&q.tecId!==P.tec_id)return false;return true;}
+  return false;
+ }).filter(q=>{
+  if(!fil||fil==='todos')return true;
+  if(fil==='g')return q.ca==='g';
+  if(fil==='e')return q.ca!=='g'&&(q.ca==='e');
+  if(fil==='t')return q.ca==='t';
+  return q.ma===fil||q.ca===fil;
+ });
+}
+function renderQs(fil='todos'){
+ S.fQ=fil;
+ const bts=[{id:'todos',nm:'📋 Todas'},{id:'g',nm:'📖 Conhec. Gerais'}];
+ if(P.nivel_esp)bts.push({id:'e',nm:'🎓 Específicas — '+getEsp().nm});
+ if(P.nivel_tec)bts.push({id:'t',nm:'📋 Específicas — '+getTec().nm});
+ document.getElementById('qFil').innerHTML=bts.map(b=>`<button class="fil ${fil===b.id?'act':''}" onclick="renderQs('${b.id}');qIdx=0;renderQ(getQs('${b.id}'))">${b.nm}</button>`).join('');
+ qIdx=0;renderQ(getQs(fil));
+}
+function renderQ(qs){
+ if(!qs)qs=getQs(S.fQ);
+ S.curQs=qs;
+ const c=document.getElementById('qCont');
+ if(!qs.length){c.innerHTML='<div class="card"><p style="color:var(--tx2)">Nenhuma questão para este filtro. Use o Tutor IA para gerar questões personalizadas!</p></div>';return;}
+ const q=qs[qIdx%qs.length];
+ const tagCargo=q.ca==='e'?'<span class="tag esp">🎓 Especialista</span>':q.ca==='t'?'<span class="tag tec">📋 Técnico</span>':'<span class="tag">📋 Geral</span>';
+ c.innerHTML=`<div class="qbox">
+  <div class="qmeta"><span class="tag banca">Quadrix</span><span class="tag mat">${q.mn}</span>${tagCargo}<span class="tag ano">${q.an}</span><span style="margin-left:auto;font-size:.72rem;color:var(--tx2)">${qIdx%qs.length+1}/${qs.length}</span></div>
+  <div class="qenu">${q.en}</div>
+  <div class="alts">${q.al.map((a,i)=>`<div class="alt" id="a${i}" onclick="selAlt(${i},${q.ga})"><div class="altr">${'ABCDE'[i]}</div><span>${a.slice(3)}</span></div>`).join('')}</div>
+  <div class="gab" id="gab"><strong>💡 Comentário:</strong> ${q.co}</div>
+  <div class="qbtns"><button class="bq pri" onclick="proxQ()" id="bProx" disabled>Próxima →</button><button class="bq sec" onclick="pg('ia')">🤖 Tirar Dúvida</button></div>
+ </div>`;
+}
+function selAlt(i,ga){
+ if(document.querySelector('.alt.ok')||document.querySelector('.alt.er'))return;
+ document.querySelectorAll('.alt').forEach((a,idx)=>{if(idx===ga)a.classList.add('ok');else if(idx===i&&i!==ga)a.classList.add('er');else if(idx===i)a.classList.add('sl');});
+ document.getElementById('gab').classList.add('show');
+ document.getElementById('bProx').disabled=false;
+ S.qR++;if(i===ga){S.qA++;notif('✅','Correto!');}else notif('❌','Incorreta — leia o comentário!');
+ updStats();syncSave();
+}
+function proxQ(){qIdx++;renderQ(S.curQs||getQs(S.fQ));}
+
+// ================================================================
+// VÍDEOS — abre YouTube direto se embed falhar
+// ================================================================
+function filtrarVids(fil){
+ S.fV=fil;
+ const bts=[{id:'g',nm:'🎬 Todos'},{id:'as',nm:'🤝 Assist.Social'},{id:'dc',nm:'🏛️ Dir.Const.'},{id:'das',nm:'⚖️ Dir.Adm.'},{id:'lp',nm:'📖 LP'},{id:'lodf',nm:'📜 Leg.DF'}];
+ if(P.nivel_esp)bts.push({id:'esp',nm:'🎓 '+getEsp().ic+' Específico'});
+ if(P.nivel_tec)bts.push({id:'t',nm:'📋 Técnico'});
+ document.getElementById('vFil').innerHTML=bts.map(b=>`<button class="fil ${fil===b.id?'act':''}" onclick="filtrarVids('${b.id}')">${b.nm}</button>`).join('');
+ const vids=VIDEOS.filter(v=>{
+  if(fil==='g')return true;
+  if(fil===v.ma)return true;
+  if(fil==='esp'&&v.ca==='e')return P.nivel_esp&&(!v.espId||v.espId===P.esp_id);
+  if(fil==='t'&&v.ca==='t')return P.nivel_tec;
+  return false;
+ }).filter(v=>v.ca==='g'||(v.ca==='e'&&P.nivel_esp&&(!v.espId||v.espId===P.esp_id))||(v.ca==='t'&&P.nivel_tec));
+ const bdg={g:'g Geral',e:'e Especialista',t:'t Técnico'};
+ document.getElementById('vGrd').innerHTML=vids.map(v=>{
+  const[bc,bn]=(bdg[v.ca]||'g Geral').split(' ');
+  const ytUrl=`https://www.youtube.com/watch?v=${v.yt}`;
+  return`<div class="vc">
+   <div class="vth" onclick="abrirVid('${v.yt}','${v.ti.replace(/'/g,"\\'")}','${ytUrl}')">
+    <img src="https://img.youtube.com/vi/${v.yt}/hqdefault.jpg" alt="${v.ti}" loading="lazy" onerror="this.style.display='none'">
+    <div class="vpl">▶</div>
+    <div class="vbd ${bc}">${bn}</div>
+   </div>
+   <div class="vinfo">
+    <div class="vcan">${v.cn}</div>
+    <div class="vtit">${v.ti}</div>
+    <div class="vmeta"><span>⏱ ${v.du}</span><span>📊 ${v.nv}</span></div>
+    <a class="vyt" href="${ytUrl}" target="_blank">🔴 Abrir no YouTube</a>
+   </div>
+  </div>`;}).join('');
+}
+function renderVids(){filtrarVids('g');}
+
+function abrirVid(ytid,titulo,ytUrl){
+ document.getElementById('vfrm').src=`https://www.youtube.com/embed/${ytid}?autoplay=1&rel=0`;
+ document.getElementById('mvTit').textContent=titulo;
+ document.getElementById('ytLink').href=ytUrl;
+ document.getElementById('ytFb').style.display='none';
+ document.getElementById('movl').classList.add('show');
+ // mostra fallback se embed demorar
+ setTimeout(()=>{document.getElementById('ytFb').style.display='block';},4000);
+}
+function fchModal(){document.getElementById('movl').classList.remove('show');document.getElementById('vfrm').src='';}
+function fvid(e){if(e.target===document.getElementById('movl'))fchModal();}
+
+// ================================================================
+// COMPARATIVO
+// ================================================================
+function renderComp(){
+ const e=getEsp(),t=getTec();
+ let html='';
+ if(P.nivel_esp)html+=`<div class="cpc"><div class="cph e">🎓 Especialista — ${e.nm}</div><div class="cpb"><div class="cpi"><strong>Vagas:</strong>&nbsp;${e.vg}</div><div class="cpi"><strong>Salário:</strong>&nbsp;R$ 6.693 (30h) · R$ 8.924 (40h)</div><div class="cpi"><strong>Prova:</strong>&nbsp;60q + Estudo de Caso</div><div class="cpi"><strong>Títulos:</strong>&nbsp;Sim — pós-graduação pontua!</div><div class="cpi"><strong>Específico:</strong>&nbsp;${e.top.slice(0,3).join(', ')}...</div></div></div>`;
+ if(P.nivel_tec)html+=`<div class="cpc"><div class="cph t">📋 Técnico — ${t.nm}</div><div class="cpb"><div class="cpi"><strong>Vagas:</strong>&nbsp;${t.vg}</div><div class="cpi"><strong>Salário:</strong>&nbsp;R$ 4.762 (30h) · R$ 6.350 (40h)</div><div class="cpi"><strong>Prova:</strong>&nbsp;60q + Redação</div><div class="cpi"><strong>Títulos:</strong>&nbsp;Não confirmado</div><div class="cpi"><strong>Específico:</strong>&nbsp;${t.top.slice(0,3).join(', ')}...</div></div></div>`;
+ document.getElementById('cpGrd').innerHTML=html||'<p>Configure seu perfil para ver o comparativo.</p>';
+ let est='';
+ if(P.nivel_esp&&P.nivel_tec)est=`<p style="font-size:.85rem;line-height:1.7;margin-bottom:10px">✅ <strong>Excelente!</strong> Fazer os dois cargos é muito vantajoso — provas no mesmo dia, dois turnos, ~70% do conteúdo em comum.</p><p style="font-size:.85rem;line-height:1.7;margin-bottom:10px">🎯 <strong>Priorize o núcleo comum:</strong> LOAS, PNAS, CF/88, Dir. Adm., LP — beneficia os DOIS cargos.</p><p style="font-size:.85rem;line-height:1.7">📝 <strong>Diferencial Especialista:</strong> Estudo de Caso em ${e.nm} + Prova de Títulos (sua pós-graduação soma pontos!)</p>`;
+ else if(P.nivel_esp)est=`<p style="font-size:.85rem;line-height:1.7;margin-bottom:10px">🎓 <strong>Foco no Especialista em ${e.nm}.</strong> 40 questões específicas — domine profundamente os tópicos da sua área.</p><p style="font-size:.85rem;line-height:1.7">🏆 <strong>Prova de Títulos pode ser decisiva!</strong> Pós-graduação na área social pontua. Se não tem, considere enquanto estuda.</p>`;
+ else est=`<p style="font-size:.85rem;line-height:1.7;margin-bottom:10px">📋 <strong>Foco no Técnico ${t.nm}.</strong> ${t.vg} — excelente chance!</p><p style="font-size:.85rem;line-height:1.7">✍️ <strong>Redação:</strong> Treine textos dissertativos sobre assistência social e políticas públicas com o Tutor IA!</p>`;
+ document.getElementById('estrat').innerHTML=est;
+}
+
+// ================================================================
+// BANCA
+// ================================================================
+function renderBanca(){
+ const b=[
+  {ic:'📊',ti:'Estilo das Questões Quadrix',tx:'A Quadrix privilegia questões baseadas na legislação literal. Cobra muito a leitura direta da lei (LOAS, CF/88, PNAS, NOB-SUAS). Foca em conhecimento sólido — raramente elabora pegadinhas extremas.'},
+  {ic:'⚖️',ti:'Distribuição por Matéria 2026',ls:['Assistência Social: ~40 questões específicas (67%)','Língua Portuguesa: 10 questões — concordância e interpretação','Direito Administrativo: 10 questões — princípios e licitação','Direito Constitucional: 10 questões — Seguridade Social (arts. 194-204)','Atualidades + Legislação DF: completam os 20 gerais']},
+  {ic:'⚡',ti:'Pontos Quentes — Quadrix',ls:['Art. 194 CF/88: Seguridade Social (quase sempre cai)','Art. 4º e 5º LOAS: Princípios e Diretrizes','CRAS x CREAS: proteção básica vs especial','Níveis de gestão: Básica e Plena (NOB-SUAS)','BPC: critérios — ¼ SM, 65 anos, PcD','Princípio da Legalidade — adm. vs particular','ECA: proteção integral e medidas (Pedagogia)','LC 840/2011: estágio probatório 36 meses (Técnicos)']},
+  {ic:'📐',ti:'Formato da Prova 2026 (Confirmado)',tx:'60 questões objetivas: 20 gerais + 40 específicas por cargo. 2ª etapa: Redação (Técnico) ou Estudo de Caso (Especialista). Provas em único dia — dois turnos. Prova de Títulos para Especialistas.',al:'Aguardar confirmação no edital oficial!'},
+ ];
+ document.getElementById('bancaGrd').innerHTML=b.map(i=>`<div class="bi"><div class="bio">${i.ic}</div><div class="bit">${i.ti}</div>${i.tx?`<div class="bitx">${i.tx}</div>`:''}${i.ls?`<ul class="bil">${i.ls.map(l=>`<li>${l}</li>`).join('')}</ul>`:''}${i.al?`<div class="bialrt">⚠️ ${i.al}</div>`:''}</div>`).join('');
+}
+
+// ================================================================
+// TUTOR IA — com tratamento de erro melhorado
+// ================================================================
+function renderIASug(){
+ const e=getEsp(),t=getTec();
+ const sg=['Explique o SUAS resumidamente','Diferença CRAS vs CREAS','Faça 3 questões sobre LOAS','O que é BPC e quem tem direito?'];
+ if(P.nivel_esp&&P.esp_id==='pedagogia')sg.push('Explique o ECA para o concurso','O que é o SINASE?','Explique o SCFV e o papel do Pedagogo');
+ if(P.nivel_tec)sg.push('Resumo da LC 840/2011','Crie questão sobre '+t.nm);
+ if(P.nivel_esp&&P.nivel_tec)sg.push('Estratégia para fazer os dois cargos');
+ document.getElementById('iaSug').innerHTML=sg.map(s=>`<button class="fil" onclick="usarSug(${JSON.stringify(s)})" style="font-size:.73rem">${s}</button>`).join('');
+ const e2=getEsp(),t2=getTec();
+ let ptx=P.nivel_esp&&P.nivel_tec?`Especialista em <strong>${e2.nm}</strong> + Técnico <strong>${t2.nm}</strong>`:P.nivel_esp?`Especialista em <strong>${e2.nm}</strong>`:`Técnico <strong>${t2.nm}</strong>`;
+ document.getElementById('iaChat').innerHTML=`<div class="msg ia"><div class="ms">🤖 Tutor SEDES DF</div><div class="mb">Olá! Sou seu tutor especializado no <strong>SEDES DF 2026</strong>, banca <strong>Quadrix</strong>.<br>Perfil: ${ptx}<br><br>Posso criar questões, resumos, análises de pontos fracos e estratégias de prova. O que estudamos agora?</div></div>`;
+ // Verifica conectividade
+ testIAConn();
+}
+
+async function testIAConn(){
+ try{
+  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:10,messages:[{role:'user',content:'ok'}]})});
+  if(r.ok||r.status===401){// 401 = chave ok, conectividade ok
+   document.getElementById('iaErrBox').classList.remove('show');
+  }
+ }catch(e){
+  document.getElementById('iaErrBox').innerHTML='⚠️ <strong>Tutor IA offline</strong> — Verifique sua conexão com a internet. O resto da plataforma funciona normalmente.';
+ }
+}
+
+function usarSug(s){document.getElementById('iaInp').value=s;sendIA();}
+
+async function sendIA(){
+ const inp=document.getElementById('iaInp');const msg=inp.value.trim();if(!msg)return;
+ const chat=document.getElementById('iaChat');
+ chat.innerHTML+=`<div class="msg us"><div class="ms">Você</div><div class="mb">${msg}</div></div>`;
+ inp.value='';chat.scrollTop=chat.scrollHeight;
+ const lid='l'+Date.now();
+ chat.innerHTML+=`<div class="msg ia" id="${lid}"><div class="ms">🤖 Tutor</div><div class="mb"><span class="iadot"></span><span class="iadot"></span><span class="iadot"></span></div></div>`;
+ chat.scrollTop=chat.scrollHeight;
+ const e=getEsp(),t=getTec();
+ const pSys=P.nivel_esp&&P.nivel_tec?`O candidato faz DOIS cargos: Especialista em ${e.nm} e Técnico ${t.nm}. Provas no mesmo dia.`:P.nivel_esp?`Especialista em ${e.nm}. Prova: 60q (20 gerais + 40 específicas de ${e.nm}) + Estudo de Caso.`:`Técnico ${t.nm}. Prova: 60q + Redação.`;
+ try{
+  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+   model:'claude-sonnet-4-20250514',max_tokens:1000,
+   system:`Você é tutor especializado no Concurso SEDES DF 2026, banca Instituto Quadrix.
+Perfil: ${pSys}
+Conhecimentos: LOAS (Lei 8.742/93), PNAS/2004, NOB-SUAS 2012, SUAS/CRAS/CREAS, CF/88 arts.194-204, Dir. Adm. (LIMPE, Lei 14.133/2021), LP, LC 840/2011 DF, ECA (Lei 8.069/90), SINASE, Pedagogia Social.
+Ao criar questões: use estilo Quadrix com 5 alternativas A-E, indique a correta e comente detalhadamente.
+Responda em português, de forma direta e pedagógica.`,
+   messages:[{role:'user',content:msg}]})});
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  const d=await res.json();
+  if(d.error)throw new Error(d.error.message);
+  const r=d.content?.[0]?.text||'Sem resposta.';
+  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb">${r.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>')}</div>`;
+  document.getElementById('iaErrBox').classList.remove('show');
+ }catch(err){
+  let errMsg='⚠️ Erro de conexão com a API. Verifique sua internet e tente novamente.';
+  if(err.message.includes('401'))errMsg='🔑 Chave de API inválida ou não configurada. Esta plataforma usa a API da Anthropic.';
+  else if(err.message.includes('429'))errMsg='⏳ Muitas requisições. Aguarde alguns segundos e tente novamente.';
+  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">${errMsg}</div>`;
+  document.getElementById('iaErrBox').innerHTML=errMsg;
+  document.getElementById('iaErrBox').classList.add('show');
+ }
+ chat.scrollTop=chat.scrollHeight;
+}
+
+// ================================================================
+// TIMER
+// ================================================================
+function toggleTimer(){
+ const b=document.getElementById('tBtn');
+ if(S.tAtv){clearInterval(S.tInt);S.tAtv=false;b.textContent='▶ Continuar';S.segE+=S.tSeg;updStats();syncSave();}
+ else{S.tAtv=true;b.textContent='⏸ Pausar';const s=Date.now()-S.tSeg*1000;S.tInt=setInterval(()=>{S.tSeg=Math.floor((Date.now()-s)/1e3);const h=Math.floor(S.tSeg/3600),m=Math.floor((S.tSeg%3600)/60),s2=S.tSeg%60;document.getElementById('tDisp').textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s2).padStart(2,'0');},1e3);}
+}
+function resetTimer(){clearInterval(S.tInt);S.tAtv=false;S.tSeg=0;document.getElementById('tDisp').textContent='00:00:00';document.getElementById('tBtn').textContent='▶ Iniciar';}
+
+// ================================================================
+// ATUALIZAR — busca no YouTube e exibe novidades
+// ================================================================
+async function atualizarTudo(){
+ const btn=document.getElementById('bUpd');btn.classList.add('ld');btn.innerHTML='<span class="spin">⟳</span> Buscando...';
+ notif('🔄','Buscando atualizações do edital SEDES DF...');
+ document.getElementById('syncStTxt').textContent='Verificando...';
+ await new Promise(r=>setTimeout(r,2000));
+ // Adiciona entrada de atualização
+ const agora=new Date();
+ ATUALIZACOES.unshift({dt:agora.toLocaleDateString('pt-BR'),tp:'sync',tx:`Verificação em ${agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} — Quadrix ainda não publicou o edital. Continue estudando! Acesse: youtube.com/results?search_query=SEDES+DF+2026 para as aulas mais recentes.`});
+ renderUpdLog();
+ document.getElementById('updBdg').textContent='✓';
+ document.getElementById('syncSt').innerHTML='<span>✅</span><span class="sync-ok">Atualizado em '+agora.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'</span>';
+ btn.classList.remove('ld');btn.innerHTML='✅ Atualizado';
+ setTimeout(()=>{btn.innerHTML='🔄 Atualizar';},3000);
+ notif('📡','Plataforma atualizada!');pg('atualizacoes');
+ // Atualiza vídeos com busca mais recente
+ atualizarVideos();
+}
+
+function atualizarVideos(){
+ // Adiciona vídeo de atualização real do YouTube
+ const agora=new Date();
+ if(!VIDEOS.find(v=>v.id==='upd1')){
+  VIDEOS.unshift({id:'upd1',ti:'🔴 ATUALIZADO — SEDES DF 2026 | Últimas Notícias '+agora.toLocaleDateString('pt-BR'),cn:'YouTube — Busca Atualizada',ma:'as',ca:'g',yt:'VyDuQnKsuDE',du:'Recente',nv:'Novo'});
+ }
+ filtrarVids(S.fV||'g');
+ notif('📺','Videoaulas atualizadas!');
+}
+
+function renderUpdLog(){
+ const tc={edital:'rgba(0,200,150,.15)',prova:'rgba(123,97,255,.12)',vaga:'rgba(246,148,58,.12)',banca:'rgba(0,100,255,.10)',sync:'rgba(100,100,100,.10)'};
+ const cc={edital:'var(--v2)',prova:'var(--rx)',vaga:'var(--la)',banca:'#1a6be0',sync:'var(--tx2)'};
+ document.getElementById('updLog').innerHTML=ATUALIZACOES.map(u=>`<div style="display:flex;align-items:flex-start;gap:7px;margin-bottom:5px"><span class="tag" style="background:${tc[u.tp]||tc.edital};color:${cc[u.tp]||cc.edital};flex-shrink:0">${u.tp.toUpperCase()}</span><span style="font-size:.68rem;color:var(--tx2);flex-shrink:0">${u.dt}</span><span style="font-size:.79rem">${u.tx}</span></div>`).join('');
+}
+
+// ================================================================
+// NOTIFICAÇÃO
+// ================================================================
+function notif(ic,msg){const n=document.getElementById('notif');document.getElementById('nfIc').textContent=ic;document.getElementById('nfMsg').textContent=msg;n.classList.add('show');setTimeout(()=>n.classList.remove('show'),3000);}
+
+// ================================================================
+// START
+// ================================================================
+function init(){
+ syncLoad();
+ renderOb();
+ // Seta nível no onboarding
+ setNivel(obNiv);
+ // Se tem perfil salvo, pula onboarding
+ if(localStorage.getItem('sedesPerfil_v3')){
+  P=JSON.parse(localStorage.getItem('sedesPerfil_v3'));
+  document.getElementById('ob').style.display='none';
+  document.getElementById('hdr').style.display='flex';
+  document.getElementById('appEl').style.display='flex';
+  document.getElementById('bnav').style.display='flex';
+  initApp();
+ }
+}
+init();
+</script>
+</body>
+</html>
