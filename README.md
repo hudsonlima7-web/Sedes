@@ -7,50 +7,49 @@ Plataforma inteligente de estudos para o concurso SEDES DF 2026 - Banca Institut
 ### Acesso Online
 Seu site está disponível em: **https://bb41ae37.sedes-12y-2dy.pages.dev**
 
-### 🤖 Configurar o Tutor IA
+### 🤖 Configurar o Tutor IA (100% GRATUITO!)
 
-O Tutor IA usa a API da Anthropic (Claude). Para ativá-lo:
+O Tutor IA usa a **API Groq** que é **TOTALMENTE GRATUITA** e muito rápida!
 
-#### Passo 1: Obter a Chave da API
-1. Acesse: https://console.anthropic.com/
-2. Crie uma conta ou faça login
+#### Passo 1: Obter a Chave da API (Grátis!)
+1. Acesse: **https://console.groq.com/**
+2. Crie uma conta (pode usar Google/GitHub)
 3. Vá em **"API Keys"**
-4. Clique em **"Create Key"**
-5. Copie a chave gerada (começa com `sk-ant-...`)
+4. Clique em **"Create API Key"**
+5. Copie a chave gerada (começa com `gsk_...`)
 
 #### Passo 2: Configurar no Código
 1. Abra o arquivo `index.html`
-2. Procure pela linha **993** (ou busque por `ANTHROPIC_API_KEY`)
+2. Procure pela linha **993** (ou busque por `GROQ_API_KEY`)
 3. Substitua `'sua_chave_aqui'` pela sua chave real:
    ```javascript
-   const ANTHROPIC_API_KEY = 'sk-ant-api03-...'; // Sua chave aqui
+   const GROQ_API_KEY = 'gsk_...'; // Sua chave aqui
    ```
 4. Salve o arquivo
 
 #### Passo 3: Fazer Deploy
 ```bash
+git add index.html
+git commit -m "Adicionar chave da API Groq"
+git push
 wrangler pages deploy . --project-name=sedes-12y
 ```
 
-### ⚠️ Segurança da Chave
+### ✨ Por que Groq?
 
-**IMPORTANTE:** 
-- ⚠️ Sua chave ficará visível no código-fonte do site
-- ⚠️ Qualquer pessoa pode ver e usar sua chave
-- ⚠️ Isso pode gerar custos na sua conta Anthropic
-
-**Recomendações:**
-1. Use apenas para testes pessoais
-2. Configure limites de uso na console da Anthropic
-3. Para produção, considere criar um backend para proteger a chave
+- ✅ **100% Gratuito** - Sem custos!
+- ⚡ **Super Rápido** - Respostas em segundos
+- 🧠 **Modelo Llama 3.1 70B** - Qualidade excelente
+- 🔒 **Limite Generoso** - 30 requisições/minuto grátis
 
 ## 📁 Estrutura do Projeto
 
 ```
 Sedes/
 ├── index.html          # Aplicação principal
-├── .env               # Arquivo de configuração (não usado no frontend)
+├── .env               # Arquivo de configuração
 ├── README.md          # Este arquivo
+├── CONFIGURAR_IA.md   # Guia detalhado do Tutor IA
 └── .git/              # Controle de versão
 ```
 
@@ -73,20 +72,20 @@ wrangler pages deploy . --project-name=sedes-12y
 - ✅ Videoaulas do YouTube
 - ✅ Análise da banca Quadrix
 - ✅ Comparativo de cargos
-- 🤖 Tutor IA (requer configuração)
+- 🤖 Tutor IA **GRATUITO** (requer configuração)
 
 ## 🛠️ Tecnologias
 
 - HTML5 + CSS3 + JavaScript
 - Cloudflare Pages (hospedagem)
-- Anthropic Claude API (Tutor IA)
+- **Groq API** (Tutor IA - GRATUITO!)
 - LocalStorage (sincronização de dados)
 
 ## 📞 Suporte
 
 Para problemas com:
 - **Hospedagem:** Cloudflare Pages Dashboard
-- **API do Tutor:** https://console.anthropic.com/
+- **API do Tutor:** https://console.groq.com/
 - **Git/Deploy:** Verifique os comandos acima
 
 ---
