@@ -989,9 +989,25 @@ function renderIASug(){
  testIAConn();
 }
 
+// CONFIGURE SUA CHAVE DA API ANTHROPIC AQUI
+// Obtenha em: https://console.anthropic.com/
+const ANTHROPIC_API_KEY = 'sua_chave_aqui'; // ⚠️ SUBSTITUA PELA SUA CHAVE REAL
+
 async function testIAConn(){
+ if(!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'sua_chave_aqui'){
+  document.getElementById('iaErrBox').innerHTML='🔑 <strong>Configure sua chave da API</strong> — Edite o arquivo index.html e adicione sua chave da Anthropic na linha 993.';
+  return;
+ }
  try{
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:10,messages:[{role:'user',content:'ok'}]})});
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json',
+    'x-api-key': ANTHROPIC_API_KEY,
+    'anthropic-version': '2023-06-01'
+   },
+   body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:10,messages:[{role:'user',content:'ok'}]})
+  });
   if(r.ok||r.status===401){// 401 = chave ok, conectividade ok
    document.getElementById('iaErrBox').classList.remove('show');
   }
@@ -1012,8 +1028,21 @@ async function sendIA(){
  chat.scrollTop=chat.scrollHeight;
  const e=getEsp(),t=getTec();
  const pSys=P.nivel_esp&&P.nivel_tec?`O candidato faz DOIS cargos: Especialista em ${e.nm} e Técnico ${t.nm}. Provas no mesmo dia.`:P.nivel_esp?`Especialista em ${e.nm}. Prova: 60q (20 gerais + 40 específicas de ${e.nm}) + Estudo de Caso.`:`Técnico ${t.nm}. Prova: 60q + Redação.`;
+ 
+ if(!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'sua_chave_aqui'){
+  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">🔑 Configure sua chave da API Anthropic no código (linha 993) para usar o Tutor IA.</div>`;
+  return;
+ }
+ 
  try{
-  const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json',
+    'x-api-key': ANTHROPIC_API_KEY,
+    'anthropic-version': '2023-06-01'
+   },
+   body:JSON.stringify({
    model:'claude-sonnet-4-20250514',max_tokens:1000,
    system:`Você é tutor especializado no Concurso SEDES DF 2026, banca Instituto Quadrix.
 Perfil: ${pSys}
