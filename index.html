@@ -38,8 +38,29 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Inter',sans-serif;background:var(--light);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
 
+/* ── LOGIN ALUNO ── */
+.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.login-box{background:var(--white);border-radius:var(--radius-xl);max-width:450px;width:100%;padding:48px;box-shadow:var(--shadow-xl);position:relative}
+.login-logo{font-family:'Poppins',sans-serif;font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;text-align:center}
+.login-sub{color:var(--text-light);font-size:.95rem;margin-bottom:32px;text-align:center}
+.login-form{display:flex;flex-direction:column;gap:16px}
+.login-input{padding:14px 16px;border:2px solid var(--light-2);border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:all .3s;background:var(--white)}
+.login-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.login-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--white);border:none;padding:16px;border-radius:var(--radius-full);font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;transition:all .3s;box-shadow:var(--shadow)}
+.login-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.login-btn:disabled{opacity:.5;pointer-events:none}
+.login-error{background:rgba(239,68,68,.1);border:2px solid var(--danger);border-radius:var(--radius);padding:12px 16px;font-size:.85rem;color:var(--danger);display:none;margin-bottom:16px;font-weight:600}
+.login-error.show{display:block}
+.login-divider{text-align:center;color:var(--text-lighter);font-size:.85rem;margin:24px 0;position:relative}
+.login-divider::before,.login-divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--light-2)}
+.login-divider::before{left:0}
+.login-divider::after{right:0}
+.login-link{text-align:center;margin-top:16px}
+.login-link a{color:var(--primary);text-decoration:none;font-weight:600;font-size:.9rem}
+.login-link a:hover{text-decoration:underline}
+
 /* ── ONBOARDING ── */
-.ob{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.ob{position:fixed;inset:0;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
 .ob-box{background:var(--white);border-radius:var(--radius-xl);max-width:700px;width:100%;padding:48px;box-shadow:var(--shadow-xl)}
 .ob-logo{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;text-align:center}
 .ob-sub{color:var(--text-light);font-size:.95rem;margin-bottom:32px;text-align:center}
@@ -318,6 +339,32 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
 </head>
 <body>
 
+<!-- LOGIN ALUNO -->
+<div class="login-screen" id="loginScreen">
+ <div class="login-box">
+  <div class="login-logo">🎯 SEDES DF</div>
+  <div class="login-sub">Plataforma de Estudos para Concursos</div>
+  
+  <div class="login-error" id="loginError">❌ Erro ao fazer login</div>
+  
+  <form class="login-form" onsubmit="alunoLogin(event)">
+   <input type="email" class="login-input" id="loginEmail" placeholder="📧 Seu e-mail" required>
+   <input type="password" class="login-input" id="loginSenha" placeholder="🔒 Sua senha" required>
+   <button type="submit" class="login-btn" id="loginBtn">🚀 Entrar na Plataforma</button>
+  </form>
+  
+  <div class="login-divider">ou</div>
+  
+  <div class="login-link">
+   <a href="landing.html">✨ Ainda não tem conta? Conheça nossos planos</a>
+  </div>
+  
+  <div class="login-link" style="margin-top:8px">
+   <a href="#" onclick="mostrarLoginAdmin(event)">🔐 Acesso Administrativo</a>
+  </div>
+ </div>
+</div>
+
 <!-- ONBOARDING -->
 <div class="ob" id="ob">
  <div class="ob-box">
@@ -394,6 +441,9 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
   </div>
   <div class="sb-sec" style="margin-top:8px">
    <button class="nav-i" onclick="pg('admin-login')" id="btnAdminLogin"><span class="ni">🔐</span>Admin</button>
+  </div>
+  <div class="sb-sec" style="margin-top:4px">
+   <button class="nav-i" onclick="alunoLogout()"><span class="ni">🚪</span>Sair</button>
   </div>
   <div class="sb-sec" style="margin-top:8px">
    <div style="font-size:.67rem;color:var(--tx2);padding:6px 9px;display:flex;align-items:center;gap:5px"><span class="sync-dot"></span><span id="syncLbl">Sincronizado</span></div>
@@ -1427,18 +1477,153 @@ function init(){
  // A chave é salva no localStorage do navegador
  
  syncLoad();
+ 
+ // Verificar se aluno está logado
+ const alunoLogado = localStorage.getItem('alunoLogado');
+ 
+ if(!alunoLogado){
+  // Mostrar tela de login
+  document.getElementById('loginScreen').style.display = 'flex';
+  return;
+ }
+ 
+ // Aluno logado - verificar se tem perfil configurado
  renderOb();
- // Seta nível no onboarding
  setNivel(obNiv);
- // Se tem perfil salvo, pula onboarding
+ 
  if(localStorage.getItem('sedesPerfil_v3')){
+  // Tem perfil - ir direto para o app
   P=JSON.parse(localStorage.getItem('sedesPerfil_v3'));
+  document.getElementById('loginScreen').style.display='none';
   document.getElementById('ob').style.display='none';
   document.getElementById('hdr').style.display='flex';
   document.getElementById('appEl').style.display='flex';
   document.getElementById('bnav').style.display='flex';
   initApp();
+ } else {
+  // Não tem perfil - mostrar onboarding
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('ob').style.display='flex';
  }
+}
+
+// ================================================================
+// SISTEMA DE LOGIN DE ALUNOS
+// ================================================================
+
+// Login de aluno
+function alunoLogin(event){
+ event.preventDefault();
+ 
+ const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+ const senha = document.getElementById('loginSenha').value;
+ const errorEl = document.getElementById('loginError');
+ const btnEl = document.getElementById('loginBtn');
+ 
+ if(!email || !senha){
+  errorEl.textContent = '⚠️ Preencha e-mail e senha';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Buscar aluno no localStorage
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const aluno = alunos.find(a => a.email.toLowerCase() === email && a.senha === senha);
+ 
+ if(!aluno){
+  errorEl.textContent = '❌ E-mail ou senha incorretos';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Verificar se aluno está ativo (pagamento em dia)
+ if(!verificarAcessoAluno(aluno.id)){
+  errorEl.textContent = '🚫 Acesso bloqueado - Mensalidade em atraso. Entre em contato com a secretaria.';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Login bem-sucedido
+ errorEl.classList.remove('show');
+ btnEl.disabled = true;
+ btnEl.textContent = '✅ Entrando...';
+ 
+ // Salvar login
+ localStorage.setItem('alunoLogado', JSON.stringify({
+  id: aluno.id,
+  nome: aluno.nome,
+  email: aluno.email,
+  plano: aluno.plano,
+  loginAt: new Date().toISOString()
+ }));
+ 
+ // Redirecionar
+ setTimeout(() => {
+  document.getElementById('loginScreen').style.display = 'none';
+  
+  // Verificar se já tem perfil configurado
+  if(localStorage.getItem('sedesPerfil_v3')){
+   // Ir direto para o app
+   P = JSON.parse(localStorage.getItem('sedesPerfil_v3'));
+   document.getElementById('hdr').style.display = 'flex';
+   document.getElementById('appEl').style.display = 'flex';
+   document.getElementById('bnav').style.display = 'flex';
+   initApp();
+  } else {
+   // Mostrar onboarding
+   document.getElementById('ob').style.display = 'flex';
+   renderOb();
+   setNivel(obNiv);
+  }
+ }, 500);
+}
+
+// Verificar se aluno tem acesso (pagamento em dia)
+function verificarAcessoAluno(alunoId){
+ const config = JSON.parse(localStorage.getItem('configAcesso') || '{"bloquearInadimplentes":true}');
+ 
+ if(!config.bloquearInadimplentes){
+  return true; // Não bloqueia inadimplentes
+ }
+ 
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const hoje = new Date();
+ 
+ // Buscar última mensalidade do aluno
+ const mensalidadesAluno = mensalidades.filter(m => m.alunoId === alunoId);
+ 
+ if(mensalidadesAluno.length === 0){
+  return true; // Sem mensalidades cadastradas, libera acesso
+ }
+ 
+ // Verificar se tem alguma mensalidade vencida e não paga
+ const temVencida = mensalidadesAluno.some(m => {
+  const venc = new Date(m.vencimento);
+  return venc < hoje && m.status !== 'pago';
+ });
+ 
+ return !temVencida;
+}
+
+// Logout de aluno
+function alunoLogout(){
+ if(confirm('Deseja sair da plataforma?')){
+  localStorage.removeItem('alunoLogado');
+  location.reload();
+ }
+}
+
+// Mostrar login admin (separado do login de aluno)
+function mostrarLoginAdmin(event){
+ event.preventDefault();
+ 
+ // Esconder tela de login de aluno
+ document.getElementById('loginScreen').style.display = 'none';
+ 
+ // Mostrar app com página de login admin
+ document.getElementById('hdr').style.display = 'flex';
+ document.getElementById('appEl').style.display = 'flex';
+ pg('admin-login');
 }
 
 // ================================================================
@@ -1510,7 +1695,33 @@ function esconderMenuAdmin(){
 // Inicializar dados admin
 function initAdmin(){
  if(!localStorage.getItem('alunos')){
-  localStorage.setItem('alunos', JSON.stringify([]));
+  // Criar alunos demo para teste
+  const alunosDemo = [
+   {
+    id: Date.now(),
+    nome: 'Aluno Teste',
+    email: 'aluno@teste.com',
+    senha: '123456',
+    telefone: '(61) 99999-9999',
+    plano: 'Básico',
+    dataCadastro: new Date().toISOString(),
+    ativo: true
+   }
+  ];
+  localStorage.setItem('alunos', JSON.stringify(alunosDemo));
+  
+  // Criar mensalidade paga para o aluno demo
+  const mensalidadesDemo = [
+   {
+    id: Date.now(),
+    alunoId: alunosDemo[0].id,
+    valor: 97,
+    vencimento: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
+    status: 'pago',
+    dataPagamento: new Date().toISOString().split('T')[0]
+   }
+  ];
+  localStorage.setItem('mensalidades', JSON.stringify(mensalidadesDemo));
  }
  if(!localStorage.getItem('mensalidades')){
   localStorage.setItem('mensalidades', JSON.stringify([]));
