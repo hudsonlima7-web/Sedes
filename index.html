@@ -2423,13 +2423,29 @@ function salvarEdicaoAluno(event){
  alunos[alunoIndex].ativo = ativo;
  
  // Atualizar senha se foi fornecida
- if(novaSenha && novaSenha.length >= 4){
-  alunos[alunoIndex].senha = novaSenha;
-  console.log('🔐 Senha alterada para:', novaSenha);
+ console.log('🔍 Verificando senha:', {
+  novaSenha: novaSenha,
+  length: novaSenha ? novaSenha.length : 0,
+  temSenha: !!novaSenha,
+  senhaValida: novaSenha && novaSenha.length >= 4
+ });
+ 
+ if(novaSenha && novaSenha.trim().length >= 4){
+  alunos[alunoIndex].senha = novaSenha.trim();
+  console.log('✅ Senha alterada para:', novaSenha.trim());
+  console.log('✅ Aluno:', alunos[alunoIndex].nome, '- Nova senha salva!');
+ } else if(novaSenha && novaSenha.trim().length > 0 && novaSenha.trim().length < 4){
+  errorEl.textContent = '❌ A senha deve ter no mínimo 4 caracteres!';
+  errorEl.classList.add('show');
+  return;
+ } else {
+  console.log('ℹ️ Senha não alterada (campo vazio ou não preenchido)');
  }
  
  // Salvar
  localStorage.setItem('alunos', JSON.stringify(alunos));
+ console.log('💾 Dados salvos no localStorage');
+ console.log('📋 Aluno atualizado:', alunos[alunoIndex]);
  
  // Atualizar valor das mensalidades futuras
  let mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
@@ -2454,6 +2470,35 @@ function salvarEdicaoAluno(event){
  }, 2000);
  
  console.log('✅ Aluno atualizado:', nome);
+}
+
+// Toggle visibilidade da senha no modal de edição
+function toggleSenhaVisivel(){
+ const senhaInput = document.getElementById('editarSenha');
+ if(senhaInput.type === 'password'){
+  senhaInput.type = 'text';
+ } else {
+  senhaInput.type = 'password';
+ }
+}
+
+// Função de debug para verificar senha de um aluno (console)
+function verificarSenhaAluno(email){
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const aluno = alunos.find(a => a.email.toLowerCase() === email.toLowerCase());
+ if(aluno){
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('👤 Aluno:', aluno.nome);
+  console.log('📧 Email:', aluno.email);
+  console.log('🔐 Senha atual:', aluno.senha);
+  console.log('✅ Ativo:', aluno.ativo);
+  console.log('📦 Plano:', aluno.plano);
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  return aluno;
+ } else {
+  console.log('❌ Aluno não encontrado com email:', email);
+  return null;
+ }
 }
 
 // Máscaras para campos de edição
@@ -2949,8 +2994,13 @@ init();
    
    <div class="modal-editar-group">
     <label class="modal-editar-label">🔐 Nova Senha (deixe em branco para manter a atual)</label>
-    <input type="password" class="modal-editar-input" id="editarSenha" placeholder="Digite nova senha ou deixe em branco" minlength="4">
-    <small style="color:var(--text-light);font-size:.8rem;margin-top:4px">💡 Deixe em branco se não quiser alterar a senha</small>
+    <div style="position:relative">
+     <input type="password" class="modal-editar-input" id="editarSenha" placeholder="Digite nova senha ou deixe em branco" minlength="4" style="padding-right:45px">
+     <button type="button" onclick="toggleSenhaVisivel()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.2rem;padding:5px" title="Mostrar/Ocultar senha">
+      👁️
+     </button>
+    </div>
+    <small style="color:var(--text-light);font-size:.8rem;margin-top:4px;display:block">💡 Deixe em branco se não quiser alterar a senha. Mínimo 4 caracteres.</small>
    </div>
    
    <div class="modal-editar-checkbox">
