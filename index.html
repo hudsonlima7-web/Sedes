@@ -605,11 +605,6 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
     </div>
     <div class="ia-err" id="adminErr" style="display:none;margin-bottom:12px"></div>
     <button onclick="adminLogin()" style="width:100%;padding:12px;background:var(--az);color:white;border:none;border-radius:var(--r2);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer">🔓 Entrar</button>
-    <div style="margin-top:14px;padding:10px;background:var(--ci);border-radius:var(--r2);font-size:.75rem;color:var(--tx2);line-height:1.6">
-     <strong>Credenciais de acesso:</strong><br>
-     Usuário: <code style="background:white;padding:2px 6px;border-radius:4px">admin</code><br>
-     Senha: <code style="background:white;padding:2px 6px;border-radius:4px">Hudson*</code>
-    </div>
    </div>
   </div>
 
@@ -1843,11 +1838,50 @@ function mostrarLoginAdmin(event){
 // SISTEMA ADMINISTRATIVO
 // ================================================================
 
-// Credenciais admin (em produção, use backend seguro!)
+// Sistema de credenciais admin com hash SHA-256
+// Senha padrão: Hudson* (hash será gerado automaticamente)
+// Para alterar a senha, use a função no console: alterarSenhaAdmin('novaSenha')
 const ADMIN_CREDENTIALS = {
  username: 'admin',
- password: 'Hudson*'
+ defaultPassword: 'Hudson*' // Usado apenas para gerar hash inicial
 };
+
+// Inicializar hash da senha padrão se não existir
+async function inicializarSenhaAdmin() {
+ if (!localStorage.getItem('adminPasswordHash')) {
+  const hash = await hashPassword(ADMIN_CREDENTIALS.defaultPassword);
+  localStorage.setItem('adminPasswordHash', hash);
+  console.log('🔐 Senha admin inicializada');
+ }
+}
+
+// Executar ao carregar
+inicializarSenhaAdmin();
+
+// Função para gerar hash SHA-256 (simples para frontend)
+async function hashPassword(password) {
+ const encoder = new TextEncoder();
+ const data = encoder.encode(password);
+ const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+ const hashArray = Array.from(new Uint8Array(hashBuffer));
+ const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+ return hashHex;
+}
+
+// Função para alterar senha do admin (usar no console)
+async function alterarSenhaAdmin(novaSenha) {
+ if (!novaSenha || novaSenha.length < 6) {
+  console.error('❌ Senha deve ter no mínimo 6 caracteres');
+  return;
+ }
+ const hash = await hashPassword(novaSenha);
+ localStorage.setItem('adminPasswordHash', hash);
+ console.log('✅ Senha alterada com sucesso!');
+ console.log('🔐 Novo hash:', hash);
+ console.log('⚠️ Guarde este hash em local seguro!');
+ console.log('💡 Para usar este hash permanentemente, substitua no código:');
+ console.log(`   passwordHash: '${hash}'`);
+}
 
 // Verificar se está logado como admin
 function isAdminLoggedIn(){
@@ -1855,7 +1889,7 @@ function isAdminLoggedIn(){
 }
 
 // Login admin
-function adminLogin(){
+async function adminLogin(){
  const user = document.getElementById('adminUser').value.trim();
  const pass = document.getElementById('adminPass').value;
  const err = document.getElementById('adminErr');
@@ -1866,18 +1900,51 @@ function adminLogin(){
   return;
  }
  
- // Verificar senha salva ou padrão
- const senhaCorreta = localStorage.getItem('adminPassword') || ADMIN_CREDENTIALS.password;
+ // Gerar hash da senha digitada
+ const passHash = await hashPassword(pass);
  
- if(user === ADMIN_CREDENTIALS.username && pass === senhaCorreta){
+ // Verificar hash salvo no localStorage
+ const hashCorreto = localStorage.getItem('adminPasswordHash');
+ 
+ if(!hashCorreto){
+  // Inicializar se não existir
+  await inicializarSenhaAdmin();
+  const novoHash = localStorage.getItem('adminPasswordHash');
+  
+  if(user === ADMIN_CREDENTIALS.username && passHash === novoHash){
+   localStorage.setItem('adminLoggedIn', 'true');
+   err.style.display = 'none';
+   mostrarMenuAdmin();
+   pg('admin-alunos');
+   notif('✅ Login realizado com sucesso!');
+   document.getElementById('adminUser').value = '';
+   document.getElementById('adminPass').value = '';
+  } else {
+   err.textContent = '❌ Usuário ou senha incorretos';
+   err.style.display = 'block';
+  }
+  return;
+ }
+ 
+ if(user === ADMIN_CREDENTIALS.username && passHash === hashCorreto){
   localStorage.setItem('adminLoggedIn', 'true');
   err.style.display = 'none';
   mostrarMenuAdmin();
   pg('admin-alunos');
   notif('✅ Login realizado com sucesso!');
+  
+  // Limpar campos
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
  } else {
   err.textContent = '❌ Usuário ou senha incorretos';
   err.style.display = 'block';
+  
+  // Log de tentativa falha (segurança)
+  console.warn('⚠️ Tentativa de login falhou:', {
+   usuario: user,
+   timestamp: new Date().toISOString()
+  });
  }
 }
 
