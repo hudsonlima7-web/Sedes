@@ -960,6 +960,20 @@ function renderSbP(){
 // NAVEGAÇÃO
 // ================================================================
 function pg(id){
+ // Verificar acesso admin
+ const paginasAdmin = ['admin-alunos', 'admin-mensalidades', 'admin-acessos', 'admin-config'];
+ if(paginasAdmin.includes(id) && !isAdminLoggedIn()){
+  notif('🔒 Acesso restrito! Faça login como administrador.');
+  id = 'admin-login';
+ }
+ 
+ // Carregar dados ao entrar nas páginas admin
+ if(id === 'admin-alunos') carregarAlunos();
+ if(id === 'admin-mensalidades') carregarMensalidades();
+ if(id === 'admin-acessos') carregarAcessos();
+ if(id === 'admin-config') carregarConfig();
+ 
+ // Navegação normal
  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
  document.getElementById('page-'+id).classList.add('active');
  document.querySelectorAll('.nav-i').forEach(n=>n.classList.remove('act'));
@@ -1795,31 +1809,6 @@ function salvarConfigAcesso(){
 
 function toggleBloqueioManual(alunoId){
  notif('ℹ️ Bloqueio manual em desenvolvimento');
-}
-
-// Modificar função pg() para verificar acesso admin
-// Salvar referência da função original
-const pgBase = pg;
-
-// Redefinir pg com verificação de admin
-function pg(p){
- // Páginas que requerem admin
- const paginasAdmin = ['admin-alunos', 'admin-mensalidades', 'admin-acessos', 'admin-config'];
- 
- if(paginasAdmin.includes(p) && !isAdminLoggedIn()){
-  notif('🔒 Acesso restrito! Faça login como administrador.');
-  pgBase('admin-login');
-  return;
- }
- 
- // Carregar dados ao entrar nas páginas admin
- if(p === 'admin-alunos') carregarAlunos();
- if(p === 'admin-mensalidades') carregarMensalidades();
- if(p === 'admin-acessos') carregarAcessos();
- if(p === 'admin-config') carregarConfig();
- 
- // Chamar função original
- pgBase(p);
 }
 
 // ===== CONFIGURAÇÕES =====
