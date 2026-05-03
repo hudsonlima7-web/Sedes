@@ -1775,11 +1775,16 @@ function alunoLogin(event){
  event.preventDefault();
  
  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
- const senha = document.getElementById('loginSenha').value;
+ const senha = document.getElementById('loginSenha').value.trim();
  const errorEl = document.getElementById('loginError');
  const btnEl = document.getElementById('loginBtn');
  
- console.log('🔐 Tentativa de login:', { email, senha: '***' });
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('🔐 TENTATIVA DE LOGIN');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📧 Email digitado:', email);
+ console.log('🔐 Senha digitada:', senha);
+ console.log('📏 Tamanho da senha:', senha.length);
  
  if(!email || !senha){
   errorEl.textContent = '⚠️ Preencha e-mail e senha';
@@ -1790,20 +1795,53 @@ function alunoLogin(event){
  
  // Buscar aluno no localStorage
  const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
- console.log('📊 Total de alunos cadastrados:', alunos.length);
- console.log('👥 Alunos:', alunos.map(a => ({ email: a.email, senha: a.senha })));
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📊 VERIFICANDO BANCO DE DADOS');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Total de alunos cadastrados:', alunos.length);
+ console.log('Lista completa de alunos:');
+ alunos.forEach((a, i) => {
+  console.log(`  ${i+1}. Email: ${a.email} | Senha: ${a.senha} | Ativo: ${a.ativo}`);
+ });
+ 
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('🔍 BUSCANDO ALUNO');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Procurando por:');
+ console.log('  Email:', email);
+ console.log('  Senha:', senha);
  
  const aluno = alunos.find(a => a.email.toLowerCase() === email && a.senha === senha);
  
  if(!aluno){
-  errorEl.textContent = '❌ E-mail ou senha incorretos';
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('❌ ALUNO NÃO ENCONTRADO');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  
+  // Verificar se email existe
+  const emailExiste = alunos.find(a => a.email.toLowerCase() === email);
+  if(emailExiste){
+   console.log('⚠️ Email existe, mas senha está incorreta!');
+   console.log('Senha cadastrada:', emailExiste.senha);
+   console.log('Senha digitada:', senha);
+   console.log('São iguais?', emailExiste.senha === senha);
+   errorEl.textContent = '❌ Senha incorreta';
+  } else {
+   console.log('⚠️ Email não encontrado no sistema');
+   errorEl.textContent = '❌ E-mail não cadastrado';
+  }
+  
   errorEl.classList.add('show');
-  console.log('❌ Aluno não encontrado ou senha incorreta');
-  console.log('🔍 Buscando:', { email, senha });
   return;
  }
  
- console.log('✅ Aluno encontrado:', aluno.nome);
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('✅ ALUNO ENCONTRADO');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Nome:', aluno.nome);
+ console.log('Email:', aluno.email);
+ console.log('Plano:', aluno.plano);
+ console.log('Ativo:', aluno.ativo);
  
  // Verificar se aluno está ativo (pagamento em dia)
  if(!verificarAcessoAluno(aluno.id)){

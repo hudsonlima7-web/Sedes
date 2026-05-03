@@ -62,7 +62,10 @@ input:focus,select:focus{outline:none;border-color:var(--primary)}
     </div>
     <div class="form-group">
      <label>Senha (Padrão: "Sedes" - você poderá alterar depois)</label>
-     <input type="password" id="senha" placeholder="Senha padrão: Sedes" value="Sedes" minlength="4" required>
+     <div style="position: relative;">
+      <input type="password" id="senha" placeholder="Senha padrão: Sedes" value="Sedes" minlength="4" required style="padding-right: 45px;">
+      <button type="button" onclick="toggleSenhaCheckout()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; padding: 5px;">👁️</button>
+     </div>
      <small style="color: #718096; font-size: 0.85rem; margin-top: 4px; display: block;">
       💡 Senha padrão definida como "Sedes". Você poderá alterá-la após o primeiro login.
      </small>
@@ -244,23 +247,40 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e){
  e.preventDefault();
  
  const email = document.getElementById('email').value.trim().toLowerCase();
- const senha = document.getElementById('senha').value;
+ const senha = document.getElementById('senha').value.trim();
+ 
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📝 INICIANDO CADASTRO');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📧 Email:', email);
+ console.log('🔐 Senha:', senha);
+ console.log('📏 Tamanho da senha:', senha.length);
+ 
+ // Validar senha
+ if(!senha || senha.length < 4){
+  alert('❌ A senha deve ter no mínimo 4 caracteres!');
+  console.log('❌ Senha inválida');
+  return;
+ }
  
  // Verificar se email já existe
  let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ console.log('👥 Alunos existentes:', alunos.length);
+ 
  if(alunos.some(a => a.email.toLowerCase() === email)){
   alert('❌ Este e-mail já está cadastrado! Use outro e-mail ou faça login.');
+  console.log('❌ Email já existe');
   return;
  }
  
  // Salvar dados do aluno
  const aluno = {
   id: Date.now(),
-  nome: document.getElementById('nome').value,
+  nome: document.getElementById('nome').value.trim(),
   email: email,
   senha: senha,
-  cpf: document.getElementById('cpf').value,
-  telefone: document.getElementById('telefone').value,
+  cpf: document.getElementById('cpf').value.trim(),
+  telefone: document.getElementById('telefone').value.trim(),
   cargo: 'Agente', // Cargo padrão
   plano: planoSelecionado,
   valorMensalidade: plano.valor,
@@ -268,13 +288,29 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e){
   ativo: true
  };
  
- console.log('💾 Salvando aluno:', aluno);
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('💾 SALVANDO ALUNO NO LOCALSTORAGE');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Dados completos:', JSON.stringify(aluno, null, 2));
  
  alunos.push(aluno);
  localStorage.setItem('alunos', JSON.stringify(alunos));
  
- console.log('✅ Aluno salvo no localStorage');
- console.log('📊 Total de alunos:', alunos.length);
+ // Verificar se salvou corretamente
+ const alunosVerificacao = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const alunoSalvo = alunosVerificacao.find(a => a.email === email);
+ 
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('✅ VERIFICAÇÃO DE SALVAMENTO');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Total de alunos após salvar:', alunosVerificacao.length);
+ console.log('Aluno encontrado:', alunoSalvo ? 'SIM' : 'NÃO');
+ if(alunoSalvo){
+  console.log('Email salvo:', alunoSalvo.email);
+  console.log('Senha salva:', alunoSalvo.senha);
+  console.log('Cargo salvo:', alunoSalvo.cargo);
+  console.log('Ativo:', alunoSalvo.ativo);
+ }
  
  // 🎉 ENVIAR BOAS-VINDAS AUTOMÁTICO
  enviarBoasVindasAutomatico(aluno);
@@ -434,6 +470,20 @@ Estamos com você nessa jornada! 🎯🏆
 Bons estudos e até a aprovação! 🎓✨
 
 _Equipe SEDES DF 2026_`;
+}
+
+// Função para mostrar/ocultar senha no checkout
+function toggleSenhaCheckout() {
+ const senhaInput = document.getElementById('senha');
+ const btn = event.target;
+ 
+ if (senhaInput.type === 'password') {
+  senhaInput.type = 'text';
+  btn.textContent = '🙈';
+ } else {
+  senhaInput.type = 'password';
+  btn.textContent = '👁️';
+ }
 }
 
 function criarHtmlEmail(dados) {

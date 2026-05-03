@@ -33,7 +33,23 @@ timeout /t 2 >nul
 
 cls
 echo ╔════════════════════════════════════════════════════════════╗
-echo ║ PASSO 2: Abrindo diagnóstico                              ║
+echo ║ PASSO 2: Abrindo limpeza de cache                         ║
+echo ╚════════════════════════════════════════════════════════════╝
+echo.
+
+start LIMPAR-CACHE.html
+echo ✅ Página de limpeza aberta!
+echo.
+echo ⚠️ IMPORTANTE:
+echo    1. Na página que abriu, clique em "Limpar Cache Agora"
+echo    2. Aguarde a página recarregar
+echo    3. Depois volte aqui e pressione qualquer tecla
+echo.
+pause
+
+cls
+echo ╔════════════════════════════════════════════════════════════╗
+echo ║ PASSO 3: Abrindo diagnóstico                              ║
 echo ╚════════════════════════════════════════════════════════════╝
 echo.
 
@@ -49,7 +65,7 @@ pause
 
 cls
 echo ╔════════════════════════════════════════════════════════════╗
-echo ║ PASSO 3: Abrindo sistema                                  ║
+echo ║ PASSO 4: Abrindo sistema                                  ║
 echo ╚════════════════════════════════════════════════════════════╝
 echo.
 
@@ -65,8 +81,8 @@ echo ║  📧 Email: teste@sedes.com                                ║
 echo ║  🔐 Senha: Sedes                                          ║
 echo ║                                                            ║
 echo ║  ⚠️ IMPORTANTE:                                           ║
-echo ║  Pressione Ctrl + Shift + R no navegador                  ║
-echo ║  para garantir que está atualizado!                       ║
+echo ║  Pressione F12 para ver os logs detalhados                ║
+echo ║  Se não funcionar, copie os logs e me envie               ║
 echo ║                                                            ║
 echo ╚════════════════════════════════════════════════════════════╝
 echo.

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔄 Limpar Cache - SEDES DF 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        .alert h3 {
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .alert p {
+            color: #856404;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        .steps {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: left;
+        }
+        .steps h3 {
+            color: #2d3748;
+            margin-bottom: 16px;
+        }
+        .step {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .step:last-child {
+            border-bottom: none;
+        }
+        .step strong {
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 16px 0;
+            display: none;
+        }
+        .success.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Limpar Cache</h1>
+        <p class="subtitle">Forçar atualização do sistema</p>
+
+        <div class="alert">
+            <h3>⚠️ Por que preciso limpar o cache?</h3>
+            <p>O navegador guarda versões antigas dos arquivos para carregar mais rápido. Quando atualizamos o sistema, você precisa limpar o cache para ver as mudanças.</p>
+        </div>
+
+        <div class="steps">
+            <h3>📋 Passo a Passo:</h3>
+            <div class="step">
+                <strong>1.</strong> Pressione <code>Ctrl + Shift + Delete</code>
+            </div>
+            <div class="step">
+                <strong>2.</strong> Marque: "Imagens e arquivos em cache"
+            </div>
+            <div class="step">
+                <strong>3.</strong> Clique em "Limpar dados"
+            </div>
+            <div class="step">
+                <strong>4.</strong> Pressione <code>Ctrl + Shift + R</code> (recarregar forçado)
+            </div>
+        </div>
+
+        <button class="btn" onclick="limparEAtualizar()">🔄 Limpar Cache Agora</button>
+        <a href="index.html" class="btn btn-secondary">🚀 Ir para o Sistema</a>
+        <a href="DIAGNOSTICO.html" class="btn btn-secondary">🔍 Diagnóstico</a>
+
+        <div class="success" id="successMsg">
+            ✅ Cache limpo! A página será recarregada em 3 segundos...
+        </div>
+    </div>
+
+    <script>
+        function limparEAtualizar() {
+            // Mostrar mensagem
+            document.getElementById('successMsg').classList.add('show');
+            
+            // Tentar limpar cache via JavaScript
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) {
+                        caches.delete(name);
+                    }
+                });
+            }
+            
+            // Recarregar após 3 segundos
+            setTimeout(() => {
+                // Recarregar forçado
+                window.location.href = window.location.href + '?nocache=' + Date.now();
+                location.reload(true);
+            }, 3000);
+        }
+
+        // Adicionar timestamp na URL para forçar atualização
+        if (!window.location.search.includes('nocache')) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('nocache', Date.now());
+            window.history.replaceState({}, '', url);
+        }
+    </script>
+</body>
+</html>
