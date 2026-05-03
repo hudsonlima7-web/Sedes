@@ -261,14 +261,20 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e){
   senha: senha,
   cpf: document.getElementById('cpf').value,
   telefone: document.getElementById('telefone').value,
+  cargo: 'Agente', // Cargo padrão
   plano: planoSelecionado,
   valorMensalidade: plano.valor,
   dataCadastro: new Date().toISOString(),
   ativo: true
  };
  
+ console.log('💾 Salvando aluno:', aluno);
+ 
  alunos.push(aluno);
  localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ console.log('✅ Aluno salvo no localStorage');
+ console.log('📊 Total de alunos:', alunos.length);
  
  // 🎉 ENVIAR BOAS-VINDAS AUTOMÁTICO
  enviarBoasVindasAutomatico(aluno);

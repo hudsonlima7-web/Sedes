@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Diagnóstico - SEDES DF 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 32px;
+        }
+        .section {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        .label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .value {
+            font-family: monospace;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        .ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 8px 8px 8px 0;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        .code {
+            background: #2d3748;
+            color: #48bb78;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Diagnóstico do Sistema</h1>
+        <p class="subtitle">Verificação completa do SEDES DF 2026</p>
+
+        <div class="section">
+            <h2>📊 Status Geral</h2>
+            <div class="item">
+                <span class="label">LocalStorage Disponível:</span>
+                <span class="value" id="localStorageStatus">Verificando...</span>
+            </div>
+            <div class="item">
+                <span class="label">Função toggleSenhaVisivel:</span>
+                <span class="value" id="funcaoStatus">Verificando...</span>
+            </div>
+            <div class="item">
+                <span class="label">Função verificarSenhaAluno:</span>
+                <span class="value" id="debugStatus">Verificando...</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👥 Alunos Cadastrados</h2>
+            <div id="alunosInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>💰 Mensalidades</h2>
+            <div id="mensalidadesInfo"></div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Ações</h2>
+            <button class="btn" onclick="testarLogin()">🔐 Testar Login</button>
+            <button class="btn btn-secondary" onclick="limparTudo()">🗑️ Limpar Tudo</button>
+            <button class="btn btn-secondary" onclick="criarAlunoTeste()">➕ Criar Aluno Teste</button>
+            <button class="btn btn-secondary" onclick="location.reload()">🔄 Atualizar</button>
+        </div>
+
+        <div class="section">
+            <h2>📋 Comandos Úteis</h2>
+            <div class="code">
+// Ver todos os alunos<br>
+const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');<br>
+console.table(alunos);<br>
+<br>
+// Verificar senha de um aluno<br>
+verificarSenhaAluno('email@exemplo.com');<br>
+<br>
+// Limpar tudo<br>
+localStorage.clear();<br>
+location.reload();
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function verificarSistema() {
+            // Verificar localStorage
+            try {
+                localStorage.setItem('teste', 'ok');
+                localStorage.removeItem('teste');
+                document.getElementById('localStorageStatus').textContent = '✅ OK';
+                document.getElementById('localStorageStatus').className = 'value ok';
+            } catch (e) {
+                document.getElementById('localStorageStatus').textContent = '❌ ERRO';
+                document.getElementById('localStorageStatus').className = 'value error';
+            }
+
+            // Verificar funções (tentar carregar index.html)
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'index.html';
+            document.body.appendChild(iframe);
+
+            setTimeout(() => {
+                try {
+                    const funcaoExiste = typeof iframe.contentWindow.toggleSenhaVisivel === 'function';
+                    const debugExiste = typeof iframe.contentWindow.verificarSenhaAluno === 'function';
+                    
+                    document.getElementById('funcaoStatus').textContent = funcaoExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
+                    document.getElementById('funcaoStatus').className = 'value ' + (funcaoExiste ? 'ok' : 'error');
+                    
+                    document.getElementById('debugStatus').textContent = debugExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
+                    document.getElementById('debugStatus').className = 'value ' + (debugExiste ? 'ok' : 'error');
+                } catch (e) {
+                    document.getElementById('funcaoStatus').textContent = '⚠️ ERRO';
+                    document.getElementById('funcaoStatus').className = 'value warning';
+                    document.getElementById('debugStatus').textContent = '⚠️ ERRO';
+                    document.getElementById('debugStatus').className = 'value warning';
+                }
+                
+                document.body.removeChild(iframe);
+            }, 1000);
+
+            // Carregar alunos
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            const alunosDiv = document.getElementById('alunosInfo');
+            
+            if (alunos.length === 0) {
+                alunosDiv.innerHTML = '<div class="empty">Nenhum aluno cadastrado</div>';
+            } else {
+                let html = `<table>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Senha</th>
+                        <th>Plano</th>
+                        <th>Ativo</th>
+                    </tr>`;
+                
+                alunos.forEach(a => {
+                    html += `<tr>
+                        <td>${a.nome}</td>
+                        <td>${a.email}</td>
+                        <td><code>${a.senha}</code></td>
+                        <td>${a.plano}</td>
+                        <td>${a.ativo ? '✅' : '❌'}</td>
+                    </tr>`;
+                });
+                
+                html += '</table>';
+                alunosDiv.innerHTML = html;
+            }
+
+            // Carregar mensalidades
+            const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+            const mensDiv = document.getElementById('mensalidadesInfo');
+            
+            if (mensalidades.length === 0) {
+                mensDiv.innerHTML = '<div class="empty">Nenhuma mensalidade cadastrada</div>';
+            } else {
+                let html = `<table>
+                    <tr>
+                        <th>Aluno ID</th>
+                        <th>Valor</th>
+                        <th>Vencimento</th>
+                        <th>Status</th>
+                    </tr>`;
+                
+                mensalidades.forEach(m => {
+                    html += `<tr>
+                        <td>${m.alunoId}</td>
+                        <td>R$ ${m.valor}</td>
+                        <td>${m.vencimento}</td>
+                        <td>${m.status}</td>
+                    </tr>`;
+                });
+                
+                html += '</table>';
+                mensDiv.innerHTML = html;
+            }
+        }
+
+        function testarLogin() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            if (alunos.length === 0) {
+                alert('❌ Nenhum aluno cadastrado!\n\nCrie um aluno teste primeiro.');
+                return;
+            }
+
+            const aluno = alunos[0];
+            alert(`🔐 Teste de Login\n\nEmail: ${aluno.email}\nSenha: ${aluno.senha}\n\nCopie estes dados e teste no sistema!`);
+            
+            // Copiar para clipboard
+            const texto = `Email: ${aluno.email}\nSenha: ${aluno.senha}`;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Dados copiados para a área de transferência!');
+            });
+        }
+
+        function limparTudo() {
+            if (!confirm('⚠️ ATENÇÃO!\n\nIsso vai apagar TODOS os dados:\n- Alunos\n- Mensalidades\n- Configurações\n\nTem certeza?')) {
+                return;
+            }
+
+            localStorage.clear();
+            alert('✅ Tudo limpo!\n\nA página será recarregada.');
+            location.reload();
+        }
+
+        function criarAlunoTeste() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            
+            const aluno = {
+                id: Date.now(),
+                nome: 'Aluno Teste',
+                email: 'teste@sedes.com',
+                senha: 'Sedes',
+                cpf: '123.456.789-00',
+                telefone: '(61) 99999-9999',
+                cargo: 'Agente',
+                plano: 'pro',
+                valorMensalidade: 197,
+                dataCadastro: new Date().toISOString(),
+                ativo: true
+            };
+
+            alunos.push(aluno);
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+
+            // Criar mensalidade
+            const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+            const hoje = new Date();
+            const proximoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 10);
+
+            mensalidades.push({
+                id: Date.now(),
+                alunoId: aluno.id,
+                valor: 197,
+                vencimento: proximoMes.toISOString().split('T')[0],
+                status: 'pago',
+                dataPagamento: hoje.toISOString().split('T')[0]
+            });
+            localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+
+            alert('✅ Aluno teste criado!\n\nEmail: teste@sedes.com\nSenha: Sedes\n\nA página será recarregada.');
+            location.reload();
+        }
+
+        // Verificar ao carregar
+        window.onload = verificarSistema;
+    </script>
+</body>
+</html>

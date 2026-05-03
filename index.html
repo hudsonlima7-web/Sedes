@@ -1779,28 +1779,41 @@ function alunoLogin(event){
  const errorEl = document.getElementById('loginError');
  const btnEl = document.getElementById('loginBtn');
  
+ console.log('🔐 Tentativa de login:', { email, senha: '***' });
+ 
  if(!email || !senha){
   errorEl.textContent = '⚠️ Preencha e-mail e senha';
   errorEl.classList.add('show');
+  console.log('❌ Campos vazios');
   return;
  }
  
  // Buscar aluno no localStorage
  const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ console.log('📊 Total de alunos cadastrados:', alunos.length);
+ console.log('👥 Alunos:', alunos.map(a => ({ email: a.email, senha: a.senha })));
+ 
  const aluno = alunos.find(a => a.email.toLowerCase() === email && a.senha === senha);
  
  if(!aluno){
   errorEl.textContent = '❌ E-mail ou senha incorretos';
   errorEl.classList.add('show');
+  console.log('❌ Aluno não encontrado ou senha incorreta');
+  console.log('🔍 Buscando:', { email, senha });
   return;
  }
+ 
+ console.log('✅ Aluno encontrado:', aluno.nome);
  
  // Verificar se aluno está ativo (pagamento em dia)
  if(!verificarAcessoAluno(aluno.id)){
   errorEl.textContent = '🚫 Acesso bloqueado - Mensalidade em atraso. Entre em contato com a secretaria.';
   errorEl.classList.add('show');
+  console.log('🚫 Acesso bloqueado - inadimplente');
   return;
  }
+ 
+ console.log('✅ Acesso liberado - pagamento em dia');
  
  // Login bem-sucedido
  errorEl.classList.remove('show');
@@ -1816,6 +1829,8 @@ function alunoLogin(event){
   loginAt: new Date().toISOString()
  }));
  
+ console.log('💾 Login salvo no localStorage');
+ 
  // Redirecionar
  setTimeout(() => {
   document.getElementById('loginScreen').style.display = 'none';
@@ -1827,10 +1842,12 @@ function alunoLogin(event){
    document.getElementById('hdr').style.display = 'flex';
    document.getElementById('appEl').style.display = 'flex';
    document.getElementById('bnav').style.display = 'flex';
+   console.log('🚀 Iniciando app...');
    initApp();
   } else {
    // Mostrar onboarding
    document.getElementById('ob').style.display = 'flex';
+   console.log('👋 Mostrando onboarding...');
    renderOb();
    setNivel(obNiv);
   }
