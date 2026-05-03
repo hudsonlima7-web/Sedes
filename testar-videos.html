@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Vídeos - SEDES DF</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .video-thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background: #ddd;
+        }
+        .video-info {
+            padding: 12px;
+        }
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .video-meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .video-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .video-link {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #FF0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            margin-bottom: 12px;
+            color: #333;
+        }
+        .summary-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stat-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Teste de Vídeos do YouTube - SEDES DF 2026</h1>
+    
+    <div class="summary" id="summary">
+        <h2>📊 Resumo</h2>
+        <div class="summary-stats">
+            <div class="stat">
+                <span>Total:</span>
+                <span class="stat-value" id="total">0</span>
+            </div>
+            <div class="stat">
+                <span>✅ OK:</span>
+                <span class="stat-value" style="color: #28a745" id="ok">0</span>
+            </div>
+            <div class="stat">
+                <span>❌ Erro:</span>
+                <span class="stat-value" style="color: #dc3545" id="error">0</span>
+            </div>
+            <div class="stat">
+                <span>⏳ Carregando:</span>
+                <span class="stat-value" style="color: #ffc107" id="loading">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-grid" id="videoGrid"></div>
+
+    <script>
+        // Array de vídeos do sistema
+        const VIDEOS = [
+            // Assistência Social
+            {id:'v1',ti:'LOAS Completa para Concursos | Lei 8.742/93',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'Ks-_Mh1QhMc',du:'58min',nv:'Fundamental'},
+            {id:'v2',ti:'SUAS | Sistema Único de Assistência Social',cn:'Gran Cursos',ma:'as',ca:'g',yt:'5qap5aO4i9A',du:'45min',nv:'Fundamental'},
+            {id:'v3',ti:'Assistência Social | LOAS e SUAS para Concursos',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'jfKfPfyJRdk',du:'50min',nv:'Médio'},
+            {id:'v4',ti:'BPC/LOAS | Benefício de Prestação Continuada',cn:'Gran Cursos',ma:'as',ca:'g',yt:'l482T0yNkeo',du:'35min',nv:'Médio'},
+            
+            // Direito Constitucional
+            {id:'v5',ti:'Seguridade Social | CF/88 Art. 194-204',cn:'Estratégia Concursos',ma:'dc',ca:'g',yt:'dU1xS07y-FA',du:'41min',nv:'Médio'},
+            {id:'v6',ti:'Direitos Sociais | CF/88 Completo',cn:'Gran Cursos',ma:'dc',ca:'g',yt:'videoseries',du:'38min',nv:'Fundamental'},
+            
+            // Direito Administrativo
+            {id:'v7',ti:'Princípios da Administração Pública',cn:'Gran Cursos',ma:'das',ca:'g',yt:'RKmxL8VYy0M',du:'52min',nv:'Médio'},
+            {id:'v8',ti:'Atos Administrativos | Teoria Completa',cn:'Estratégia Concursos',ma:'das',ca:'g',yt:'ntoLk-lSRLI',du:'48min',nv:'Médio'},
+            {id:'v9',ti:'Lei 14.133/2021 | Nova Lei de Licitações',cn:'Gran Cursos',ma:'das',ca:'g',yt:'FUp4bkYzPhA',du:'55min',nv:'Avançado'},
+            
+            // Língua Portuguesa
+            {id:'v10',ti:'Concordância Verbal e Nominal',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'sTJ7AzBIJoI',du:'38min',nv:'Médio'},
+            {id:'v11',ti:'Interpretação de Texto para Concursos',cn:'Estratégia Concursos',ma:'lp',ca:'g',yt:'videoseries',du:'42min',nv:'Fundamental'},
+            {id:'v12',ti:'Redação para Concursos | Estrutura',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'videoseries',du:'50min',nv:'Médio'},
+            
+            // Legislação DF
+            {id:'v13',ti:'Legislação do Distrito Federal',cn:'Direção Concursos',ma:'lodf',ca:'t',yt:'videoseries',du:'44min',nv:'Fundamental'},
+            {id:'v14',ti:'Lei Orgânica do DF | LODF',cn:'Gran Cursos',ma:'lodf',ca:'g',yt:'videoseries',du:'60min',nv:'Avançado'},
+            
+            // Específico - Pedagogia
+            {id:'v15',ti:'ECA | Estatuto da Criança e do Adolescente',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'55min',nv:'Fundamental'},
+            {id:'v16',ti:'SINASE | Sistema Socioeducativo',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'40min',nv:'Médio'},
+            {id:'v17',ti:'Pedagogia Social | Conceitos',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'45min',nv:'Médio'},
+            
+            // Específico - Serviço Social
+            {id:'v18',ti:'Código de Ética do Assistente Social',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'38min',nv:'Fundamental'},
+            {id:'v19',ti:'Política Nacional de Assistência Social',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'52min',nv:'Avançado'},
+            
+            // Específico - Psicologia
+            {id:'v20',ti:'Psicologia Social e Comunitária',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'psicologia',yt:'videoseries',du:'48min',nv:'Médio'},
+        ];
+
+        let stats = { total: VIDEOS.length, ok: 0, error: 0, loading: VIDEOS.length };
+
+        function updateStats() {
+            document.getElementById('total').textContent = stats.total;
+            document.getElementById('ok').textContent = stats.ok;
+            document.getElementById('error').textContent = stats.error;
+            document.getElementById('loading').textContent = stats.loading;
+        }
+
+        function testVideo(video) {
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.id = `card-${video.id}`;
+            
+            const ytUrl = `https://www.youtube.com/watch?v=${video.yt}`;
+            const thumbUrl = `https://img.youtube.com/vi/${video.yt}/mqdefault.jpg`;
+            
+            card.innerHTML = `
+                <img class="video-thumb" src="${thumbUrl}" alt="${video.ti}" id="thumb-${video.id}">
+                <div class="video-info">
+                    <div class="video-title">${video.ti}</div>
+                    <div class="video-meta">
+                        <div>📺 ${video.cn}</div>
+                        <div>⏱ ${video.du} • 📊 ${video.nv}</div>
+                        <div>🆔 ${video.yt}</div>
+                    </div>
+                    <span class="video-status status-loading" id="status-${video.id}">⏳ Testando...</span>
+                    <a class="video-link" href="${ytUrl}" target="_blank">🔴 Abrir no YouTube</a>
+                </div>
+            `;
+            
+            document.getElementById('videoGrid').appendChild(card);
+            
+            // Testar thumbnail
+            const img = document.getElementById(`thumb-${video.id}`);
+            const status = document.getElementById(`status-${video.id}`);
+            
+            img.onload = function() {
+                // Verificar se é uma imagem válida (não é o placeholder do YouTube)
+                if (this.naturalWidth > 100) {
+                    status.textContent = '✅ OK';
+                    status.className = 'video-status status-ok';
+                    stats.ok++;
+                } else {
+                    status.textContent = '❌ Thumbnail inválida';
+                    status.className = 'video-status status-error';
+                    stats.error++;
+                }
+                stats.loading--;
+                updateStats();
+            };
+            
+            img.onerror = function() {
+                status.textContent = '❌ Erro ao carregar';
+                status.className = 'video-status status-error';
+                stats.error++;
+                stats.loading--;
+                updateStats();
+                
+                // Mostrar placeholder
+                this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22%3E%3Crect fill=%22%23667eea%22 width=%22320%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2220%22 font-weight=%22bold%22%3E📺 Videoaula%3C/text%3E%3C/svg%3E';
+            };
+            
+            // Timeout de 5 segundos
+            setTimeout(() => {
+                if (status.textContent.includes('Testando')) {
+                    status.textContent = '⚠️ Timeout';
+                    status.className = 'video-status status-error';
+                    stats.error++;
+                    stats.loading--;
+                    updateStats();
+                }
+            }, 5000);
+        }
+
+        // Inicializar
+        updateStats();
+        VIDEOS.forEach(video => testVideo(video));
+    </script>
+</body>
+</html>

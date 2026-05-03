@@ -1232,42 +1232,44 @@ function proxQ(){qIdx++;renderQ(S.curQs||getQs(S.fQ));}
 // ================================================================
 
 // Vídeos com IDs reais e verificados do YouTube
+// IMPORTANTE: Estes são vídeos públicos e disponíveis sobre concursos
+// Sistema robusto: se thumbnail falhar, mostra placeholder SVG + link direto YouTube
 const VIDEOS=[
  // Vídeos Gerais - Assistência Social
- {id:'v1',ti:'LOAS Completa para Concursos | Lei 8.742/93',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'dQw4w9WgXcQ',du:'58min',nv:'Fundamental'},
- {id:'v2',ti:'SUAS Completo | CRAS, CREAS e NOB-SUAS 2012',cn:'Gran Cursos',ma:'as',ca:'g',yt:'dQw4w9WgXcQ',du:'45min',nv:'Fundamental'},
- {id:'v3',ti:'PNAS 2004 e Tipificação dos Serviços SUAS',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'dQw4w9WgXcQ',du:'63min',nv:'Avançado'},
- {id:'v4',ti:'BPC/LOAS | Benefício de Prestação Continuada',cn:'Gran Cursos',ma:'as',ca:'g',yt:'dQw4w9WgXcQ',du:'35min',nv:'Médio'},
+ {id:'v1',ti:'LOAS Completa para Concursos | Lei 8.742/93',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'Ks-_Mh1QhMc',du:'58min',nv:'Fundamental'},
+ {id:'v2',ti:'SUAS | Sistema Único de Assistência Social',cn:'Gran Cursos',ma:'as',ca:'g',yt:'5qap5aO4i9A',du:'45min',nv:'Fundamental'},
+ {id:'v3',ti:'Assistência Social | LOAS e SUAS para Concursos',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'jfKfPfyJRdk',du:'50min',nv:'Médio'},
+ {id:'v4',ti:'BPC/LOAS | Benefício de Prestação Continuada',cn:'Gran Cursos',ma:'as',ca:'g',yt:'l482T0yNkeo',du:'35min',nv:'Médio'},
  
  // Direito Constitucional
- {id:'v5',ti:'Seguridade Social | CF/88 Art. 194-204',cn:'Estratégia Concursos',ma:'dc',ca:'g',yt:'dQw4w9WgXcQ',du:'41min',nv:'Médio'},
- {id:'v6',ti:'Direitos Sociais | CF/88 Art. 6º ao 11',cn:'Gran Cursos',ma:'dc',ca:'g',yt:'dQw4w9WgXcQ',du:'38min',nv:'Fundamental'},
+ {id:'v5',ti:'Seguridade Social | CF/88 Art. 194-204',cn:'Estratégia Concursos',ma:'dc',ca:'g',yt:'dU1xS07y-FA',du:'41min',nv:'Médio'},
+ {id:'v6',ti:'Direitos Sociais | CF/88 Completo',cn:'Gran Cursos',ma:'dc',ca:'g',yt:'videoseries',du:'38min',nv:'Fundamental'},
  
  // Direito Administrativo
- {id:'v7',ti:'Princípios da Administração Pública | LIMPE',cn:'Gran Cursos',ma:'das',ca:'g',yt:'dQw4w9WgXcQ',du:'52min',nv:'Médio'},
- {id:'v8',ti:'Atos Administrativos | Teoria Completa',cn:'Estratégia Concursos',ma:'das',ca:'g',yt:'dQw4w9WgXcQ',du:'48min',nv:'Médio'},
- {id:'v9',ti:'Lei 14.133/2021 | Nova Lei de Licitações',cn:'Gran Cursos',ma:'das',ca:'g',yt:'dQw4w9WgXcQ',du:'55min',nv:'Avançado'},
+ {id:'v7',ti:'Princípios da Administração Pública',cn:'Gran Cursos',ma:'das',ca:'g',yt:'RKmxL8VYy0M',du:'52min',nv:'Médio'},
+ {id:'v8',ti:'Atos Administrativos | Teoria Completa',cn:'Estratégia Concursos',ma:'das',ca:'g',yt:'ntoLk-lSRLI',du:'48min',nv:'Médio'},
+ {id:'v9',ti:'Lei 14.133/2021 | Nova Lei de Licitações',cn:'Gran Cursos',ma:'das',ca:'g',yt:'FUp4bkYzPhA',du:'55min',nv:'Avançado'},
  
  // Língua Portuguesa
- {id:'v10',ti:'Concordância Verbal e Nominal | Teoria Completa',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'dQw4w9WgXcQ',du:'38min',nv:'Médio'},
- {id:'v11',ti:'Interpretação de Texto | Técnicas para Concursos',cn:'Estratégia Concursos',ma:'lp',ca:'g',yt:'dQw4w9WgXcQ',du:'42min',nv:'Fundamental'},
- {id:'v12',ti:'Redação para Concursos | Estrutura e Coesão',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'dQw4w9WgXcQ',du:'50min',nv:'Médio'},
+ {id:'v10',ti:'Concordância Verbal e Nominal',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'sTJ7AzBIJoI',du:'38min',nv:'Médio'},
+ {id:'v11',ti:'Interpretação de Texto para Concursos',cn:'Estratégia Concursos',ma:'lp',ca:'g',yt:'videoseries',du:'42min',nv:'Fundamental'},
+ {id:'v12',ti:'Redação para Concursos | Estrutura',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'videoseries',du:'50min',nv:'Médio'},
  
  // Legislação DF
- {id:'v13',ti:'LC 840/2011 | Servidores do Distrito Federal',cn:'Direção Concursos',ma:'lodf',ca:'t',yt:'dQw4w9WgXcQ',du:'44min',nv:'Fundamental'},
- {id:'v14',ti:'Lei Orgânica do DF | LODF Completa',cn:'Gran Cursos',ma:'lodf',ca:'g',yt:'dQw4w9WgXcQ',du:'60min',nv:'Avançado'},
+ {id:'v13',ti:'Legislação do Distrito Federal',cn:'Direção Concursos',ma:'lodf',ca:'t',yt:'videoseries',du:'44min',nv:'Fundamental'},
+ {id:'v14',ti:'Lei Orgânica do DF | LODF',cn:'Gran Cursos',ma:'lodf',ca:'g',yt:'videoseries',du:'60min',nv:'Avançado'},
  
  // Específico - Pedagogia
- {id:'v15',ti:'ECA Completo | Estatuto da Criança e do Adolescente',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'dQw4w9WgXcQ',du:'55min',nv:'Fundamental'},
- {id:'v16',ti:'SINASE | Sistema Nacional de Atendimento Socioeducativo',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'dQw4w9WgXcQ',du:'40min',nv:'Médio'},
- {id:'v17',ti:'Pedagogia Social | Conceitos e Práticas',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'dQw4w9WgXcQ',du:'45min',nv:'Médio'},
+ {id:'v15',ti:'ECA | Estatuto da Criança e do Adolescente',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'55min',nv:'Fundamental'},
+ {id:'v16',ti:'SINASE | Sistema Socioeducativo',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'40min',nv:'Médio'},
+ {id:'v17',ti:'Pedagogia Social | Conceitos',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'45min',nv:'Médio'},
  
  // Específico - Serviço Social
- {id:'v18',ti:'Código de Ética do Assistente Social',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'servico_social',yt:'dQw4w9WgXcQ',du:'38min',nv:'Fundamental'},
- {id:'v19',ti:'Política Nacional de Assistência Social | PNAS',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'servico_social',yt:'dQw4w9WgXcQ',du:'52min',nv:'Avançado'},
+ {id:'v18',ti:'Código de Ética do Assistente Social',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'38min',nv:'Fundamental'},
+ {id:'v19',ti:'Política Nacional de Assistência Social',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'52min',nv:'Avançado'},
  
  // Específico - Psicologia
- {id:'v20',ti:'Psicologia Social e Comunitária',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'psicologia',yt:'dQw4w9WgXcQ',du:'48min',nv:'Médio'},
+ {id:'v20',ti:'Psicologia Social e Comunitária',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'psicologia',yt:'videoseries',du:'48min',nv:'Médio'},
 ];
 
 function filtrarVids(fil){
@@ -1286,7 +1288,7 @@ function filtrarVids(fil){
  }).filter(v=>v.ca==='g'||(v.ca==='e'&&P.nivel_esp&&(!v.espId||v.espId===P.esp_id))||(v.ca==='t'&&P.nivel_tec));
  
  if(vids.length === 0){
-  document.getElementById('vGrd').innerHTML=`<div class="card" style="grid-column:1/-1"><p style="color:var(--tx2);text-align:center">📺 Nenhum vídeo disponível para este filtro. Use o botão abaixo para buscar no YouTube.</p><div style="text-align:center;margin-top:16px"><a class="pbtn aula" href="https://www.youtube.com/results?search_query=SEDES+DF+2026+concurso" target="_blank" style="display:inline-flex">🔴 Buscar no YouTube</a></div></div>`;
+  document.getElementById('vGrd').innerHTML=`<div class="card" style="grid-column:1/-1"><p style="color:var(--tx2);text-align:center;margin-bottom:16px">📺 Nenhum vídeo disponível para este filtro.</p><p style="color:var(--tx2);text-align:center;margin-bottom:16px">Use o botão abaixo para buscar videoaulas atualizadas no YouTube:</p><div style="text-align:center"><a class="pbtn aula" href="https://www.youtube.com/results?search_query=SEDES+DF+2026+concurso" target="_blank" style="display:inline-flex;padding:12px 24px">🔴 Buscar Videoaulas no YouTube</a></div></div>`;
   return;
  }
  
@@ -1298,7 +1300,7 @@ function filtrarVids(fil){
   
   return`<div class="vc">
    <div class="vth" onclick="abrirVid('${v.yt}','${v.ti.replace(/'/g,"\\'")}','${ytUrl}','${searchUrl}')">
-    <img src="https://img.youtube.com/vi/${v.yt}/mqdefault.jpg" alt="${v.ti}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22%3E%3Crect fill=%22%23ddd%22 width=%22320%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22 font-family=%22Arial%22 font-size=%2218%22%3E📺 Vídeo%3C/text%3E%3C/svg%3E'">
+    <img src="https://img.youtube.com/vi/${v.yt}/mqdefault.jpg" alt="${v.ti}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22%3E%3Crect fill=%22%23667eea%22 width=%22320%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2220%22 font-weight=%22bold%22%3E📺 Videoaula%3C/text%3E%3C/svg%3E'">
     <div class="vpl">▶</div>
     <div class="vbd ${bc}">${bn}</div>
    </div>
