@@ -353,6 +353,17 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
    <button class="nav-i" onclick="pg('ia')"><span class="ni">🤖</span>Tutor IA<span class="nb rx">IA</span></button>
    <button class="nav-i" onclick="pg('atualizacoes')"><span class="ni">📡</span>Atualizações<span class="nb rd" id="updBdg">3</span></button>
   </div>
+  <div class="sb-lbl" id="adminLbl" style="display:none">Administração</div>
+  <div class="sb-sec" id="adminMenu" style="display:none">
+   <button class="nav-i" onclick="pg('admin-alunos')"><span class="ni">👥</span>Alunos</button>
+   <button class="nav-i" onclick="pg('admin-mensalidades')"><span class="ni">💰</span>Mensalidades</button>
+   <button class="nav-i" onclick="pg('admin-acessos')"><span class="ni">🔑</span>Acessos</button>
+   <button class="nav-i" onclick="pg('admin-config')"><span class="ni">⚙️</span>Configurações</button>
+   <button class="nav-i" onclick="adminLogout()"><span class="ni">🚪</span>Sair Admin</button>
+  </div>
+  <div class="sb-sec" style="margin-top:8px">
+   <button class="nav-i" onclick="pg('admin-login')" id="btnAdminLogin"><span class="ni">🔐</span>Admin</button>
+  </div>
   <div class="sb-sec" style="margin-top:8px">
    <div style="font-size:.67rem;color:var(--tx2);padding:6px 9px;display:flex;align-items:center;gap:5px"><span class="sync-dot"></span><span id="syncLbl">Sincronizado</span></div>
   </div>
@@ -458,6 +469,248 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
    <div class="ss2">Clique em "🔄 Atualizar" para buscar novas informações do edital na internet</div>
    <div class="sync-status" id="syncSt"><span>☁️</span><span id="syncStTxt">Aguardando atualização...</span></div>
    <div class="card"><div class="ch"><span class="ct">🔔 Histórico</span></div><div style="background:var(--ci);border-radius:var(--r2);padding:11px 13px;font-size:.79rem;max-height:320px;overflow-y:auto;line-height:1.8" id="updLog"></div></div>
+  </div>
+
+  <!-- ADMIN LOGIN -->
+  <div class="page" id="page-admin-login">
+   <div class="st2">🔐 Acesso Administrativo</div>
+   <div class="ss2">Área restrita para administradores</div>
+   <div class="card" style="max-width:400px;margin:40px auto">
+    <div style="text-align:center;margin-bottom:20px">
+     <div style="font-size:3rem;margin-bottom:10px">🔐</div>
+     <h3 style="font-family:'Syne',sans-serif;font-size:1.1rem;margin-bottom:5px">Login Administrativo</h3>
+     <p style="font-size:.8rem;color:var(--tx2)">Acesso restrito à secretaria</p>
+    </div>
+    <div style="margin-bottom:14px">
+     <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:5px">Usuário</label>
+     <input type="text" id="adminUser" placeholder="Digite o usuário" style="width:100%;padding:10px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.85rem;font-family:'DM Sans',sans-serif">
+    </div>
+    <div style="margin-bottom:18px">
+     <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:5px">Senha</label>
+     <input type="password" id="adminPass" placeholder="Digite a senha" style="width:100%;padding:10px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.85rem;font-family:'DM Sans',sans-serif" onkeypress="if(event.key==='Enter')adminLogin()">
+    </div>
+    <div class="ia-err" id="adminErr" style="display:none;margin-bottom:12px"></div>
+    <button onclick="adminLogin()" style="width:100%;padding:12px;background:var(--az);color:white;border:none;border-radius:var(--r2);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer">🔓 Entrar</button>
+    <div style="margin-top:14px;padding:10px;background:var(--ci);border-radius:var(--r2);font-size:.75rem;color:var(--tx2);line-height:1.6">
+     <strong>Credenciais de acesso:</strong><br>
+     Usuário: <code style="background:white;padding:2px 6px;border-radius:4px">admin</code><br>
+     Senha: <code style="background:white;padding:2px 6px;border-radius:4px">Hudson*</code>
+    </div>
+   </div>
+  </div>
+
+  <!-- ADMIN ALUNOS -->
+  <div class="page" id="page-admin-alunos">
+   <div class="st2">👥 Gestão de Alunos</div>
+   <div class="ss2">Cadastro e gerenciamento de alunos</div>
+   <div class="card">
+    <div class="ch">
+     <span class="ct">➕ Novo Aluno</span>
+     <button onclick="toggleNovoAluno()" class="bq pri" style="font-size:.8rem;padding:6px 14px">+ Adicionar</button>
+    </div>
+    <div id="formNovoAluno" style="display:none;background:var(--ci);padding:16px;border-radius:var(--r2);margin-bottom:16px">
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Nome Completo *</label>
+       <input type="text" id="alunoNome" placeholder="Nome do aluno" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Email *</label>
+       <input type="email" id="alunoEmail" placeholder="email@exemplo.com" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+     </div>
+     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">CPF</label>
+       <input type="text" id="alunoCPF" placeholder="000.000.000-00" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Telefone</label>
+       <input type="text" id="alunoTel" placeholder="(00) 00000-0000" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Data Matrícula</label>
+       <input type="date" id="alunoData" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+     </div>
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Cargo Pretendido</label>
+       <select id="alunoCargo" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+        <option value="especialista">Especialista (Superior)</option>
+        <option value="tecnico">Técnico (Médio)</option>
+        <option value="ambos">Ambos os Cargos</option>
+       </select>
+      </div>
+      <div>
+       <label style="font-size:.75rem;font-weight:600;display:block;margin-bottom:4px">Valor Mensalidade (R$)</label>
+       <input type="number" id="alunoValor" placeholder="150.00" step="0.01" style="width:100%;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      </div>
+     </div>
+     <div style="display:flex;gap:8px">
+      <button onclick="salvarAluno()" class="bq pri">💾 Salvar Aluno</button>
+      <button onclick="toggleNovoAluno()" class="bq sec">✕ Cancelar</button>
+     </div>
+    </div>
+   </div>
+   <div class="card">
+    <div class="ch">
+     <span class="ct">📋 Lista de Alunos (<span id="totalAlunos">0</span>)</span>
+     <input type="text" id="searchAluno" placeholder="🔍 Buscar aluno..." onkeyup="filtrarAlunos()" style="padding:6px 12px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem;width:200px">
+    </div>
+    <div style="overflow-x:auto">
+     <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+      <thead>
+       <tr style="background:var(--ci);text-align:left">
+        <th style="padding:10px;font-weight:700">Nome</th>
+        <th style="padding:10px;font-weight:700">Email</th>
+        <th style="padding:10px;font-weight:700">Telefone</th>
+        <th style="padding:10px;font-weight:700">Cargo</th>
+        <th style="padding:10px;font-weight:700">Status</th>
+        <th style="padding:10px;font-weight:700;text-align:center">Ações</th>
+       </tr>
+      </thead>
+      <tbody id="tabelaAlunos">
+       <tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+
+  <!-- ADMIN MENSALIDADES -->
+  <div class="page" id="page-admin-mensalidades">
+   <div class="st2">💰 Controle de Mensalidades</div>
+   <div class="ss2">Gerenciamento de pagamentos</div>
+   <div class="sg" style="margin-bottom:16px">
+    <div class="sc"><span class="si">💵</span><span class="sv" id="totalReceber">R$ 0</span><span class="sl">Total a Receber</span><span class="st" id="qtdPendentes">0 pendentes</span></div>
+    <div class="sc"><span class="si">✅</span><span class="sv" id="totalRecebido">R$ 0</span><span class="sl">Recebido no Mês</span><span class="st" id="qtdPagos">0 pagos</span></div>
+    <div class="sc"><span class="si">⚠️</span><span class="sv" id="totalAtrasado">R$ 0</span><span class="sl">Em Atraso</span><span class="st" id="qtdAtrasados">0 atrasados</span></div>
+    <div class="sc"><span class="si">📊</span><span class="sv" id="taxaPagamento">0%</span><span class="sl">Taxa de Pagamento</span><span class="st">Mês atual</span></div>
+   </div>
+   <div class="card">
+    <div class="ch">
+     <span class="ct">📅 Mensalidades do Mês</span>
+     <select id="mesFiltro" onchange="filtrarMensalidades()" style="padding:6px 12px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      <option value="atual">Mês Atual</option>
+      <option value="anterior">Mês Anterior</option>
+      <option value="todos">Todos</option>
+     </select>
+    </div>
+    <div style="overflow-x:auto">
+     <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+      <thead>
+       <tr style="background:var(--ci);text-align:left">
+        <th style="padding:10px;font-weight:700">Aluno</th>
+        <th style="padding:10px;font-weight:700">Vencimento</th>
+        <th style="padding:10px;font-weight:700">Valor</th>
+        <th style="padding:10px;font-weight:700">Status</th>
+        <th style="padding:10px;font-weight:700">Pagamento</th>
+        <th style="padding:10px;font-weight:700;text-align:center">Ações</th>
+       </tr>
+      </thead>
+      <tbody id="tabelaMensalidades">
+       <tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhuma mensalidade cadastrada</td></tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+
+  <!-- ADMIN ACESSOS -->
+  <div class="page" id="page-admin-acessos">
+   <div class="st2">🔑 Controle de Acessos</div>
+   <div class="ss2">Gerenciamento de permissões e bloqueios</div>
+   <div class="card">
+    <div class="ch"><span class="ct">⚙️ Configurações de Acesso</span></div>
+    <div style="background:var(--ci);padding:16px;border-radius:var(--r2);margin-bottom:16px">
+     <label style="display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer">
+      <input type="checkbox" id="bloquearInadimplentes" onchange="salvarConfigAcesso()" style="width:18px;height:18px">
+      <span style="font-size:.85rem;font-weight:600">🚫 Bloquear acesso de alunos inadimplentes automaticamente</span>
+     </label>
+     <label style="display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer">
+      <input type="checkbox" id="notificarVencimento" onchange="salvarConfigAcesso()" style="width:18px;height:18px">
+      <span style="font-size:.85rem;font-weight:600">📧 Notificar alunos 3 dias antes do vencimento</span>
+     </label>
+     <div style="margin-top:14px">
+      <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:6px">Dias de tolerância após vencimento</label>
+      <input type="number" id="diasTolerancia" value="5" min="0" max="30" onchange="salvarConfigAcesso()" style="width:100px;padding:8px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.8rem">
+      <span style="font-size:.75rem;color:var(--tx2);margin-left:8px">dias</span>
+     </div>
+    </div>
+   </div>
+   <div class="card">
+    <div class="ch"><span class="ct">👥 Status de Acesso dos Alunos</span></div>
+    <div style="overflow-x:auto">
+     <table style="width:100%;border-collapse:collapse;font-size:.8rem">
+      <thead>
+       <tr style="background:var(--ci);text-align:left">
+        <th style="padding:10px;font-weight:700">Aluno</th>
+        <th style="padding:10px;font-weight:700">Email</th>
+        <th style="padding:10px;font-weight:700">Status Pagamento</th>
+        <th style="padding:10px;font-weight:700">Acesso</th>
+        <th style="padding:10px;font-weight:700;text-align:center">Ações</th>
+       </tr>
+      </thead>
+      <tbody id="tabelaAcessos">
+       <tr><td colspan="5" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+
+  <!-- ADMIN CONFIGURAÇÕES -->
+  <div class="page" id="page-admin-config">
+   <div class="st2">⚙️ Configurações do Sistema</div>
+   <div class="ss2">Configurações gerais da plataforma</div>
+   
+   <div class="card">
+    <div class="ch"><span class="ct">🤖 Configuração do Tutor IA</span></div>
+    <div style="background:rgba(0,200,150,.05);border-left:3px solid var(--v);padding:14px;border-radius:var(--r2);margin-bottom:14px;font-size:.82rem;line-height:1.6">
+     <strong>🆓 API Groq - 100% Gratuita!</strong><br>
+     Configure sua chave da API Groq para ativar o Tutor IA. É totalmente grátis!
+    </div>
+    <div style="margin-bottom:14px">
+     <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:6px">Chave da API Groq</label>
+     <input type="password" id="groqApiKeyInput" placeholder="gsk_..." style="width:100%;padding:10px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.85rem;font-family:'DM Sans',sans-serif">
+     <div style="margin-top:6px;font-size:.75rem;color:var(--tx2)">
+      Obtenha sua chave gratuita em: <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline;font-weight:600">console.groq.com</a>
+     </div>
+    </div>
+    <div style="display:flex;gap:8px">
+     <button onclick="salvarGroqKey()" class="bq pri">💾 Salvar Chave</button>
+     <button onclick="testarGroqKey()" class="bq sec">🧪 Testar Conexão</button>
+     <button onclick="limparGroqKey()" class="bq sec">🗑️ Limpar</button>
+    </div>
+    <div id="groqStatus" style="margin-top:12px;padding:10px;border-radius:var(--r2);font-size:.8rem;display:none"></div>
+   </div>
+
+   <div class="card">
+    <div class="ch"><span class="ct">🔐 Segurança</span></div>
+    <div style="margin-bottom:14px">
+     <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:6px">Alterar Senha do Administrador</label>
+     <input type="password" id="novaSenhaAdmin" placeholder="Nova senha" style="width:100%;padding:10px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.85rem;margin-bottom:8px">
+     <input type="password" id="confirmarSenhaAdmin" placeholder="Confirmar senha" style="width:100%;padding:10px;border:2px solid var(--ci2);border-radius:var(--r2);font-size:.85rem">
+    </div>
+    <button onclick="alterarSenhaAdmin()" class="bq pri">🔒 Alterar Senha</button>
+   </div>
+
+   <div class="card">
+    <div class="ch"><span class="ct">📊 Dados do Sistema</span></div>
+    <div style="background:var(--ci);padding:14px;border-radius:var(--r2);margin-bottom:12px">
+     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.82rem">
+      <div><strong>Total de Alunos:</strong> <span id="statAlunos">0</span></div>
+      <div><strong>Alunos Ativos:</strong> <span id="statAtivos">0</span></div>
+      <div><strong>Mensalidades Cadastradas:</strong> <span id="statMensalidades">0</span></div>
+      <div><strong>Taxa de Pagamento:</strong> <span id="statTaxa">0%</span></div>
+     </div>
+    </div>
+    <div style="display:flex;gap:8px">
+     <button onclick="exportarDados()" class="bq pri">📥 Exportar Dados</button>
+     <button onclick="limparDados()" class="bq sec" style="background:var(--vm)">🗑️ Limpar Todos os Dados</button>
+    </div>
+   </div>
   </div>
 
  </main>
@@ -991,7 +1244,7 @@ function renderIASug(){
 
 // CONFIGURE SUA CHAVE DA API GROQ AQUI (100% GRATUITA!)
 // Obtenha em: https://console.groq.com/
-const GROQ_API_KEY = 'sua_chave_aqui'; // ⚠️ SUBSTITUA PELA SUA CHAVE REAL
+const GROQ_API_KEY = localStorage.getItem('groqApiKey') || 'sua_chave_aqui'; // ⚠️ Configure via painel admin
 
 async function testIAConn(){
  if(!GROQ_API_KEY || GROQ_API_KEY === 'sua_chave_aqui'){
@@ -1005,7 +1258,7 @@ async function testIAConn(){
     'Content-Type':'application/json',
     'Authorization': `Bearer ${GROQ_API_KEY}`
    },
-   body:JSON.stringify({model:'llama-3.1-70b-versatile',max_tokens:10,messages:[{role:'user',content:'ok'}]})
+   body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:10,messages:[{role:'user',content:'ok'}]})
   });
   if(r.ok||r.status===401){
    document.getElementById('iaErrBox').classList.remove('show');
@@ -1041,7 +1294,7 @@ async function sendIA(){
     'Authorization': `Bearer ${GROQ_API_KEY}`
    },
    body:JSON.stringify({
-   model:'llama-3.1-70b-versatile',
+   model:'llama-3.3-70b-versatile',
    max_tokens:1000,
    temperature:0.7,
    messages:[
@@ -1139,6 +1392,580 @@ function init(){
   initApp();
  }
 }
+
+// ================================================================
+// SISTEMA ADMINISTRATIVO
+// ================================================================
+
+// Credenciais admin (em produção, use backend seguro!)
+const ADMIN_CREDENTIALS = {
+ username: 'admin',
+ password: 'Hudson*'
+};
+
+// Verificar se está logado como admin
+function isAdminLoggedIn(){
+ return localStorage.getItem('adminLoggedIn') === 'true';
+}
+
+// Login admin
+function adminLogin(){
+ const user = document.getElementById('adminUser').value.trim();
+ const pass = document.getElementById('adminPass').value;
+ const err = document.getElementById('adminErr');
+ 
+ if(!user || !pass){
+  err.textContent = '⚠️ Preencha usuário e senha';
+  err.style.display = 'block';
+  return;
+ }
+ 
+ // Verificar senha salva ou padrão
+ const senhaCorreta = localStorage.getItem('adminPassword') || ADMIN_CREDENTIALS.password;
+ 
+ if(user === ADMIN_CREDENTIALS.username && pass === senhaCorreta){
+  localStorage.setItem('adminLoggedIn', 'true');
+  err.style.display = 'none';
+  mostrarMenuAdmin();
+  pg('admin-alunos');
+  notif('✅ Login realizado com sucesso!');
+ } else {
+  err.textContent = '❌ Usuário ou senha incorretos';
+  err.style.display = 'block';
+ }
+}
+
+// Logout admin
+function adminLogout(){
+ if(confirm('Deseja sair do painel administrativo?')){
+  localStorage.removeItem('adminLoggedIn');
+  esconderMenuAdmin();
+  pg('dashboard');
+  notif('👋 Logout realizado');
+ }
+}
+
+// Mostrar menu admin
+function mostrarMenuAdmin(){
+ document.getElementById('adminLbl').style.display = 'block';
+ document.getElementById('adminMenu').style.display = 'block';
+ document.getElementById('btnAdminLogin').style.display = 'none';
+}
+
+// Esconder menu admin
+function esconderMenuAdmin(){
+ document.getElementById('adminLbl').style.display = 'none';
+ document.getElementById('adminMenu').style.display = 'none';
+ document.getElementById('btnAdminLogin').style.display = 'block';
+}
+
+// Inicializar dados admin
+function initAdmin(){
+ if(!localStorage.getItem('alunos')){
+  localStorage.setItem('alunos', JSON.stringify([]));
+ }
+ if(!localStorage.getItem('mensalidades')){
+  localStorage.setItem('mensalidades', JSON.stringify([]));
+ }
+ if(!localStorage.getItem('configAcesso')){
+  localStorage.setItem('configAcesso', JSON.stringify({
+   bloquearInadimplentes: true,
+   notificarVencimento: true,
+   diasTolerancia: 5
+  }));
+ }
+ 
+ if(isAdminLoggedIn()){
+  mostrarMenuAdmin();
+ }
+}
+
+// ===== GESTÃO DE ALUNOS =====
+
+function toggleNovoAluno(){
+ const form = document.getElementById('formNovoAluno');
+ form.style.display = form.style.display === 'none' ? 'block' : 'none';
+ if(form.style.display === 'block'){
+  document.getElementById('alunoData').valueAsDate = new Date();
+ }
+}
+
+function salvarAluno(){
+ const nome = document.getElementById('alunoNome').value.trim();
+ const email = document.getElementById('alunoEmail').value.trim();
+ const cpf = document.getElementById('alunoCPF').value.trim();
+ const tel = document.getElementById('alunoTel').value.trim();
+ const data = document.getElementById('alunoData').value;
+ const cargo = document.getElementById('alunoCargo').value;
+ const valor = parseFloat(document.getElementById('alunoValor').value) || 150;
+ 
+ if(!nome || !email){
+  notif('⚠️ Preencha nome e email');
+  return;
+ }
+ 
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const novoAluno = {
+  id: Date.now(),
+  nome,
+  email,
+  cpf,
+  tel,
+  dataMatricula: data || new Date().toISOString().split('T')[0],
+  cargo,
+  valorMensalidade: valor,
+  ativo: true,
+  acessoBloqueado: false
+ };
+ 
+ alunos.push(novoAluno);
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ // Criar primeira mensalidade
+ criarMensalidade(novoAluno.id, valor);
+ 
+ // Limpar form
+ document.getElementById('alunoNome').value = '';
+ document.getElementById('alunoEmail').value = '';
+ document.getElementById('alunoCPF').value = '';
+ document.getElementById('alunoTel').value = '';
+ document.getElementById('alunoValor').value = '';
+ toggleNovoAluno();
+ 
+ carregarAlunos();
+ notif('✅ Aluno cadastrado com sucesso!');
+}
+
+function carregarAlunos(){
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const tbody = document.getElementById('tabelaAlunos');
+ document.getElementById('totalAlunos').textContent = alunos.length;
+ 
+ if(alunos.length === 0){
+  tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>';
+  return;
+ }
+ 
+ tbody.innerHTML = alunos.map(a => `
+  <tr style="border-bottom:1px solid var(--ci2)">
+   <td style="padding:10px;font-weight:600">${a.nome}</td>
+   <td style="padding:10px">${a.email}</td>
+   <td style="padding:10px">${a.tel || '-'}</td>
+   <td style="padding:10px"><span class="tag">${a.cargo}</span></td>
+   <td style="padding:10px">
+    <span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;${a.ativo ? 'background:rgba(0,200,150,.1);color:var(--v2)' : 'background:rgba(229,62,62,.1);color:var(--vm)'}">
+     ${a.ativo ? '✅ Ativo' : '❌ Inativo'}
+    </span>
+   </td>
+   <td style="padding:10px;text-align:center">
+    <button onclick="editarAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:var(--az);color:white;border-radius:6px;cursor:pointer;font-size:.7rem">✏️ Editar</button>
+    <button onclick="toggleAtivoAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:${a.ativo ? 'var(--vm)' : 'var(--v)'};color:white;border-radius:6px;cursor:pointer;font-size:.7rem">${a.ativo ? '🚫 Desativar' : '✅ Ativar'}</button>
+   </td>
+  </tr>
+ `).join('');
+}
+
+function filtrarAlunos(){
+ const busca = document.getElementById('searchAluno').value.toLowerCase();
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const filtrados = alunos.filter(a => 
+  a.nome.toLowerCase().includes(busca) || 
+  a.email.toLowerCase().includes(busca)
+ );
+ 
+ const tbody = document.getElementById('tabelaAlunos');
+ if(filtrados.length === 0){
+  tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno encontrado</td></tr>';
+  return;
+ }
+ 
+ tbody.innerHTML = filtrados.map(a => `
+  <tr style="border-bottom:1px solid var(--ci2)">
+   <td style="padding:10px;font-weight:600">${a.nome}</td>
+   <td style="padding:10px">${a.email}</td>
+   <td style="padding:10px">${a.tel || '-'}</td>
+   <td style="padding:10px"><span class="tag">${a.cargo}</span></td>
+   <td style="padding:10px">
+    <span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;${a.ativo ? 'background:rgba(0,200,150,.1);color:var(--v2)' : 'background:rgba(229,62,62,.1);color:var(--vm)'}">
+     ${a.ativo ? '✅ Ativo' : '❌ Inativo'}
+    </span>
+   </td>
+   <td style="padding:10px;text-align:center">
+    <button onclick="editarAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:var(--az);color:white;border-radius:6px;cursor:pointer;font-size:.7rem">✏️ Editar</button>
+    <button onclick="toggleAtivoAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:${a.ativo ? 'var(--vm)' : 'var(--v)'};color:white;border-radius:6px;cursor:pointer;font-size:.7rem">${a.ativo ? '🚫 Desativar' : '✅ Ativar'}</button>
+   </td>
+  </tr>
+ `).join('');
+}
+
+function toggleAtivoAluno(id){
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const aluno = alunos.find(a => a.id === id);
+ if(aluno){
+  aluno.ativo = !aluno.ativo;
+  localStorage.setItem('alunos', JSON.stringify(alunos));
+  carregarAlunos();
+  notif(aluno.ativo ? '✅ Aluno ativado' : '🚫 Aluno desativado');
+ }
+}
+
+function editarAluno(id){
+ notif('ℹ️ Função de edição em desenvolvimento');
+}
+
+// ===== MENSALIDADES =====
+
+function criarMensalidade(alunoId, valor){
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const hoje = new Date();
+ const vencimento = new Date(hoje.getFullYear(), hoje.getMonth(), 10); // Dia 10 de cada mês
+ 
+ const novaMensalidade = {
+  id: Date.now(),
+  alunoId,
+  mes: hoje.getMonth() + 1,
+  ano: hoje.getFullYear(),
+  valor,
+  vencimento: vencimento.toISOString().split('T')[0],
+  pago: false,
+  dataPagamento: null
+ };
+ 
+ mensalidades.push(novaMensalidade);
+ localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+}
+
+function carregarMensalidades(){
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const tbody = document.getElementById('tabelaMensalidades');
+ const hoje = new Date();
+ 
+ if(mensalidades.length === 0){
+  tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhuma mensalidade cadastrada</td></tr>';
+  atualizarEstatisticasMensalidades();
+  return;
+ }
+ 
+ tbody.innerHTML = mensalidades.map(m => {
+  const aluno = alunos.find(a => a.id === m.alunoId);
+  if(!aluno) return '';
+  
+  const venc = new Date(m.vencimento + 'T00:00:00');
+  const atrasado = !m.pago && venc < hoje;
+  
+  let statusHtml = '';
+  if(m.pago){
+   statusHtml = '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(0,200,150,.1);color:var(--v2)">✅ Pago</span>';
+  } else if(atrasado){
+   const diasAtraso = Math.floor((hoje - venc) / (1000 * 60 * 60 * 24));
+   statusHtml = `<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(229,62,62,.1);color:var(--vm)">⚠️ ${diasAtraso}d atraso</span>`;
+  } else {
+   statusHtml = '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(255,215,0,.1);color:#b8860b">⏳ Pendente</span>';
+  }
+  
+  return `
+   <tr style="border-bottom:1px solid var(--ci2)">
+    <td style="padding:10px;font-weight:600">${aluno.nome}</td>
+    <td style="padding:10px">${new Date(m.vencimento + 'T00:00:00').toLocaleDateString('pt-BR')}</td>
+    <td style="padding:10px;font-weight:700;color:var(--az)">R$ ${m.valor.toFixed(2)}</td>
+    <td style="padding:10px">${statusHtml}</td>
+    <td style="padding:10px">${m.pago ? new Date(m.dataPagamento).toLocaleDateString('pt-BR') : '-'}</td>
+    <td style="padding:10px;text-align:center">
+     ${!m.pago ? `<button onclick="registrarPagamento(${m.id})" style="padding:4px 10px;border:none;background:var(--v);color:var(--az);border-radius:6px;cursor:pointer;font-size:.7rem;font-weight:600">💰 Registrar Pagamento</button>` : '<span style="color:var(--v2);font-size:.7rem">✓ Pago</span>'}
+    </td>
+   </tr>
+  `;
+ }).join('');
+ 
+ atualizarEstatisticasMensalidades();
+}
+
+function registrarPagamento(mensalidadeId){
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const mensalidade = mensalidades.find(m => m.id === mensalidadeId);
+ 
+ if(mensalidade && !mensalidade.pago){
+  mensalidade.pago = true;
+  mensalidade.dataPagamento = new Date().toISOString();
+  localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+  carregarMensalidades();
+  carregarAcessos();
+  notif('✅ Pagamento registrado com sucesso!');
+ }
+}
+
+function atualizarEstatisticasMensalidades(){
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const hoje = new Date();
+ const mesAtual = hoje.getMonth() + 1;
+ const anoAtual = hoje.getFullYear();
+ 
+ const mensalidadesMes = mensalidades.filter(m => m.mes === mesAtual && m.ano === anoAtual);
+ 
+ const totalReceber = mensalidadesMes.filter(m => !m.pago).reduce((sum, m) => sum + m.valor, 0);
+ const totalRecebido = mensalidadesMes.filter(m => m.pago).reduce((sum, m) => sum + m.valor, 0);
+ const totalAtrasado = mensalidadesMes.filter(m => {
+  const venc = new Date(m.vencimento + 'T00:00:00');
+  return !m.pago && venc < hoje;
+ }).reduce((sum, m) => sum + m.valor, 0);
+ 
+ const qtdPendentes = mensalidadesMes.filter(m => !m.pago).length;
+ const qtdPagos = mensalidadesMes.filter(m => m.pago).length;
+ const qtdAtrasados = mensalidadesMes.filter(m => {
+  const venc = new Date(m.vencimento + 'T00:00:00');
+  return !m.pago && venc < hoje;
+ }).length;
+ 
+ const taxaPagamento = mensalidadesMes.length > 0 ? ((qtdPagos / mensalidadesMes.length) * 100).toFixed(0) : 0;
+ 
+ document.getElementById('totalReceber').textContent = `R$ ${totalReceber.toFixed(2)}`;
+ document.getElementById('totalRecebido').textContent = `R$ ${totalRecebido.toFixed(2)}`;
+ document.getElementById('totalAtrasado').textContent = `R$ ${totalAtrasado.toFixed(2)}`;
+ document.getElementById('taxaPagamento').textContent = `${taxaPagamento}%`;
+ document.getElementById('qtdPendentes').textContent = `${qtdPendentes} pendentes`;
+ document.getElementById('qtdPagos').textContent = `${qtdPagos} pagos`;
+ document.getElementById('qtdAtrasados').textContent = `${qtdAtrasados} atrasados`;
+}
+
+function filtrarMensalidades(){
+ carregarMensalidades(); // Por enquanto, apenas recarrega
+}
+
+// ===== CONTROLE DE ACESSOS =====
+
+function carregarAcessos(){
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const config = JSON.parse(localStorage.getItem('configAcesso') || '{}');
+ const tbody = document.getElementById('tabelaAcessos');
+ const hoje = new Date();
+ 
+ if(alunos.length === 0){
+  tbody.innerHTML = '<tr><td colspan="5" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>';
+  return;
+ }
+ 
+ tbody.innerHTML = alunos.map(a => {
+  const mensalidadesAluno = mensalidades.filter(m => m.alunoId === a.id);
+  const temPendente = mensalidadesAluno.some(m => {
+   const venc = new Date(m.vencimento + 'T00:00:00');
+   const diasAtraso = Math.floor((hoje - venc) / (1000 * 60 * 60 * 24));
+   return !m.pago && diasAtraso > (config.diasTolerancia || 5);
+  });
+  
+  const statusPagamento = temPendente ? 
+   '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(229,62,62,.1);color:var(--vm)">⚠️ Inadimplente</span>' :
+   '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(0,200,150,.1);color:var(--v2)">✅ Em dia</span>';
+  
+  const acessoBloqueado = config.bloquearInadimplentes && temPendente;
+  const statusAcesso = acessoBloqueado ?
+   '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(229,62,62,.1);color:var(--vm)">🚫 Bloqueado</span>' :
+   '<span style="display:inline-block;padding:3px 8px;border-radius:99px;font-size:.7rem;font-weight:600;background:rgba(0,200,150,.1);color:var(--v2)">✅ Liberado</span>';
+  
+  return `
+   <tr style="border-bottom:1px solid var(--ci2)">
+    <td style="padding:10px;font-weight:600">${a.nome}</td>
+    <td style="padding:10px">${a.email}</td>
+    <td style="padding:10px">${statusPagamento}</td>
+    <td style="padding:10px">${statusAcesso}</td>
+    <td style="padding:10px;text-align:center">
+     <button onclick="toggleBloqueioManual(${a.id})" style="padding:4px 10px;border:none;background:${acessoBloqueado ? 'var(--v)' : 'var(--vm)'};color:white;border-radius:6px;cursor:pointer;font-size:.7rem">${acessoBloqueado ? '✅ Liberar' : '🚫 Bloquear'}</button>
+    </td>
+   </tr>
+  `;
+ }).join('');
+ 
+ // Carregar configurações
+ document.getElementById('bloquearInadimplentes').checked = config.bloquearInadimplentes || false;
+ document.getElementById('notificarVencimento').checked = config.notificarVencimento || false;
+ document.getElementById('diasTolerancia').value = config.diasTolerancia || 5;
+}
+
+function salvarConfigAcesso(){
+ const config = {
+  bloquearInadimplentes: document.getElementById('bloquearInadimplentes').checked,
+  notificarVencimento: document.getElementById('notificarVencimento').checked,
+  diasTolerancia: parseInt(document.getElementById('diasTolerancia').value) || 5
+ };
+ localStorage.setItem('configAcesso', JSON.stringify(config));
+ carregarAcessos();
+ notif('✅ Configurações salvas');
+}
+
+function toggleBloqueioManual(alunoId){
+ notif('ℹ️ Bloqueio manual em desenvolvimento');
+}
+
+// Modificar função pg() para verificar acesso admin
+const pgOriginal = pg;
+function pg(p){
+ // Páginas que requerem admin
+ const paginasAdmin = ['admin-alunos', 'admin-mensalidades', 'admin-acessos', 'admin-config'];
+ 
+ if(paginasAdmin.includes(p) && !isAdminLoggedIn()){
+  notif('🔒 Acesso restrito! Faça login como administrador.');
+  pgOriginal('admin-login');
+  return;
+ }
+ 
+ // Carregar dados ao entrar nas páginas admin
+ if(p === 'admin-alunos') carregarAlunos();
+ if(p === 'admin-mensalidades') carregarMensalidades();
+ if(p === 'admin-acessos') carregarAcessos();
+ if(p === 'admin-config') carregarConfig();
+ 
+ pgOriginal(p);
+}
+
+// ===== CONFIGURAÇÕES =====
+
+function carregarConfig(){
+ // Carregar chave Groq
+ const groqKey = localStorage.getItem('groqApiKey');
+ if(groqKey && groqKey !== 'sua_chave_aqui'){
+  document.getElementById('groqApiKeyInput').value = groqKey;
+ }
+ 
+ // Carregar estatísticas
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const ativos = alunos.filter(a => a.ativo).length;
+ const pagos = mensalidades.filter(m => m.pago).length;
+ const taxa = mensalidades.length > 0 ? ((pagos / mensalidades.length) * 100).toFixed(0) : 0;
+ 
+ document.getElementById('statAlunos').textContent = alunos.length;
+ document.getElementById('statAtivos').textContent = ativos;
+ document.getElementById('statMensalidades').textContent = mensalidades.length;
+ document.getElementById('statTaxa').textContent = taxa + '%';
+}
+
+function salvarGroqKey(){
+ const key = document.getElementById('groqApiKeyInput').value.trim();
+ if(!key){
+  notif('⚠️ Digite a chave da API');
+  return;
+ }
+ if(!key.startsWith('gsk_')){
+  notif('⚠️ Chave inválida. Deve começar com gsk_');
+  return;
+ }
+ localStorage.setItem('groqApiKey', key);
+ notif('✅ Chave salva! Recarregue a página para ativar o Tutor IA.');
+}
+
+async function testarGroqKey(){
+ const key = document.getElementById('groqApiKeyInput').value.trim() || localStorage.getItem('groqApiKey');
+ const status = document.getElementById('groqStatus');
+ 
+ if(!key || key === 'sua_chave_aqui'){
+  status.style.display = 'block';
+  status.style.background = 'rgba(229,62,62,.1)';
+  status.style.color = 'var(--vm)';
+  status.textContent = '⚠️ Configure a chave primeiro';
+  return;
+ }
+ 
+ status.style.display = 'block';
+ status.style.background = 'var(--ci)';
+ status.style.color = 'var(--tx2)';
+ status.textContent = '🔄 Testando conexão...';
+ 
+ try{
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+   method:'POST',
+   headers:{
+    'Content-Type':'application/json',
+    'Authorization': `Bearer ${key}`
+   },
+   body:JSON.stringify({
+    model:'llama-3.3-70b-versatile',
+    max_tokens:10,
+    messages:[{role:'user',content:'teste'}]
+   })
+  });
+  
+  if(res.ok){
+   status.style.background = 'rgba(0,200,150,.1)';
+   status.style.color = 'var(--v2)';
+   status.textContent = '✅ Conexão OK! Tutor IA funcionando perfeitamente.';
+  } else {
+   status.style.background = 'rgba(229,62,62,.1)';
+   status.style.color = 'var(--vm)';
+   status.textContent = '❌ Chave inválida ou erro na API';
+  }
+ } catch(err){
+  status.style.background = 'rgba(229,62,62,.1)';
+  status.style.color = 'var(--vm)';
+  status.textContent = '❌ Erro de conexão: ' + err.message;
+ }
+}
+
+function limparGroqKey(){
+ if(confirm('Deseja remover a chave da API Groq?')){
+  localStorage.removeItem('groqApiKey');
+  document.getElementById('groqApiKeyInput').value = '';
+  notif('🗑️ Chave removida');
+ }
+}
+
+function alterarSenhaAdmin(){
+ const nova = document.getElementById('novaSenhaAdmin').value;
+ const confirmar = document.getElementById('confirmarSenhaAdmin').value;
+ 
+ if(!nova || !confirmar){
+  notif('⚠️ Preencha os dois campos');
+  return;
+ }
+ if(nova !== confirmar){
+  notif('⚠️ As senhas não coincidem');
+  return;
+ }
+ if(nova.length < 6){
+  notif('⚠️ A senha deve ter no mínimo 6 caracteres');
+  return;
+ }
+ 
+ // Salvar nova senha (em produção, use hash!)
+ localStorage.setItem('adminPassword', nova);
+ document.getElementById('novaSenhaAdmin').value = '';
+ document.getElementById('confirmarSenhaAdmin').value = '';
+ notif('✅ Senha alterada com sucesso!');
+}
+
+function exportarDados(){
+ const dados = {
+  alunos: JSON.parse(localStorage.getItem('alunos') || '[]'),
+  mensalidades: JSON.parse(localStorage.getItem('mensalidades') || '[]'),
+  config: JSON.parse(localStorage.getItem('configAcesso') || '{}'),
+  dataExportacao: new Date().toISOString()
+ };
+ 
+ const blob = new Blob([JSON.stringify(dados, null, 2)], {type: 'application/json'});
+ const url = URL.createObjectURL(blob);
+ const a = document.createElement('a');
+ a.href = url;
+ a.download = `sedes-backup-${new Date().toISOString().split('T')[0]}.json`;
+ a.click();
+ URL.revokeObjectURL(url);
+ notif('✅ Dados exportados com sucesso!');
+}
+
+function limparDados(){
+ if(confirm('⚠️ ATENÇÃO! Isso vai apagar TODOS os dados (alunos, mensalidades, etc). Tem certeza?')){
+  if(confirm('Confirma novamente? Esta ação não pode ser desfeita!')){
+   localStorage.removeItem('alunos');
+   localStorage.removeItem('mensalidades');
+   localStorage.removeItem('configAcesso');
+   carregarConfig();
+   notif('🗑️ Todos os dados foram apagados');
+  }
+ }
+}
+
+// Inicializar admin ao carregar
+initAdmin();
+
 init();
 </script>
 </body>
