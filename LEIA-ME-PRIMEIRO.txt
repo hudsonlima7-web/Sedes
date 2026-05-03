@@ -1,0 +1,121 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║              🚀 COMO ATUALIZAR O SISTEMA - SEDES DF 2026          ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+
+
+📋 OPÇÃO 1: AUTOMÁTICA (RECOMENDADO)
+═══════════════════════════════════════════════════════════════════
+
+1. Dê DUPLO CLIQUE no arquivo: ATUALIZAR-SISTEMA.bat
+
+2. O script vai:
+   ✅ Atualizar o código do GitHub
+   ✅ Abrir página de verificação
+   ✅ Mostrar se está atualizado ou não
+
+3. Siga as instruções na página que abrir
+
+
+📋 OPÇÃO 2: MANUAL
+═══════════════════════════════════════════════════════════════════
+
+1. Abra o arquivo: ATUALIZAR-AGORA.html
+
+2. A página vai verificar automaticamente
+
+3. Se mostrar ❌ (não atualizado):
+   
+   a) Pressione: Ctrl + Shift + Delete
+   b) Marque: "Imagens e arquivos em cache"
+   c) Selecione: "Todo o período"
+   d) Clique: "Limpar dados"
+   e) Feche o navegador
+   f) Abra novamente
+   g) Volte ao ATUALIZAR-AGORA.html
+   h) Clique: "Abrir Sistema Atualizado"
+
+
+📋 OPÇÃO 3: SUPER RÁPIDO
+═══════════════════════════════════════════════════════════════════
+
+1. Abra o sistema (index.html)
+
+2. Pressione: Ctrl + Shift + R
+
+3. Pronto!
+
+
+🔍 COMO VERIFICAR SE FUNCIONOU
+═══════════════════════════════════════════════════════════════════
+
+1. Abra o sistema
+
+2. Pressione F12 (abrir console)
+
+3. Digite: typeof toggleSenhaVisivel
+
+4. Pressione Enter
+
+5. Deve mostrar: "function"
+
+   ✅ Se mostrou "function" → FUNCIONOU!
+   ❌ Se mostrou "undefined" → Cache não foi limpo
+
+
+📝 O QUE FOI IMPLEMENTADO
+═══════════════════════════════════════════════════════════════════
+
+✅ Botão 👁️ para mostrar/ocultar senha
+✅ Logs detalhados no console
+✅ Função verificarSenhaAluno(email) para debug
+✅ Validação melhorada com trim
+✅ Mensagens de erro específicas
+✅ Sistema completo de edição de cadastro
+✅ Alteração de senha pelo admin
+✅ Senha padrão "Sedes" para novos alunos
+
+
+🆘 SE AINDA NÃO FUNCIONAR
+═══════════════════════════════════════════════════════════════════
+
+1. Feche TODAS as abas do sistema
+2. Feche o navegador completamente
+3. Abra o navegador novamente
+4. Execute: ATUALIZAR-SISTEMA.bat
+5. Siga as instruções
+
+
+📞 SUPORTE
+═══════════════════════════════════════════════════════════════════
+
+Se após fazer TUDO isso ainda não funcionar:
+
+1. Tire screenshot do console (F12)
+2. Tire screenshot da tela
+3. Me envie com:
+   - Navegador usado
+   - Passos que fez
+   - O que aparece no console
+
+
+✅ RESUMO
+═══════════════════════════════════════════════════════════════════
+
+PROBLEMA: Sistema não atualiza
+CAUSA: Cache do navegador
+SOLUÇÃO: Execute ATUALIZAR-SISTEMA.bat
+
+OU
+
+SOLUÇÃO RÁPIDA: Ctrl + Shift + R
+
+
+═══════════════════════════════════════════════════════════════════
+
+Data: 3 de maio de 2026
+Status: ✅ CÓDIGO ATUALIZADO NO GITHUB
+Ação: EXECUTAR ATUALIZAR-SISTEMA.bat
+
+═══════════════════════════════════════════════════════════════════
