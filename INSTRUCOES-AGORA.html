@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📋 Instruções - SEDES DF 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+            text-align: center;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        .step {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .step h2 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+        .step p {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+        .step ul {
+            margin-left: 24px;
+            color: #4a5568;
+        }
+        .step li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .credentials {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+        }
+        .credentials h3 {
+            color: #155724;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .credentials code {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            display: block;
+            margin: 8px 0;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        .alert h3 {
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .alert p {
+            color: #856404;
+            line-height: 1.6;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        .success h3 {
+            color: #155724;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+        .btn {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tab-link {
+            padding: 12px 24px;
+            background: #e2e8f0;
+            color: #2d3748;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-link:hover {
+            background: #cbd5e1;
+        }
+        .tab-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Instruções Passo a Passo</h1>
+        <p class="subtitle">Siga estas etapas para usar o sistema</p>
+
+        <div class="step">
+            <h2>
+                <span class="step-number">1</span>
+                Limpar Cache do Navegador
+            </h2>
+            <p><strong>Aba aberta:</strong> LIMPAR-CACHE.html</p>
+            <p>Clique no botão <strong>"🔄 Limpar Cache Agora"</strong></p>
+            <p>Aguarde a página recarregar automaticamente (3 segundos)</p>
+            <div class="alert">
+                <h3>⚠️ Por que isso é importante?</h3>
+                <p>O navegador guarda versões antigas dos arquivos. Limpar o cache garante que você está usando a versão mais recente do sistema.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>
+                <span class="step-number">2</span>
+                Criar Aluno Teste (ou Verificar Alunos)
+            </h2>
+            <p><strong>Aba aberta:</strong> DIAGNOSTICO.html</p>
+            <p><strong>Opção A:</strong> Se não tem alunos cadastrados:</p>
+            <ul>
+                <li>Clique em <strong>"➕ Criar Aluno Teste"</strong></li>
+                <li>Aguarde a confirmação</li>
+                <li>A página será recarregada</li>
+            </ul>
+            <p><strong>Opção B:</strong> Se já tem alunos:</p>
+            <ul>
+                <li>Verifique se seus alunos estão na lista</li>
+                <li>Anote o email e senha de algum aluno</li>
+            </ul>
+            <div class="credentials">
+                <h3>🔑 Credenciais do Aluno Teste:</h3>
+                <code>📧 Email: teste@sedes.com</code>
+                <code>🔐 Senha: Sedes</code>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>
+                <span class="step-number">3</span>
+                Fazer Login no Sistema
+            </h2>
+            <p><strong>Aba aberta:</strong> index.html</p>
+            <p>Na tela de login:</p>
+            <ul>
+                <li>Digite o email: <code>teste@sedes.com</code></li>
+                <li>Digite a senha: <code>Sedes</code></li>
+                <li>Clique em <strong>"Entrar"</strong></li>
+            </ul>
+            <div class="alert">
+                <h3>🔍 Ver Logs Detalhados:</h3>
+                <p>Pressione <strong>F12</strong> no teclado para abrir o console e ver todos os logs detalhados do que está acontecendo.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>
+                <span class="step-number">4</span>
+                Fazer Novo Cadastro (Opcional)
+            </h2>
+            <p><strong>Aba aberta:</strong> checkout.html</p>
+            <p>Se quiser cadastrar um novo aluno:</p>
+            <ul>
+                <li>Preencha todos os campos</li>
+                <li>A senha padrão <strong>"Sedes"</strong> já vem preenchida</li>
+                <li>Clique no botão <strong>👁️</strong> para ver a senha</li>
+                <li>Você pode alterar a senha se quiser</li>
+                <li>Clique em <strong>"Finalizar Assinatura"</strong></li>
+                <li>Pressione <strong>F12</strong> para ver os logs</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <h3>✅ Sistema Pronto para Usar!</h3>
+            <p style="color: #155724; font-size: 1.1rem; margin-top: 12px;">
+                Todas as abas necessárias foram abertas. Siga os passos acima em ordem.
+            </p>
+        </div>
+
+        <div class="alert">
+            <h3>🐛 Se Algo Não Funcionar:</h3>
+            <p><strong>1.</strong> Pressione <strong>F12</strong> no navegador</p>
+            <p><strong>2.</strong> Vá na aba <strong>"Console"</strong></p>
+            <p><strong>3.</strong> Copie TODOS os logs (Ctrl + A, depois Ctrl + C)</p>
+            <p><strong>4.</strong> Me envie os logs para análise</p>
+            <p style="margin-top: 12px;"><strong>Com os logs detalhados, consigo identificar EXATAMENTE onde está o problema!</strong></p>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="DIAGNOSTICO.html" class="btn">🔍 Abrir Diagnóstico</a>
+            <a href="index.html" class="btn">🚀 Abrir Sistema</a>
+            <a href="ATUALIZACAO_LOGIN.md" class="btn" style="background: #e2e8f0; color: #2d3748;">📖 Ver Guia Completo</a>
+        </div>
+    </div>
+
+    <script>
+        // Adicionar timestamp para forçar atualização
+        if (!window.location.search.includes('nocache')) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('nocache', Date.now());
+            window.history.replaceState({}, '', url);
+        }
+    </script>
+</body>
+</html>
