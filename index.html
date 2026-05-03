@@ -2018,7 +2018,7 @@ function carregarAlunos(){
  document.getElementById('totalAlunos').textContent = alunos.length;
  
  if(alunos.length === 0){
-  tbody.innerHTML = '<tr><td colspan="6" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="7" style="padding:20px;text-align:center;color:var(--tx2)">Nenhum aluno cadastrado</td></tr>';
   return;
  }
  
@@ -2036,6 +2036,7 @@ function carregarAlunos(){
    <td style="padding:10px;text-align:center">
     <button onclick="editarAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:var(--az);color:white;border-radius:6px;cursor:pointer;font-size:.7rem">✏️ Editar</button>
     <button onclick="toggleAtivoAluno(${a.id})" style="padding:4px 10px;margin:0 2px;border:none;background:${a.ativo ? 'var(--vm)' : 'var(--v)'};color:white;border-radius:6px;cursor:pointer;font-size:.7rem">${a.ativo ? '🚫 Desativar' : '✅ Ativar'}</button>
+    <button onclick="excluirAluno(${a.id}, '${a.nome.replace(/'/g, "\\'")}', '${a.email}')" style="padding:4px 10px;margin:0 2px;border:none;background:#dc3545;color:white;border-radius:6px;cursor:pointer;font-size:.7rem">🗑️ Excluir</button>
    </td>
   </tr>
  `).join('');
@@ -2083,6 +2084,41 @@ function toggleAtivoAluno(id){
   carregarAlunos();
   notif(aluno.ativo ? '✅ Aluno ativado' : '🚫 Aluno desativado');
  }
+}
+
+function excluirAluno(id, nome, email){
+ // Confirmação de segurança
+ const confirmacao = confirm(`⚠️ ATENÇÃO: Deseja realmente EXCLUIR o aluno?\n\n👤 Nome: ${nome}\n📧 Email: ${email}\n\n❌ Esta ação NÃO pode ser desfeita!\n\nTodos os dados do aluno serão permanentemente removidos:\n• Cadastro\n• Mensalidades\n• Histórico de acesso\n• Progresso nos estudos\n\nDigite OK para confirmar:`);
+ 
+ if(!confirmacao) return;
+ 
+ // Segunda confirmação
+ const confirmaFinal = confirm(`🚨 ÚLTIMA CONFIRMAÇÃO\n\nTem ABSOLUTA CERTEZA que deseja excluir ${nome}?\n\nClique em OK para EXCLUIR PERMANENTEMENTE.`);
+ 
+ if(!confirmaFinal) return;
+ 
+ // Excluir aluno
+ let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ alunos = alunos.filter(a => a.id !== id);
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ // Excluir mensalidades do aluno
+ let mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ mensalidades = mensalidades.filter(m => m.alunoId !== id);
+ localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+ 
+ // Excluir mensagens de boas-vindas pendentes
+ let boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+ boasVindas = boasVindas.filter(b => b.aluno.email !== email);
+ localStorage.setItem('boasVindasPendentes', JSON.stringify(boasVindas));
+ 
+ // Recarregar listas
+ carregarAlunos();
+ if(typeof carregarMensalidades === 'function') carregarMensalidades();
+ if(typeof atualizarEstatisticasAdmin === 'function') atualizarEstatisticasAdmin();
+ 
+ notif('🗑️ Aluno excluído permanentemente!');
+ console.log(`✅ Aluno excluído: ${nome} (${email})`);
 }
 
 function editarAluno(id){
