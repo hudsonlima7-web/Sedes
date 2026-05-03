@@ -1339,17 +1339,28 @@ function renderIASug(){
 
 // Função para obter a chave da API (sempre atualizada)
 function getGroqApiKey(){
- return localStorage.getItem('groqApiKey') || '';
+ let key = localStorage.getItem('groqApiKey');
+ 
+ // Se não tiver chave, retornar vazio
+ // O usuário deve configurar em Admin → Configurações
+ // ou via console: localStorage.setItem('groqApiKey', 'SUA_CHAVE_AQUI');
+ 
+ return key || '';
 }
 
 async function testIAConn(){
  const GROQ_API_KEY = getGroqApiKey();
+ const errBox = document.getElementById('iaErrBox');
  
- if(!GROQ_API_KEY || GROQ_API_KEY === 'sua_chave_aqui'){
-  document.getElementById('iaErrBox').innerHTML='🔑 <strong>Configure sua chave da API Groq (GRATUITA!)</strong> — Vá em <strong>Admin → Configurações</strong> ou acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>, crie uma conta e gere sua chave.';
-  document.getElementById('iaErrBox').classList.add('show');
+ if(!GROQ_API_KEY){
+  console.log('❌ Erro: Chave não configurada');
+  errBox.innerHTML='⚠️ <strong>Erro ao configurar Tutor IA.</strong> Recarregue a página (F5).';
+  errBox.classList.add('show');
   return;
  }
+ 
+ console.log('🧪 Testando Tutor IA...');
+ 
  try{
   const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
    method:'POST',
@@ -1357,41 +1368,58 @@ async function testIAConn(){
     'Content-Type':'application/json',
     'Authorization': `Bearer ${GROQ_API_KEY}`
    },
-   body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:10,messages:[{role:'user',content:'ok'}]})
+   body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:10,messages:[{role:'user',content:'teste'}]})
   });
+  
   if(r.ok){
-   document.getElementById('iaErrBox').classList.remove('show');
+   console.log('✅ Tutor IA funcionando!');
+   errBox.classList.remove('show');
   } else if(r.status === 401){
-   document.getElementById('iaErrBox').innerHTML='🔑 <strong>Chave da API inválida!</strong> — Verifique se copiou corretamente em <strong>Admin → Configurações</strong>.';
-   document.getElementById('iaErrBox').classList.add('show');
+   console.log('❌ Chave inválida');
+   const errorData = await r.json().catch(() => ({}));
+   errBox.innerHTML='🔑 <strong>Chave da API expirou.</strong> Gere uma nova em <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> e configure em <strong>Admin → Configurações</strong>.';
+   errBox.classList.add('show');
+  } else {
+   console.log('⚠️ Erro HTTP:', r.status);
+   errBox.innerHTML='⚠️ <strong>Erro na API Groq.</strong> Tente novamente em alguns minutos.';
+   errBox.classList.add('show');
   }
  }catch(e){
-  document.getElementById('iaErrBox').innerHTML='⚠️ <strong>Tutor IA offline</strong> — Verifique sua conexão com a internet. O resto da plataforma funciona normalmente.';
-  document.getElementById('iaErrBox').classList.add('show');
+  console.log('❌ Erro de conexão:', e.message);
+  errBox.innerHTML='🌐 <strong>Sem conexão com a internet.</strong> Verifique sua rede e recarregue a página.';
+  errBox.classList.add('show');
  }
 }
 
 function usarSug(s){document.getElementById('iaInp').value=s;sendIA();}
 
 async function sendIA(){
- const inp=document.getElementById('iaInp');const msg=inp.value.trim();if(!msg)return;
+ const inp=document.getElementById('iaInp');
+ const msg=inp.value.trim();
+ if(!msg)return;
+ 
  const chat=document.getElementById('iaChat');
  chat.innerHTML+=`<div class="msg us"><div class="ms">Você</div><div class="mb">${msg}</div></div>`;
- inp.value='';chat.scrollTop=chat.scrollHeight;
+ inp.value='';
+ chat.scrollTop=chat.scrollHeight;
+ 
  const lid='l'+Date.now();
  chat.innerHTML+=`<div class="msg ia" id="${lid}"><div class="ms">🤖 Tutor</div><div class="mb"><span class="iadot"></span><span class="iadot"></span><span class="iadot"></span></div></div>`;
  chat.scrollTop=chat.scrollHeight;
+ 
  const e=getEsp(),t=getTec();
  const pSys=P.nivel_esp&&P.nivel_tec?`O candidato faz DOIS cargos: Especialista em ${e.nm} e Técnico ${t.nm}. Provas no mesmo dia.`:P.nivel_esp?`Especialista em ${e.nm}. Prova: 60q (20 gerais + 40 específicas de ${e.nm}) + Estudo de Caso.`:`Técnico ${t.nm}. Prova: 60q + Redação.`;
  
  const GROQ_API_KEY = getGroqApiKey();
  
- if(!GROQ_API_KEY || GROQ_API_KEY === 'sua_chave_aqui'){
-  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">🔑 Configure sua chave da API Groq (GRATUITA!) em <strong>Admin → Configurações</strong>. Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> para obter sua chave.</div>`;
+ if(!GROQ_API_KEY){
+  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">⚠️ Erro ao configurar IA. Recarregue a página (F5).</div>`;
   return;
  }
  
  try{
+  console.log('📡 Enviando para Groq API...');
+  
   const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
    method:'POST',
    headers:{
@@ -1399,35 +1427,54 @@ async function sendIA(){
     'Authorization': `Bearer ${GROQ_API_KEY}`
    },
    body:JSON.stringify({
-   model:'llama-3.3-70b-versatile',
-   max_tokens:1000,
-   temperature:0.7,
-   messages:[
-    {role:'system',content:`Você é tutor especializado no Concurso SEDES DF 2026, banca Instituto Quadrix.
+    model:'llama-3.3-70b-versatile',
+    max_tokens:1000,
+    temperature:0.7,
+    messages:[
+     {role:'system',content:`Você é tutor especializado no Concurso SEDES DF 2026, banca Instituto Quadrix.
 Perfil: ${pSys}
 Conhecimentos: LOAS (Lei 8.742/93), PNAS/2004, NOB-SUAS 2012, SUAS/CRAS/CREAS, CF/88 arts.194-204, Dir. Adm. (LIMPE, Lei 14.133/2021), LP, LC 840/2011 DF, ECA (Lei 8.069/90), SINASE, Pedagogia Social.
 Ao criar questões: use estilo Quadrix com 5 alternativas A-E, indique a correta e comente detalhadamente.
 Responda em português, de forma direta e pedagógica.`},
-    {role:'user',content:msg}
-   ]})});
+     {role:'user',content:msg}
+    ]
+   })
+  });
+  
   if(!res.ok){
    const errorData = await res.json().catch(() => ({}));
+   console.log('❌ Erro API:', errorData);
    throw new Error(`HTTP ${res.status}: ${errorData.error?.message || 'Erro desconhecido'}`);
   }
+  
   const d=await res.json();
   if(d.error)throw new Error(d.error.message);
+  
   const r=d.choices?.[0]?.message?.content||'Sem resposta.';
+  console.log('✅ Resposta recebida');
+  
   document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb">${r.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>')}</div>`;
   document.getElementById('iaErrBox').classList.remove('show');
+  
  }catch(err){
-  let errMsg='⚠️ Erro de conexão com a API. Verifique sua internet e tente novamente.';
-  if(err.message.includes('401')||err.message.includes('invalid'))errMsg='🔑 Chave de API inválida. Verifique em <strong>Admin → Configurações</strong> ou acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> para obter uma nova chave GRATUITA.';
-  else if(err.message.includes('429'))errMsg='⏳ Muitas requisições. Aguarde alguns segundos e tente novamente.';
-  else if(err.message.includes('quota'))errMsg='📊 Limite de uso atingido. Aguarde ou crie uma nova conta em <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>.';
+  console.log('❌ Erro:', err.message);
+  let errMsg='⚠️ Erro ao processar sua pergunta. Tente novamente.';
+  
+  if(err.message.includes('401')||err.message.includes('Unauthorized')||err.message.includes('invalid')){
+   errMsg='🔑 <strong>Chave da API expirou.</strong> Gere uma nova em <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> e configure em <strong>Admin → Configurações</strong>.';
+  } else if(err.message.includes('429')||err.message.includes('rate')){
+   errMsg='⏳ <strong>Muitas perguntas.</strong> Aguarde 30 segundos e tente novamente.';
+  } else if(err.message.includes('quota')||err.message.includes('limit')){
+   errMsg='📊 <strong>Limite atingido.</strong> Aguarde 1 hora ou gere uma nova chave em <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>.';
+  } else if(err.message.includes('Failed to fetch')||err.message.includes('NetworkError')){
+   errMsg='🌐 <strong>Sem internet.</strong> Verifique sua conexão e tente novamente.';
+  }
+  
   document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">${errMsg}</div>`;
   document.getElementById('iaErrBox').innerHTML=errMsg;
   document.getElementById('iaErrBox').classList.add('show');
  }
+ 
  chat.scrollTop=chat.scrollHeight;
 }
 
@@ -1708,8 +1755,9 @@ function esconderMenuAdmin(){
 
 // Inicializar dados admin
 function initAdmin(){
- // Configurar chave Groq padrão se não existir (apenas na primeira vez)
- // A chave deve ser configurada pelo admin em Admin → Configurações
+ // Configurar chave Groq automaticamente na primeira vez
+ // IMPORTANTE: A chave deve ser configurada pelo usuário em Admin → Configurações
+ // ou via console: localStorage.setItem('groqApiKey', 'SUA_CHAVE_AQUI');
  
  if(!localStorage.getItem('alunos')){
   // Criar alunos demo para teste

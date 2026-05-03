@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurar Chave Groq - SEDES DF</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{background:white;border-radius:20px;padding:40px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+h1{color:#333;margin-bottom:10px;font-size:1.8rem}
+.subtitle{color:#666;margin-bottom:30px;font-size:.95rem}
+.step{background:#f8f9fa;border-left:4px solid #667eea;padding:15px 20px;margin-bottom:20px;border-radius:8px}
+.step-number{color:#667eea;font-weight:bold;font-size:1.1rem;margin-bottom:5px}
+.step-text{color:#555;line-height:1.6}
+.input-group{margin:30px 0}
+label{display:block;font-weight:600;margin-bottom:10px;color:#333}
+input{width:100%;padding:15px;border:2px solid #e0e0e0;border-radius:10px;font-size:1rem;transition:border-color .3s}
+input:focus{outline:none;border-color:#667eea}
+.btn{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;padding:15px 30px;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;margin-top:20px;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.success{background:#d4edda;border:2px solid #28a745;color:#155724;padding:15px;border-radius:10px;margin-top:20px;display:none}
+.error{background:#f8d7da;border:2px solid#dc3545;color:#721c24;padding:15px;border-radius:10px;margin-top:20px;display:none}
+.link{color:#667eea;text-decoration:none;font-weight:600}
+.link:hover{text-decoration:underline}
+code{background:#f4f4f4;padding:2px 6px;border-radius:4px;font-family:monospace;color:#e83e8c}
+</style>
+</head>
+<body>
+
+<div class="container">
+ <h1>🔑 Configurar Tutor IA</h1>
+ <div class="subtitle">Configure sua chave da API Groq (100% gratuita)</div>
+ 
+ <div class="step">
+  <div class="step-number">PASSO 1</div>
+  <div class="step-text">
+   Acesse <a href="https://console.groq.com/" target="_blank" class="link">console.groq.com</a> e faça login com Google ou GitHub
+  </div>
+ </div>
+ 
+ <div class="step">
+  <div class="step-number">PASSO 2</div>
+  <div class="step-text">
+   Vá em <strong>"API Keys"</strong> → <strong>"Create API Key"</strong> → Copie a chave (começa com <code>gsk_</code>)
+  </div>
+ </div>
+ 
+ <div class="step">
+  <div class="step-number">PASSO 3</div>
+  <div class="step-text">
+   Cole sua chave abaixo e clique em <strong>"Configurar"</strong>
+  </div>
+ </div>
+ 
+ <div class="input-group">
+  <label for="apiKey">Chave da API Groq:</label>
+  <input type="text" id="apiKey" placeholder="gsk_..." />
+ </div>
+ 
+ <button class="btn" onclick="configurar()">🚀 Configurar e Testar</button>
+ 
+ <div class="success" id="success">
+  ✅ <strong>Sucesso!</strong> Tutor IA configurado e funcionando!<br>
+  <small>Você pode fechar esta página e usar a plataforma normalmente.</small>
+ </div>
+ 
+ <div class="error" id="error">
+  ❌ <strong>Erro:</strong> <span id="errorMsg"></span>
+ </div>
+</div>
+
+<script>
+async function configurar(){
+ const key = document.getElementById('apiKey').value.trim();
+ const successEl = document.getElementById('success');
+ const errorEl = document.getElementById('error');
+ const errorMsg = document.getElementById('errorMsg');
+ const btn = document.querySelector('.btn');
+ 
+ // Limpar mensagens
+ successEl.style.display = 'none';
+ errorEl.style.display = 'none';
+ 
+ // Validar
+ if(!key){
+  errorMsg.textContent = 'Digite a chave da API';
+  errorEl.style.display = 'block';
+  return;
+ }
+ 
+ if(!key.startsWith('gsk_')){
+  errorMsg.textContent = 'Chave inválida. Deve começar com gsk_';
+  errorEl.style.display = 'block';
+  return;
+ }
+ 
+ // Testar chave
+ btn.disabled = true;
+ btn.textContent = '🧪 Testando...';
+ 
+ try{
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+   method: 'POST',
+   headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${key}`
+   },
+   body: JSON.stringify({
+    model: 'llama-3.3-70b-versatile',
+    max_tokens: 10,
+    messages: [{role: 'user', content: 'teste'}]
+   })
+  });
+  
+  if(res.ok){
+   // Salvar no localStorage
+   localStorage.setItem('groqApiKey', key);
+   
+   // Mostrar sucesso
+   successEl.style.display = 'block';
+   btn.textContent = '✅ Configurado!';
+   
+   // Redirecionar após 2 segundos
+   setTimeout(() => {
+    window.location.href = 'index.html';
+   }, 2000);
+   
+  } else {
+   const error = await res.json().catch(() => ({}));
+   throw new Error(error.error?.message || `Erro ${res.status}`);
+  }
+  
+ }catch(err){
+  errorMsg.textContent = err.message;
+  errorEl.style.display = 'block';
+  btn.disabled = false;
+  btn.textContent = '🚀 Configurar e Testar';
+ }
+}
+
+// Permitir Enter para configurar
+document.getElementById('apiKey').addEventListener('keypress', (e) => {
+ if(e.key === 'Enter') configurar();
+});
+
+// Verificar se já tem chave configurada
+window.addEventListener('load', () => {
+ const key = localStorage.getItem('groqApiKey');
+ if(key){
+  document.getElementById('apiKey').value = key;
+  document.getElementById('success').innerHTML = '✅ <strong>Chave já configurada!</strong><br><small>Você pode testar novamente ou <a href="index.html" class="link">ir para a plataforma</a>.</small>';
+  document.getElementById('success').style.display = 'block';
+ }
+});
+</script>
+
+</body>
+</html>
