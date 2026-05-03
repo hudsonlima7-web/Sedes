@@ -1,0 +1,96 @@
+🎉 *BEM-VINDO(A) AO SEDES DF 2026!* 🎉
+
+Olá *{{NOME_ALUNO}}*! 👋
+
+É com grande satisfação que damos as boas-vindas à *Plataforma SEDES DF 2026*! 🚀
+
+Você acaba de dar o primeiro passo rumo à sua aprovação no concurso da Secretaria de Estado de Desenvolvimento Social do Distrito Federal! 💪
+
+━━━━━━━━━━━━━━━━━━━━
+🔑 *SEUS DADOS DE ACESSO*
+━━━━━━━━━━━━━━━━━━━━
+
+📧 *E-mail/Login:*
+`{{EMAIL_ALUNO}}`
+
+🔐 *Senha Temporária:*
+`{{SENHA_TEMPORARIA}}`
+
+⚠️ *IMPORTANTE:* Altere sua senha no primeiro acesso!
+
+━━━━━━━━━━━━━━━━━━━━
+🚀 *ACESSE AGORA*
+━━━━━━━━━━━━━━━━━━━━
+
+{{LINK_PLATAFORMA}}
+
+━━━━━━━━━━━━━━━━━━━━
+📚 *O QUE VOCÊ VAI ENCONTRAR:*
+━━━━━━━━━━━━━━━━━━━━
+
+✅ *Dashboard Personalizado*
+Acompanhe seu progresso em tempo real
+
+📺 *Videoaulas Selecionadas*
+Top 3 melhores vídeos de cada matéria
+
+📝 *Simulados Inteligentes*
+Questões organizadas por matéria e nível
+
+🤖 *Tutor IA 24/7*
+Tire dúvidas a qualquer hora
+
+📅 *Cronograma Personalizado*
+Planejamento adaptado ao seu perfil
+
+📊 *Estatísticas Detalhadas*
+Veja seu desempenho em cada matéria
+
+━━━━━━━━━━━━━━━━━━━━
+🎯 *PRIMEIROS PASSOS:*
+━━━━━━━━━━━━━━━━━━━━
+
+1️⃣ Acesse a plataforma com suas credenciais
+2️⃣ Complete seu perfil (especialidade, cargo)
+3️⃣ Altere sua senha temporária
+4️⃣ Explore o dashboard
+5️⃣ Comece pelos vídeos da sua matéria preferida
+
+━━━━━━━━━━━━━━━━━━━━
+📋 *INFORMAÇÕES DO CONCURSO:*
+━━━━━━━━━━━━━━━━━━━━
+
+🏛️ *Órgão:* SEDES - DF
+👥 *Cargo:* {{CARGO_ALUNO}}
+💰 *Salário:* R$ 4.762 a R$ 8.924
+📅 *Previsão:* Edital em breve
+
+━━━━━━━━━━━━━━━━━━━━
+💡 *DICA DE OURO:*
+━━━━━━━━━━━━━━━━━━━━
+
+Configure o *Tutor IA* para ter um assistente pessoal de estudos disponível 24 horas! 🤖✨
+
+Veja como: {{LINK_PLATAFORMA}}/configurar-chave.html
+
+━━━━━━━━━━━━━━━━━━━━
+💪 *MENSAGEM MOTIVACIONAL:*
+━━━━━━━━━━━━━━━━━━━━
+
+_"O sucesso é a soma de pequenos esforços repetidos dia após dia."_
+
+Estamos com você nessa jornada! 🎯🏆
+
+━━━━━━━━━━━━━━━━━━━━
+📞 *PRECISA DE AJUDA?*
+━━━━━━━━━━━━━━━━━━━━
+
+📧 suporte@sedesdf2026.com.br
+💬 (61) 99999-9999
+🌐 www.sedesdf2026.com.br
+
+━━━━━━━━━━━━━━━━━━━━
+
+Bons estudos e até a aprovação! 🎓✨
+
+_Equipe SEDES DF 2026_
