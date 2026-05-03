@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Verificar Aluno Hudson - SEDES DF 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+            text-align: center;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .section {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+        .info-box {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .info-box p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .info-box code {
+            background: #f7fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 8px 8px 8px 0;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+        .btn-danger {
+            background: #ef4444;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .alert-success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            color: #155724;
+        }
+        .alert-warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        .alert-error {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            color: #721c24;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            color: #0c5460;
+        }
+        #resultado {
+            display: none;
+        }
+        .link-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        .link-box h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        .link-box a {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Verificar Aluno Hudson</h1>
+        <p class="subtitle">Diagnóstico e correção de acesso</p>
+
+        <div class="link-box">
+            <h3>🔗 Link de Acesso ao Sistema:</h3>
+            <a href="index.html" target="_blank" id="linkSistema">Carregando...</a>
+            <p style="margin-top: 12px; color: #4a5568; font-size: 0.9rem;">
+                Copie este link e envie para o aluno Hudson
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>📊 Status do Aluno Hudson</h2>
+            <div id="statusHudson">
+                <p style="text-align: center; color: #718096;">Verificando...</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Ações Rápidas</h2>
+            <button class="btn" onclick="verificarHudson()">🔍 Verificar Dados</button>
+            <button class="btn btn-secondary" onclick="resetarSenha()">🔐 Resetar Senha para "Sedes"</button>
+            <button class="btn btn-secondary" onclick="ativarAluno()">✅ Ativar Aluno</button>
+            <button class="btn btn-secondary" onclick="testarLogin()">🧪 Testar Login</button>
+        </div>
+
+        <div id="resultado"></div>
+
+        <div class="section">
+            <h2>➕ Criar/Atualizar Aluno Hudson</h2>
+            <form id="formHudson" onsubmit="salvarHudson(event)">
+                <div class="form-group">
+                    <label>Nome Completo:</label>
+                    <input type="text" id="nome" value="Hudson" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="email" placeholder="hudson@exemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="text" id="senha" value="Sedes" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefone:</label>
+                    <input type="tel" id="telefone" placeholder="(61) 99999-9999">
+                </div>
+                <button type="submit" class="btn">💾 Salvar/Atualizar Hudson</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>📋 Instruções para o Aluno Hudson</h2>
+            <div class="alert alert-info">
+                <p><strong>1.</strong> Acesse o link acima</p>
+                <p><strong>2.</strong> Use o email cadastrado</p>
+                <p><strong>3.</strong> Use a senha: <code>Sedes</code></p>
+                <p><strong>4.</strong> Se não funcionar, pressione <code>Ctrl + Shift + R</code> para limpar o cache</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Definir link do sistema
+        const linkCompleto = window.location.origin + window.location.pathname.replace('VERIFICAR-HUDSON.html', 'index.html');
+        document.getElementById('linkSistema').href = linkCompleto;
+        document.getElementById('linkSistema').textContent = linkCompleto;
+
+        function verificarHudson() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            const hudson = alunos.find(a => a.nome.toLowerCase().includes('hudson'));
+            
+            const statusDiv = document.getElementById('statusHudson');
+            const resultadoDiv = document.getElementById('resultado');
+            
+            if (!hudson) {
+                statusDiv.innerHTML = `
+                    <div class="alert alert-warning">
+                        <h3>⚠️ Aluno Hudson NÃO encontrado</h3>
+                        <p>O aluno Hudson não está cadastrado no sistema.</p>
+                        <p><strong>Solução:</strong> Preencha o formulário abaixo e clique em "Salvar/Atualizar Hudson"</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Aluno encontrado
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h3>✅ Aluno Hudson ENCONTRADO</h3>
+                </div>
+                <div class="info-box">
+                    <h3>📋 Dados Cadastrados:</h3>
+                    <p><strong>Nome:</strong> <code>${hudson.nome}</code></p>
+                    <p><strong>Email:</strong> <code>${hudson.email}</code></p>
+                    <p><strong>Senha:</strong> <code>${hudson.senha}</code></p>
+                    <p><strong>Telefone:</strong> <code>${hudson.telefone || 'Não informado'}</code></p>
+                    <p><strong>Plano:</strong> <code>${hudson.plano}</code></p>
+                    <p><strong>Status:</strong> <code>${hudson.ativo ? '✅ Ativo' : '❌ Inativo'}</code></p>
+                    <p><strong>Cargo:</strong> <code>${hudson.cargo || 'Não informado'}</code></p>
+                </div>
+            `;
+
+            // Preencher formulário
+            document.getElementById('nome').value = hudson.nome;
+            document.getElementById('email').value = hudson.email;
+            document.getElementById('senha').value = hudson.senha;
+            document.getElementById('telefone').value = hudson.telefone || '';
+
+            // Verificar problemas
+            const problemas = [];
+            if (!hudson.ativo) problemas.push('Aluno está INATIVO');
+            if (!hudson.cargo) problemas.push('Campo CARGO está vazio');
+            if (!hudson.senha || hudson.senha.length < 4) problemas.push('Senha inválida');
+
+            if (problemas.length > 0) {
+                resultadoDiv.style.display = 'block';
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-error">
+                        <h3>⚠️ Problemas Encontrados:</h3>
+                        ${problemas.map(p => `<p>• ${p}</p>`).join('')}
+                        <p style="margin-top: 12px;"><strong>Clique em "Ativar Aluno" para corrigir</strong></p>
+                    </div>
+                `;
+            } else {
+                resultadoDiv.style.display = 'block';
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <h3>✅ Tudo OK!</h3>
+                        <p>O aluno Hudson está configurado corretamente.</p>
+                        <p><strong>Credenciais para login:</strong></p>
+                        <p>Email: <code>${hudson.email}</code></p>
+                        <p>Senha: <code>${hudson.senha}</code></p>
+                    </div>
+                `;
+            }
+        }
+
+        function resetarSenha() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            const hudson = alunos.find(a => a.nome.toLowerCase().includes('hudson'));
+            
+            if (!hudson) {
+                alert('❌ Aluno Hudson não encontrado! Cadastre primeiro.');
+                return;
+            }
+
+            hudson.senha = 'Sedes';
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+            
+            alert('✅ Senha resetada para "Sedes"!');
+            verificarHudson();
+        }
+
+        function ativarAluno() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            const hudson = alunos.find(a => a.nome.toLowerCase().includes('hudson'));
+            
+            if (!hudson) {
+                alert('❌ Aluno Hudson não encontrado! Cadastre primeiro.');
+                return;
+            }
+
+            hudson.ativo = true;
+            if (!hudson.cargo) hudson.cargo = 'Agente';
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+            
+            alert('✅ Aluno Hudson ativado com sucesso!');
+            verificarHudson();
+        }
+
+        function testarLogin() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            const hudson = alunos.find(a => a.nome.toLowerCase().includes('hudson'));
+            
+            if (!hudson) {
+                alert('❌ Aluno Hudson não encontrado!');
+                return;
+            }
+
+            const mensagem = `
+🧪 TESTE DE LOGIN
+
+📧 Email: ${hudson.email}
+🔐 Senha: ${hudson.senha}
+✅ Status: ${hudson.ativo ? 'Ativo' : 'Inativo'}
+
+${hudson.ativo ? '✅ Pode fazer login!' : '❌ Precisa ativar o aluno primeiro!'}
+
+Copie o email e senha acima e teste no sistema.
+            `;
+            
+            alert(mensagem);
+            
+            // Copiar para clipboard
+            const texto = `Email: ${hudson.email}\nSenha: ${hudson.senha}`;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Credenciais copiadas para a área de transferência!');
+            });
+        }
+
+        function salvarHudson(event) {
+            event.preventDefault();
+            
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const senha = document.getElementById('senha').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+
+            if (!nome || !email || !senha) {
+                alert('❌ Preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            if (senha.length < 4) {
+                alert('❌ A senha deve ter no mínimo 4 caracteres!');
+                return;
+            }
+
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            let hudson = alunos.find(a => a.nome.toLowerCase().includes('hudson'));
+
+            if (hudson) {
+                // Atualizar
+                hudson.nome = nome;
+                hudson.email = email;
+                hudson.senha = senha;
+                hudson.telefone = telefone;
+                hudson.ativo = true;
+                hudson.cargo = hudson.cargo || 'Agente';
+                
+                localStorage.setItem('alunos', JSON.stringify(alunos));
+                alert('✅ Aluno Hudson ATUALIZADO com sucesso!');
+            } else {
+                // Criar novo
+                const novoHudson = {
+                    id: Date.now(),
+                    nome: nome,
+                    email: email,
+                    senha: senha,
+                    telefone: telefone,
+                    cpf: '000.000.000-00',
+                    cargo: 'Agente',
+                    plano: 'pro',
+                    valorMensalidade: 197,
+                    dataCadastro: new Date().toISOString(),
+                    ativo: true
+                };
+
+                alunos.push(novoHudson);
+                localStorage.setItem('alunos', JSON.stringify(alunos));
+
+                // Criar mensalidade
+                const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+                const hoje = new Date();
+                const proximoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 10);
+
+                mensalidades.push({
+                    id: Date.now(),
+                    alunoId: novoHudson.id,
+                    valor: 197,
+                    vencimento: proximoMes.toISOString().split('T')[0],
+                    status: 'pago',
+                    dataPagamento: hoje.toISOString().split('T')[0]
+                });
+                localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+
+                alert('✅ Aluno Hudson CRIADO com sucesso!');
+            }
+
+            verificarHudson();
+        }
+
+        // Verificar automaticamente ao carregar
+        window.onload = verificarHudson;
+    </script>
+</body>
+</html>
