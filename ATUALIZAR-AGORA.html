@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔄 Atualizar Sistema SEDES</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+        .status {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        .status-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+        .status-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+        .status-ok {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin: 8px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e1;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        .instructions {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 32px;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .code {
+            background: #2d3748;
+            color: #48bb78;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 16px 0;
+            text-align: left;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+            color: #155724;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Atualizar Sistema</h1>
+        <p class="subtitle">Verificação e atualização do SEDES DF 2026</p>
+        
+        <div class="status" id="status">
+            <div class="status-item">
+                <span class="status-label">Função toggleSenhaVisivel:</span>
+                <span class="status-value" id="funcaoStatus">Verificando...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Botão 👁️ no HTML:</span>
+                <span class="status-value" id="botaoStatus">Verificando...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Função verificarSenhaAluno:</span>
+                <span class="status-value" id="debugStatus">Verificando...</span>
+            </div>
+        </div>
+
+        <div id="resultado"></div>
+
+        <div>
+            <button class="btn" onclick="abrirSistema()">🚀 Abrir Sistema Atualizado</button>
+            <button class="btn btn-secondary" onclick="limparCache()">🧹 Limpar Cache</button>
+        </div>
+
+        <div class="instructions">
+            <h3>⚠️ Se ainda não funcionar:</h3>
+            <ol>
+                <li>Feche <strong>TODAS</strong> as abas do sistema</li>
+                <li>Feche o navegador completamente</li>
+                <li>Pressione <code>Ctrl + Shift + Delete</code></li>
+                <li>Marque "Imagens e arquivos em cache"</li>
+                <li>Selecione "Todo o período"</li>
+                <li>Clique em "Limpar dados"</li>
+                <li>Abra o navegador novamente</li>
+                <li>Clique no botão acima para abrir o sistema</li>
+            </ol>
+        </div>
+
+        <div class="code">
+            <div>// Para verificar manualmente no console (F12):</div>
+            <div>typeof toggleSenhaVisivel</div>
+            <div>// Deve mostrar: "function"</div>
+        </div>
+    </div>
+
+    <script>
+        // Verificar se as funções existem
+        function verificarAtualizacao() {
+            // Abrir index.html em uma nova janela invisível para verificar
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = 'index.html';
+            document.body.appendChild(iframe);
+
+            setTimeout(() => {
+                try {
+                    const funcaoExiste = typeof iframe.contentWindow.toggleSenhaVisivel === 'function';
+                    const debugExiste = typeof iframe.contentWindow.verificarSenhaAluno === 'function';
+                    
+                    document.getElementById('funcaoStatus').textContent = funcaoExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
+                    document.getElementById('funcaoStatus').className = 'status-value ' + (funcaoExiste ? 'status-ok' : 'status-error');
+                    
+                    document.getElementById('debugStatus').textContent = debugExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
+                    document.getElementById('debugStatus').className = 'status-value ' + (debugExiste ? 'status-ok' : 'status-error');
+                    
+                    // Verificar botão no HTML
+                    const botaoExiste = iframe.contentDocument.querySelector('button[onclick*="toggleSenhaVisivel"]') !== null;
+                    document.getElementById('botaoStatus').textContent = botaoExiste ? '✅ OK' : '❌ NÃO ENCONTRADO';
+                    document.getElementById('botaoStatus').className = 'status-value ' + (botaoExiste ? 'status-ok' : 'status-error');
+
+                    if (funcaoExiste && debugExiste && botaoExiste) {
+                        document.getElementById('resultado').innerHTML = `
+                            <div class="success">
+                                ✅ Sistema está atualizado! Pode abrir normalmente.
+                            </div>
+                        `;
+                    } else {
+                        document.getElementById('resultado').innerHTML = `
+                            <div class="instructions" style="background: #f8d7da; border-color: #dc3545;">
+                                <h3 style="color: #721c24;">❌ Sistema NÃO está atualizado!</h3>
+                                <p style="color: #721c24; margin-top: 12px;">
+                                    <strong>AÇÃO NECESSÁRIA:</strong> Limpe o cache do navegador seguindo as instruções abaixo.
+                                </p>
+                            </div>
+                        `;
+                    }
+                } catch (e) {
+                    document.getElementById('funcaoStatus').textContent = '⚠️ ERRO';
+                    document.getElementById('funcaoStatus').className = 'status-value status-error';
+                    document.getElementById('botaoStatus').textContent = '⚠️ ERRO';
+                    document.getElementById('botaoStatus').className = 'status-value status-error';
+                    document.getElementById('debugStatus').textContent = '⚠️ ERRO';
+                    document.getElementById('debugStatus').className = 'status-value status-error';
+                    
+                    document.getElementById('resultado').innerHTML = `
+                        <div class="instructions" style="background: #fff3cd; border-color: #ffc107;">
+                            <h3 style="color: #856404;">⚠️ Não foi possível verificar</h3>
+                            <p style="color: #856404; margin-top: 12px;">
+                                Abra o sistema e verifique manualmente no console (F12):<br>
+                                <code>typeof toggleSenhaVisivel</code>
+                            </p>
+                        </div>
+                    `;
+                }
+                
+                document.body.removeChild(iframe);
+            }, 1000);
+        }
+
+        function abrirSistema() {
+            // Abrir com parâmetro para forçar reload
+            window.open('index.html?v=' + Date.now(), '_blank');
+        }
+
+        function limparCache() {
+            alert('⚠️ INSTRUÇÕES PARA LIMPAR CACHE:\n\n' +
+                  '1. Pressione Ctrl + Shift + Delete\n' +
+                  '2. Marque "Imagens e arquivos em cache"\n' +
+                  '3. Selecione "Todo o período"\n' +
+                  '4. Clique em "Limpar dados"\n' +
+                  '5. Feche e abra o navegador\n' +
+                  '6. Volte aqui e clique em "Abrir Sistema Atualizado"');
+        }
+
+        // Verificar ao carregar
+        window.onload = verificarAtualizacao;
+    </script>
+</body>
+</html>
