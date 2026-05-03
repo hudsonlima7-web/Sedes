@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEDES DF 2026 - Plataforma Inteligente de Estudos</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+ --primary:#6366f1;
+ --primary-dark:#4f46e5;
+ --secondary:#8b5cf6;
+ --accent:#ec4899;
+ --success:#10b981;
+ --dark:#0f172a;
+ --dark-2:#1e293b;
+ --dark-3:#334155;
+ --light:#f8fafc;
+ --light-2:#e2e8f0;
+ --text:#1e293b;
+ --text-light:#64748b;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--text);overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+/* HEADER */
+header{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);position:fixed;top:0;left:0;right:0;z-index:1000;border-bottom:1px solid var(--light-2);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.logo{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{text-decoration:none;color:var(--text);font-weight:500;font-size:.9rem;transition:color .3s}
+.nav-links a:hover{color:var(--primary)}
+.btn{padding:12px 28px;border-radius:12px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s;border:none;text-decoration:none;display:inline-block}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;box-shadow:0 4px 20px rgba(99,102,241,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(99,102,241,.4)}
+.btn-outline{border:2px solid var(--primary);color:var(--primary);background:transparent}
+.btn-outline:hover{background:var(--primary);color:white}
+
+/* HERO */
+.hero{padding:140px 0 80px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');opacity:.3}
+.hero-content{position:relative;z-index:2;text-align:center;color:white}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);padding:8px 20px;border-radius:99px;font-size:.85rem;font-weight:600;margin-bottom:24px;border:1px solid rgba(255,255,255,.3)}
+.hero h1{font-family:'Poppins',sans-serif;font-size:3.5rem;font-weight:800;margin-bottom:20px;line-height:1.2}
+.hero p{font-size:1.25rem;margin-bottom:40px;opacity:.95;max-width:700px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:80px;max-width:800px;margin-left:auto;margin-right:auto}
+.stat{text-align:center}
+.stat-num{font-family:'Poppins',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:8px}
+.stat-label{font-size:.9rem;opacity:.9}
+
+/* PLANOS */
+.planos{padding:100px 0;background:white}
+.section-header{text-align:center;margin-bottom:60px}
+.section-badge{display:inline-block;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:6px 16px;border-radius:99px;font-size:.8rem;font-weight:700;margin-bottom:16px;letter-spacing:.5px}
+.section-title{font-family:'Poppins',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:16px;color:var(--dark)}
+.section-subtitle{font-size:1.1rem;color:var(--text-light);max-width:600px;margin:0 auto}
+.planos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media(max-width:968px){.planos-grid{grid-template-columns:1fr}}
+.plano-card{background:white;border-radius:24px;padding:40px;border:2px solid var(--light-2);transition:all .3s;position:relative;overflow:hidden}
+.plano-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.1);border-color:var(--primary)}
+.plano-card.destaque{border-color:var(--primary);box-shadow:0 20px 60px rgba(99,102,241,.2)}
+.plano-badge{position:absolute;top:20px;right:20px;background:linear-gradient(135deg,var(--accent),var(--secondary));color:white;padding:6px 14px;border-radius:99px;font-size:.7rem;font-weight:700;letter-spacing:.5px}
+.plano-nome{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:12px;color:var(--dark)}
+.plano-desc{color:var(--text-light);font-size:.9rem;margin-bottom:24px;line-height:1.6}
+.plano-preco{margin-bottom:32px}
+.preco-valor{font-family:'Poppins',sans-serif;font-size:3rem;font-weight:800;color:var(--dark)}
+.preco-periodo{color:var(--text-light);font-size:.9rem}
+.plano-features{list-style:none;margin-bottom:32px}
+.plano-features li{padding:12px 0;border-bottom:1px solid var(--light-2);display:flex;align-items:center;gap:12px;font-size:.9rem}
+.plano-features li:last-child{border-bottom:none}
+.plano-features li::before{content:'✓';display:flex;align-items:center;justify-content:center;width:24px;height:24px;background:linear-gradient(135deg,var(--success),#059669);color:white;border-radius:50%;font-weight:700;font-size:.7rem;flex-shrink:0}
+
+/* FEATURES */
+.features{padding:100px 0;background:var(--light)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:60px}
+@media(max-width:968px){.features-grid{grid-template-columns:1fr}}
+.feature-card{background:white;padding:40px;border-radius:20px;text-align:center;transition:all .3s;border:1px solid var(--light-2)}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.feature-icon{width:80px;height:80px;margin:0 auto 24px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2rem}
+.feature-title{font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:12px;color:var(--dark)}
+.feature-desc{color:var(--text-light);line-height:1.7;font-size:.95rem}
+
+/* CTA */
+.cta{padding:100px 0;background:linear-gradient(135deg,var(--dark),var(--dark-2));color:white;text-align:center}
+.cta h2{font-family:'Poppins',sans-serif;font-size:2.5rem;font-weight:800;margin-bottom:20px}
+.cta p{font-size:1.2rem;margin-bottom:40px;opacity:.9}
+
+/* FOOTER */
+footer{background:var(--dark);color:white;padding:60px 0 30px;text-align:center}
+.footer-links{display:flex;gap:32px;justify-content:center;margin-bottom:32px}
+.footer-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.9rem;transition:color .3s}
+.footer-links a:hover{color:white}
+.footer-copy{color:rgba(255,255,255,.5);font-size:.85rem}
+
+/* MOBILE */
+@media(max-width:768px){
+ .hero h1{font-size:2.2rem}
+ .hero p{font-size:1rem}
+ .hero-stats{grid-template-columns:1fr;gap:24px}
+ .nav-links{display:none}
+ .section-title{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+ <div class="container">
+  <nav>
+   <div class="logo">🎯 SEDES DF</div>
+   <div class="nav-links">
+    <a href="#planos">Planos</a>
+    <a href="#recursos">Recursos</a>
+    <a href="index.html" class="btn btn-outline">Área do Aluno</a>
+    <a href="index.html#admin" class="btn btn-primary">Admin</a>
+   </div>
+  </nav>
+ </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+ <div class="container">
+  <div class="hero-content">
+   <div class="hero-badge">🔥 Edital Previsto para Junho/2026</div>
+   <h1>Conquiste sua vaga na<br>SEDES DF 2026</h1>
+   <p>Plataforma inteligente com IA, videoaulas atualizadas e simulados personalizados. Estude com quem entende da banca Quadrix.</p>
+   <div class="hero-btns">
+    <a href="#planos" class="btn btn-primary">Ver Planos</a>
+    <a href="index.html" class="btn btn-outline" style="background:rgba(255,255,255,.2);color:white;border-color:rgba(255,255,255,.3)">Área do Aluno</a>
+   </div>
+   <div class="hero-stats">
+    <div class="stat">
+     <div class="stat-num">1.500+</div>
+     <div class="stat-label">Questões Comentadas</div>
+    </div>
+    <div class="stat">
+     <div class="stat-num">200+</div>
+     <div class="stat-label">Videoaulas</div>
+    </div>
+    <div class="stat">
+     <div class="stat-num">24/7</div>
+     <div class="stat-label">Tutor IA Disponível</div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- PLANOS -->
+<section class="planos" id="planos">
+ <div class="container">
+  <div class="section-header">
+   <div class="section-badge">PLANOS</div>
+   <h2 class="section-title">Escolha seu plano ideal</h2>
+   <p class="section-subtitle">Investimento que cabe no seu bolso para conquistar a aprovação</p>
+  </div>
+  <div class="planos-grid">
+   
+   <!-- PLANO BÁSICO -->
+   <div class="plano-card">
+    <div class="plano-nome">Básico</div>
+    <div class="plano-desc">Ideal para quem está começando os estudos</div>
+    <div class="plano-preco">
+     <span class="preco-valor">R$ 97</span>
+     <span class="preco-periodo">/mês</span>
+    </div>
+    <ul class="plano-features">
+     <li>Acesso a todas as matérias</li>
+     <li>500 questões comentadas</li>
+     <li>Cronograma de estudos</li>
+     <li>Videoaulas básicas</li>
+     <li>Suporte por email</li>
+    </ul>
+    <a href="checkout.html?plano=basico" class="btn btn-outline" style="width:100%;text-align:center">Começar Agora</a>
+   </div>
+
+   <!-- PLANO PRO (DESTAQUE) -->
+   <div class="plano-card destaque">
+    <div class="plano-badge">MAIS POPULAR</div>
+    <div class="plano-nome">Pro</div>
+    <div class="plano-desc">Para quem quer aprovação garantida</div>
+    <div class="plano-preco">
+     <span class="preco-valor">R$ 197</span>
+     <span class="preco-periodo">/mês</span>
+    </div>
+    <ul class="plano-features">
+     <li>Tudo do plano Básico</li>
+     <li>1.500+ questões comentadas</li>
+     <li>200+ videoaulas atualizadas</li>
+     <li>Tutor IA ilimitado 🤖</li>
+     <li>Simulados semanais</li>
+     <li>Análise de desempenho</li>
+     <li>Suporte prioritário</li>
+    </ul>
+    <a href="checkout.html?plano=pro" class="btn btn-primary" style="width:100%;text-align:center">Assinar Pro</a>
+   </div>
+
+   <!-- PLANO VIP -->
+   <div class="plano-card">
+    <div class="plano-nome">VIP</div>
+    <div class="plano-desc">Acompanhamento personalizado</div>
+    <div class="plano-preco">
+     <span class="preco-valor">R$ 397</span>
+     <span class="preco-periodo">/mês</span>
+    </div>
+    <ul class="plano-features">
+     <li>Tudo do plano Pro</li>
+     <li>Mentoria individual</li>
+     <li>Plano de estudos personalizado</li>
+     <li>Correção de redações</li>
+     <li>Grupo VIP no WhatsApp</li>
+     <li>Material exclusivo em PDF</li>
+     <li>Garantia de aprovação*</li>
+    </ul>
+    <a href="checkout.html?plano=vip" class="btn btn-outline" style="width:100%;text-align:center">Quero ser VIP</a>
+   </div>
+
+  </div>
+ </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="recursos">
+ <div class="container">
+  <div class="section-header">
+   <div class="section-badge">RECURSOS</div>
+   <h2 class="section-title">Tecnologia a favor da sua aprovação</h2>
+   <p class="section-subtitle">Ferramentas inteligentes que fazem a diferença</p>
+  </div>
+  <div class="features-grid">
+   <div class="feature-card">
+    <div class="feature-icon">🤖</div>
+    <h3 class="feature-title">Tutor IA</h3>
+    <p class="feature-desc">Tire dúvidas 24/7 com inteligência artificial especializada na banca Quadrix</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">📹</div>
+    <h3 class="feature-title">Vídeos Atualizados</h3>
+    <p class="feature-desc">Sistema automático busca as melhores aulas do YouTube sempre atualizadas</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">✏️</div>
+    <h3 class="feature-title">Questões Comentadas</h3>
+    <p class="feature-desc">Milhares de questões estilo Quadrix com comentários detalhados</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">📊</div>
+    <h3 class="feature-title">Análise de Desempenho</h3>
+    <p class="feature-desc">Acompanhe sua evolução com gráficos e estatísticas detalhadas</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">📅</div>
+    <h3 class="feature-title">Cronograma Inteligente</h3>
+    <p class="feature-desc">Plano de estudos personalizado baseado no seu perfil e tempo disponível</p>
+   </div>
+   <div class="feature-card">
+    <div class="feature-icon">🔍</div>
+    <h3 class="feature-title">Análise da Banca</h3>
+    <p class="feature-desc">Entenda o padrão da Quadrix e saiba exatamente o que estudar</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+ <div class="container">
+  <h2>Pronto para começar?</h2>
+  <p>Junte-se a centenas de alunos que já estão estudando com a gente</p>
+  <a href="#planos" class="btn btn-primary">Escolher Plano</a>
+ </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+ <div class="container">
+  <div class="footer-links">
+   <a href="#planos">Planos</a>
+   <a href="#recursos">Recursos</a>
+   <a href="index.html">Área do Aluno</a>
+   <a href="index.html#admin">Admin</a>
+  </div>
+  <div class="footer-copy">© 2026 SEDES DF. Todos os direitos reservados.</div>
+ </div>
+</footer>
+
+</body>
+</html>

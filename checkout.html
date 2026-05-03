@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - SEDES DF 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#6366f1;--success:#10b981;--dark:#0f172a;--light:#f8fafc;--text:#1e293b;--text-light:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--text)}
+.container{max-width:1000px;margin:0 auto;padding:40px 20px}
+.header{text-align:center;margin-bottom:40px}
+.logo{font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--primary),#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.checkout-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:32px}
+@media(max-width:768px){.checkout-grid{grid-template-columns:1fr}}
+.card{background:white;padding:32px;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.card-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:24px;color:var(--dark)}
+.form-group{margin-bottom:20px}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:8px;color:var(--dark)}
+input,select{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:.95rem;font-family:'Inter',sans-serif;transition:border-color .3s}
+input:focus,select:focus{outline:none;border-color:var(--primary)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.resumo-item{display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid #e2e8f0}
+.resumo-item:last-child{border-bottom:none;font-weight:700;font-size:1.2rem;color:var(--dark)}
+.btn{width:100%;padding:16px;border-radius:12px;font-weight:700;font-size:1rem;cursor:pointer;border:none;background:linear-gradient(135deg,var(--primary),#8b5cf6);color:white;transition:all .3s;margin-top:20px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(99,102,241,.4)}
+.plano-badge{display:inline-block;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:white;padding:6px 14px;border-radius:99px;font-size:.75rem;font-weight:700;margin-bottom:16px}
+.features-list{list-style:none;margin:20px 0}
+.features-list li{padding:10px 0;display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--text-light)}
+.features-list li::before{content:'✓';display:flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--success);color:white;border-radius:50%;font-size:.7rem;flex-shrink:0}
+.secure-badge{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:.85rem;color:var(--text-light)}
+.success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.success-modal.show{display:flex}
+.success-content{background:white;padding:48px;border-radius:24px;text-align:center;max-width:500px}
+.success-icon{font-size:4rem;margin-bottom:20px}
+.success-title{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;margin-bottom:12px;color:var(--dark)}
+.success-text{color:var(--text-light);margin-bottom:32px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="container">
+ <div class="header">
+  <div class="logo">🎯 SEDES DF</div>
+  <p style="color:var(--text-light)">Finalize sua assinatura</p>
+ </div>
+
+ <div class="checkout-grid">
+  <!-- FORMULÁRIO -->
+  <div class="card">
+   <h2 class="card-title">Dados de Pagamento</h2>
+   <form id="checkoutForm">
+    <div class="form-group">
+     <label>Nome Completo</label>
+     <input type="text" id="nome" placeholder="Seu nome completo" required>
+    </div>
+    <div class="form-group">
+     <label>Email</label>
+     <input type="email" id="email" placeholder="seu@email.com" required>
+    </div>
+    <div class="form-group">
+     <label>CPF</label>
+     <input type="text" id="cpf" placeholder="000.000.000-00" required>
+    </div>
+    <div class="form-group">
+     <label>Telefone</label>
+     <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+    </div>
+    
+    <hr style="margin:32px 0;border:none;border-top:1px solid #e2e8f0">
+    
+    <div class="form-group">
+     <label>Número do Cartão</label>
+     <input type="text" id="cartao" placeholder="0000 0000 0000 0000" maxlength="19" required>
+    </div>
+    <div class="form-row">
+     <div class="form-group">
+      <label>Validade</label>
+      <input type="text" id="validade" placeholder="MM/AA" maxlength="5" required>
+     </div>
+     <div class="form-group">
+      <label>CVV</label>
+      <input type="text" id="cvv" placeholder="000" maxlength="3" required>
+     </div>
+    </div>
+    <div class="form-group">
+     <label>Nome no Cartão</label>
+     <input type="text" id="nomeCartao" placeholder="Como está no cartão" required>
+    </div>
+    
+    <button type="submit" class="btn">🔒 Finalizar Assinatura</button>
+    <div class="secure-badge">
+     🔒 Pagamento 100% seguro e criptografado
+    </div>
+   </form>
+  </div>
+
+  <!-- RESUMO -->
+  <div>
+   <div class="card">
+    <div class="plano-badge" id="planoBadge">PLANO PRO</div>
+    <h2 class="card-title" id="planoNome">Plano Pro</h2>
+    <p style="color:var(--text-light);margin-bottom:20px" id="planoDesc">Para quem quer aprovação garantida</p>
+    
+    <ul class="features-list" id="planoFeatures">
+     <li>1.500+ questões comentadas</li>
+     <li>200+ videoaulas atualizadas</li>
+     <li>Tutor IA ilimitado</li>
+     <li>Simulados semanais</li>
+     <li>Análise de desempenho</li>
+     <li>Suporte prioritário</li>
+    </ul>
+    
+    <hr style="margin:24px 0;border:none;border-top:1px solid #e2e8f0">
+    
+    <div class="resumo-item">
+     <span>Plano</span>
+     <span id="planoValor">R$ 197,00</span>
+    </div>
+    <div class="resumo-item">
+     <span>Período</span>
+     <span>Mensal</span>
+    </div>
+    <div class="resumo-item">
+     <span>Total</span>
+     <span id="totalValor">R$ 197,00</span>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+<!-- MODAL SUCESSO -->
+<div class="success-modal" id="successModal">
+ <div class="success-content">
+  <div class="success-icon">🎉</div>
+  <h2 class="success-title">Pagamento Confirmado!</h2>
+  <p class="success-text">Sua assinatura foi ativada com sucesso. Você já pode acessar todo o conteúdo da plataforma.</p>
+  <a href="index.html" class="btn">Começar a Estudar</a>
+ </div>
+</div>
+
+<script>
+// Dados dos planos
+const planos = {
+ basico: {
+  nome: 'Plano Básico',
+  badge: 'PLANO BÁSICO',
+  desc: 'Ideal para quem está começando',
+  valor: 97,
+  features: [
+   'Acesso a todas as matérias',
+   '500 questões comentadas',
+   'Cronograma de estudos',
+   'Videoaulas básicas',
+   'Suporte por email'
+  ]
+ },
+ pro: {
+  nome: 'Plano Pro',
+  badge: 'PLANO PRO',
+  desc: 'Para quem quer aprovação garantida',
+  valor: 197,
+  features: [
+   '1.500+ questões comentadas',
+   '200+ videoaulas atualizadas',
+   'Tutor IA ilimitado',
+   'Simulados semanais',
+   'Análise de desempenho',
+   'Suporte prioritário'
+  ]
+ },
+ vip: {
+  nome: 'Plano VIP',
+  badge: 'PLANO VIP',
+  desc: 'Acompanhamento personalizado',
+  valor: 397,
+  features: [
+   'Tudo do plano Pro',
+   'Mentoria individual',
+   'Plano personalizado',
+   'Correção de redações',
+   'Grupo VIP WhatsApp',
+   'Material exclusivo PDF',
+   'Garantia de aprovação'
+  ]
+ }
+};
+
+// Detectar plano da URL
+const urlParams = new URLSearchParams(window.location.search);
+const planoSelecionado = urlParams.get('plano') || 'pro';
+const plano = planos[planoSelecionado];
+
+// Atualizar interface
+document.getElementById('planoBadge').textContent = plano.badge;
+document.getElementById('planoNome').textContent = plano.nome;
+document.getElementById('planoDesc').textContent = plano.desc;
+document.getElementById('planoValor').textContent = `R$ ${plano.valor},00`;
+document.getElementById('totalValor').textContent = `R$ ${plano.valor},00`;
+
+const featuresList = document.getElementById('planoFeatures');
+featuresList.innerHTML = plano.features.map(f => `<li>${f}</li>`).join('');
+
+// Máscaras
+document.getElementById('cpf').addEventListener('input', function(e){
+ let v = e.target.value.replace(/\D/g,'');
+ v = v.replace(/(\d{3})(\d)/,'$1.$2');
+ v = v.replace(/(\d{3})(\d)/,'$1.$2');
+ v = v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+ e.target.value = v;
+});
+
+document.getElementById('telefone').addEventListener('input', function(e){
+ let v = e.target.value.replace(/\D/g,'');
+ v = v.replace(/^(\d{2})(\d)/g,'($1) $2');
+ v = v.replace(/(\d)(\d{4})$/,'$1-$2');
+ e.target.value = v;
+});
+
+document.getElementById('cartao').addEventListener('input', function(e){
+ let v = e.target.value.replace(/\D/g,'');
+ v = v.replace(/(\d{4})/g,'$1 ').trim();
+ e.target.value = v;
+});
+
+document.getElementById('validade').addEventListener('input', function(e){
+ let v = e.target.value.replace(/\D/g,'');
+ v = v.replace(/(\d{2})(\d)/,'$1/$2');
+ e.target.value = v;
+});
+
+// Submit
+document.getElementById('checkoutForm').addEventListener('submit', function(e){
+ e.preventDefault();
+ 
+ // Salvar dados do aluno
+ const aluno = {
+  nome: document.getElementById('nome').value,
+  email: document.getElementById('email').value,
+  cpf: document.getElementById('cpf').value,
+  telefone: document.getElementById('telefone').value,
+  plano: planoSelecionado,
+  valorMensalidade: plano.valor,
+  dataMatricula: new Date().toISOString().split('T')[0],
+  ativo: true,
+  acessoBloqueado: false
+ };
+ 
+ // Salvar no localStorage (simula cadastro)
+ let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ aluno.id = Date.now();
+ alunos.push(aluno);
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ // Criar mensalidade
+ let mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const hoje = new Date();
+ const vencimento = new Date(hoje.getFullYear(), hoje.getMonth(), 10);
+ mensalidades.push({
+  id: Date.now(),
+  alunoId: aluno.id,
+  mes: hoje.getMonth() + 1,
+  ano: hoje.getFullYear(),
+  valor: plano.valor,
+  vencimento: vencimento.toISOString().split('T')[0],
+  pago: true,
+  dataPagamento: new Date().toISOString()
+ });
+ localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+ 
+ // Salvar login do aluno
+ localStorage.setItem('alunoLogado', JSON.stringify(aluno));
+ 
+ // Mostrar sucesso
+ document.getElementById('successModal').classList.add('show');
+});
+</script>
+
+</body>
+</html>
