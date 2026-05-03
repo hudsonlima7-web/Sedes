@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Boas-Vindas - SEDES DF 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .header p {
+            color: #718096;
+            font-size: 14px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+        }
+        .aluno-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f7fafc;
+            border-radius: 12px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #718096;
+            transition: all 0.2s;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .message-box {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        }
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-pendente {
+            background: #fef5e7;
+            color: #d68910;
+        }
+        .status-enviado {
+            background: #d4edda;
+            color: #155724;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Enviar Boas-Vindas</h1>
+            <p>Mensagens de boas-vindas pendentes de envio</p>
+        </div>
+
+        <div id="mensagensList"></div>
+    </div>
+
+    <script>
+        function carregarMensagens() {
+            const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+            const container = document.getElementById('mensagensList');
+
+            if (boasVindas.length === 0) {
+                container.innerHTML = `
+                    <div class="card">
+                        <div class="empty-state">
+                            <h3>📭 Nenhuma mensagem pendente</h3>
+                            <p>Quando um aluno se matricular, as mensagens aparecerão aqui.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = boasVindas.map((msg, index) => `
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 style="color: #2d3748; font-size: 20px;">
+                            ${msg.aluno.nome}
+                        </h2>
+                        <span class="status-badge ${msg.enviado ? 'status-enviado' : 'status-pendente'}">
+                            ${msg.enviado ? '✅ Enviado' : '⏳ Pendente'}
+                        </span>
+                    </div>
+
+                    <div class="aluno-info">
+                        <div class="info-item">
+                            <span class="info-label">📧 Email</span>
+                            <span class="info-value">${msg.aluno.email}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">📱 Telefone</span>
+                            <span class="info-value">${msg.aluno.telefone}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">🔐 Senha</span>
+                            <span class="info-value">${msg.aluno.senha}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">📅 Data</span>
+                            <span class="info-value">${new Date(msg.dataCriacao).toLocaleString('pt-BR')}</span>
+                        </div>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active" onclick="trocarTab(${index}, 'whatsapp')">
+                            💬 WhatsApp
+                        </button>
+                        <button class="tab" onclick="trocarTab(${index}, 'email')">
+                            📧 Email
+                        </button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-${index}-whatsapp">
+                        <div class="message-box">${msg.mensagemWhatsApp}</div>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="copiarTexto(${index}, 'whatsapp')">
+                                📋 Copiar Mensagem
+                            </button>
+                            <a href="https://wa.me/${msg.aluno.telefone.replace(/\D/g, '')}?text=${encodeURIComponent(msg.mensagemWhatsApp)}" 
+                               target="_blank" 
+                               class="btn btn-success" 
+                               style="text-decoration: none;">
+                                💬 Abrir WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-${index}-email">
+                        <div class="message-box" style="max-height: 300px;">${msg.htmlEmail.substring(0, 500)}...</div>
+                        <div class="actions">
+                            <button class="btn btn-primary" onclick="copiarHTML(${index})">
+                                📋 Copiar HTML
+                            </button>
+                            <a href="mailto:${msg.aluno.email}?subject=Bem-vindo ao SEDES DF 2026" 
+                               class="btn btn-success" 
+                               style="text-decoration: none;">
+                                📧 Abrir Cliente de Email
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <button class="btn btn-success" onclick="marcarComoEnviado(${index})" ${msg.enviado ? 'disabled' : ''}>
+                            ✅ Marcar como Enviado
+                        </button>
+                        <button class="btn btn-secondary" onclick="removerMensagem(${index})">
+                            🗑️ Remover
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function trocarTab(index, tipo) {
+            // Remover active de todas as tabs deste card
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Ativar tab selecionada
+            event.target.classList.add('active');
+            document.getElementById(`tab-${index}-${tipo}`).classList.add('active');
+        }
+
+        function copiarTexto(index, tipo) {
+            const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+            const texto = boasVindas[index].mensagemWhatsApp;
+
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Mensagem copiada! Cole no WhatsApp.');
+            });
+        }
+
+        function copiarHTML(index) {
+            const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+            const html = boasVindas[index].htmlEmail;
+
+            navigator.clipboard.writeText(html).then(() => {
+                alert('✅ HTML copiado! Cole no seu cliente de email.');
+            });
+        }
+
+        function marcarComoEnviado(index) {
+            const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+            boasVindas[index].enviado = true;
+            boasVindas[index].dataEnvio = new Date().toISOString();
+            localStorage.setItem('boasVindasPendentes', JSON.stringify(boasVindas));
+            carregarMensagens();
+            alert('✅ Marcado como enviado!');
+        }
+
+        function removerMensagem(index) {
+            if (!confirm('Tem certeza que deseja remover esta mensagem?')) return;
+
+            const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+            boasVindas.splice(index, 1);
+            localStorage.setItem('boasVindasPendentes', JSON.stringify(boasVindas));
+            carregarMensagens();
+        }
+
+        // Carregar ao iniciar
+        carregarMensagens();
+
+        // Atualizar a cada 30 segundos
+        setInterval(carregarMensagens, 30000);
+    </script>
+</body>
+</html>

@@ -267,6 +267,9 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e){
  alunos.push(aluno);
  localStorage.setItem('alunos', JSON.stringify(alunos));
  
+ // 🎉 ENVIAR BOAS-VINDAS AUTOMÁTICO
+ enviarBoasVindasAutomatico(aluno);
+ 
  // Criar mensalidade paga (primeiro mês)
  let mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
  const hoje = new Date();
@@ -294,6 +297,209 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e){
  // Mostrar sucesso
  document.getElementById('successModal').classList.add('show');
 });
+
+// ================================================================
+// SISTEMA DE ENVIO DE BOAS-VINDAS AUTOMÁTICO
+// ================================================================
+
+function enviarBoasVindasAutomatico(aluno) {
+ console.log('🎉 Enviando boas-vindas para:', aluno.nome);
+ 
+ // Preparar dados para o email/WhatsApp
+ const dados = {
+  nome: aluno.nome,
+  email: aluno.email,
+  senha: aluno.senha, // Senha que o aluno escolheu
+  telefone: aluno.telefone,
+  plano: aluno.plano,
+  linkPlataforma: window.location.origin + '/index.html'
+ };
+ 
+ // Enviar via console (para teste)
+ console.log('📧 Dados para envio:', dados);
+ 
+ // Criar mensagem de boas-vindas
+ const mensagemWhatsApp = criarMensagemWhatsApp(dados);
+ const htmlEmail = criarHtmlEmail(dados);
+ 
+ // Salvar no localStorage para admin ver
+ const boasVindas = JSON.parse(localStorage.getItem('boasVindasPendentes') || '[]');
+ boasVindas.push({
+  id: Date.now(),
+  aluno: dados,
+  mensagemWhatsApp: mensagemWhatsApp,
+  htmlEmail: htmlEmail,
+  dataCriacao: new Date().toISOString(),
+  enviado: false
+ });
+ localStorage.setItem('boasVindasPendentes', JSON.stringify(boasVindas));
+ 
+ // Mostrar no console para copiar e enviar manualmente
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📱 MENSAGEM PARA WHATSAPP:');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log(mensagemWhatsApp);
+ console.log('');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('📧 HTML PARA EMAIL:');
+ console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+ console.log('Copie o HTML abaixo e cole no seu cliente de email:');
+ console.log(htmlEmail.substring(0, 200) + '...');
+ console.log('');
+ console.log('✅ Mensagens salvas! Acesse o painel admin para enviar.');
+ 
+ // Notificar usuário
+ setTimeout(() => {
+   alert(`✅ Matrícula realizada com sucesso!\n\n📧 Email: ${dados.email}\n🔐 Senha: ${dados.senha}\n\n⚠️ IMPORTANTE: Copie as mensagens do console (F12) para enviar ao aluno!`);
+ }, 1000);
+}
+
+function criarMensagemWhatsApp(dados) {
+ return `🎉 *BEM-VINDO(A) AO SEDES DF 2026!* 🎉
+
+Olá *${dados.nome}*! 👋
+
+É com grande satisfação que damos as boas-vindas à *Plataforma SEDES DF 2026*! 🚀
+
+━━━━━━━━━━━━━━━━━━━━
+🔑 *SEUS DADOS DE ACESSO*
+━━━━━━━━━━━━━━━━━━━━
+
+📧 *E-mail/Login:*
+\`${dados.email}\`
+
+🔐 *Sua Senha:*
+\`${dados.senha}\`
+
+⚠️ *IMPORTANTE:* Guarde sua senha em local seguro!
+
+━━━━━━━━━━━━━━━━━━━━
+🚀 *ACESSE AGORA*
+━━━━━━━━━━━━━━━━━━━━
+
+${dados.linkPlataforma}
+
+━━━━━━━━━━━━━━━━━━━━
+📚 *O QUE VOCÊ VAI ENCONTRAR:*
+━━━━━━━━━━━━━━━━━━━━
+
+✅ *Dashboard Personalizado*
+Acompanhe seu progresso em tempo real
+
+📺 *Videoaulas Selecionadas*
+Top 3 melhores vídeos de cada matéria
+
+📝 *Simulados Inteligentes*
+Questões organizadas por matéria e nível
+
+🤖 *Tutor IA 24/7*
+Tire dúvidas a qualquer hora
+
+📅 *Cronograma Personalizado*
+Planejamento adaptado ao seu perfil
+
+━━━━━━━━━━━━━━━━━━━━
+🎯 *PRIMEIROS PASSOS:*
+━━━━━━━━━━━━━━━━━━━━
+
+1️⃣ Acesse a plataforma com suas credenciais
+2️⃣ Complete seu perfil (especialidade, cargo)
+3️⃣ Explore o dashboard
+4️⃣ Comece pelos vídeos da sua matéria preferida
+
+━━━━━━━━━━━━━━━━━━━━
+💪 *MENSAGEM MOTIVACIONAL:*
+━━━━━━━━━━━━━━━━━━━━
+
+_"O sucesso é a soma de pequenos esforços repetidos dia após dia."_
+
+Estamos com você nessa jornada! 🎯🏆
+
+━━━━━━━━━━━━━━━━━━━━
+📞 *PRECISA DE AJUDA?*
+━━━━━━━━━━━━━━━━━━━━
+
+📧 suporte@sedesdf2026.com.br
+💬 (61) 99999-9999
+
+Bons estudos e até a aprovação! 🎓✨
+
+_Equipe SEDES DF 2026_`;
+}
+
+function criarHtmlEmail(dados) {
+ return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao SEDES DF 2026</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f7fa;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fa; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+                <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center; border-radius: 16px 16px 0 0;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 800;">🎉 Bem-vindo(a)!</h1>
+                            <p style="margin: 12px 0 0 0; color: rgba(255,255,255,0.95); font-size: 18px;">Sua jornada rumo à aprovação começa agora</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <p style="margin: 0 0 24px 0; color: #2d3748; font-size: 16px;">Olá <strong style="color: #667eea;">${dados.nome}</strong>,</p>
+                            <p style="margin: 0 0 24px 0; color: #4a5568; font-size: 15px; line-height: 1.7;">É com grande satisfação que damos as boas-vindas à <strong>Plataforma SEDES DF 2026</strong>!</p>
+                            
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background: #f7fafc; border-radius: 12px; border: 2px solid #e2e8f0; margin: 32px 0;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <h2 style="margin: 0 0 20px 0; color: #2d3748; font-size: 18px; text-align: center;">🔑 Seus Dados de Acesso</h2>
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 16px;">
+                                            <tr>
+                                                <td style="padding: 12px; background-color: #ffffff; border-radius: 8px;">
+                                                    <p style="margin: 0 0 4px 0; color: #718096; font-size: 12px; font-weight: 600;">📧 E-mail / Login</p>
+                                                    <p style="margin: 0; color: #2d3748; font-size: 16px; font-weight: 600; font-family: monospace;">${dados.email}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding: 12px; background-color: #ffffff; border-radius: 8px;">
+                                                    <p style="margin: 0 0 4px 0; color: #718096; font-size: 12px; font-weight: 600;">🔐 Sua Senha</p>
+                                                    <p style="margin: 0; color: #2d3748; font-size: 16px; font-weight: 600; font-family: monospace;">${dados.senha}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p style="margin: 16px 0 0 0; color: #e53e3e; font-size: 13px; text-align: center;">⚠️ Guarde sua senha em local seguro!</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="${dados.linkPlataforma}" style="display: inline-block; padding: 16px 48px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; border-radius: 50px; font-size: 16px; font-weight: 700;">🚀 Acessar Plataforma Agora</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin: 32px 0 0 0; color: #4a5568; font-size: 14px; line-height: 1.7;">Bons estudos e até a aprovação! 🎓✨</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #f7fafc; padding: 24px 30px; text-align: center; border-radius: 0 0 16px 16px;">
+                            <p style="margin: 0; color: #718096; font-size: 13px;">📧 suporte@sedesdf2026.com.br | 💬 (61) 99999-9999</p>
+                            <p style="margin: 8px 0 0 0; color: #a0aec0; font-size: 12px;">© 2026 SEDES DF - Todos os direitos reservados</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+}
 </script>
 
 </body>
