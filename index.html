@@ -1798,14 +1798,17 @@ function toggleBloqueioManual(alunoId){
 }
 
 // Modificar função pg() para verificar acesso admin
-const pgOriginal = pg;
+// Salvar referência da função original
+const pgBase = pg;
+
+// Redefinir pg com verificação de admin
 function pg(p){
  // Páginas que requerem admin
  const paginasAdmin = ['admin-alunos', 'admin-mensalidades', 'admin-acessos', 'admin-config'];
  
  if(paginasAdmin.includes(p) && !isAdminLoggedIn()){
   notif('🔒 Acesso restrito! Faça login como administrador.');
-  pgOriginal('admin-login');
+  pgBase('admin-login');
   return;
  }
  
@@ -1815,7 +1818,8 @@ function pg(p){
  if(p === 'admin-acessos') carregarAcessos();
  if(p === 'admin-config') carregarConfig();
  
- pgOriginal(p);
+ // Chamar função original
+ pgBase(p);
 }
 
 // ===== CONFIGURAÇÕES =====
