@@ -1,193 +1,164 @@
 # 🤖 Como Configurar o Tutor IA (100% GRATUITO!)
 
-## 🆓 API Groq - Totalmente Gratuita!
+O Tutor IA usa a **API Groq**, que é **totalmente gratuita** e muito poderosa!
 
-O Tutor IA agora usa a **API Groq** que é:
-- ✅ **100% GRATUITA** - Sem custos!
-- ⚡ **Super Rápida** - Respostas em 1-2 segundos
-- 🧠 **Llama 3.1 70B** - Modelo de alta qualidade
-- 🔒 **Limite Generoso** - 30 requisições/minuto grátis
-- 🌐 **Sem cartão de crédito** - Só criar conta!
+## 📋 Passo a Passo
 
----
+### 1️⃣ Criar Conta na Groq
 
-## ✅ Configuração em 3 Passos Simples
+1. Acesse: **https://console.groq.com/**
+2. Clique em **"Sign Up"** (ou "Create Account")
+3. Use seu e-mail do Google ou GitHub para criar conta
+4. Confirme seu e-mail
 
-### 📝 Passo 1: Obter a Chave da API (2 minutos)
+### 2️⃣ Gerar Chave da API
 
-1. **Acesse:** https://console.groq.com/
-2. **Crie uma conta:**
-   - Pode usar Google, GitHub ou email
-   - Não precisa de cartão de crédito!
-3. **Vá em "API Keys"** no menu lateral
-4. **Clique em "Create API Key"**
-5. **Dê um nome** (ex: "SEDES DF 2026")
-6. **Copie a chave** (começa com `gsk_...`)
-   - ⚠️ Guarde em local seguro!
-   - ⚠️ Não compartilhe com ninguém!
+1. Após fazer login, vá em **"API Keys"** no menu lateral
+2. Clique em **"Create API Key"**
+3. Dê um nome (ex: "SEDES DF 2026")
+4. Clique em **"Create"**
+5. **COPIE A CHAVE** (começa com `gsk_...`)
+   - ⚠️ **IMPORTANTE**: Você só verá a chave UMA VEZ!
+   - Salve em um lugar seguro
 
-### 🔧 Passo 2: Adicionar a Chave no Código (1 minuto)
+### 3️⃣ Configurar na Plataforma
 
-1. **Abra o arquivo `index.html`** no seu editor de código
-2. **Procure pela linha 993** ou busque por: `GROQ_API_KEY`
-3. **Você verá isso:**
+#### Opção A: Via Painel Admin (RECOMENDADO)
+
+1. Faça login na plataforma
+2. Clique em **"🔐 Admin"** no menu lateral
+3. Faça login com:
+   - Usuário: `admin`
+   - Senha: `Hudson*`
+4. Vá em **"⚙️ Configurações"**
+5. Cole sua chave no campo **"Chave da API Groq"**
+6. Clique em **"💾 Salvar Chave"**
+7. Clique em **"🧪 Testar Conexão"** para verificar
+8. Pronto! O Tutor IA já está funcionando! 🎉
+
+#### Opção B: Via Console do Navegador (Avançado)
+
+1. Abra a plataforma
+2. Pressione **F12** para abrir o Console
+3. Digite:
    ```javascript
-   const GROQ_API_KEY = 'sua_chave_aqui';
+   localStorage.setItem('groqApiKey', 'SUA_CHAVE_AQUI');
    ```
-4. **Substitua por:**
-   ```javascript
-   const GROQ_API_KEY = 'gsk_SUA_CHAVE_REAL_AQUI';
-   ```
-5. **Salve o arquivo** (Ctrl+S)
+4. Pressione **Enter**
+5. Recarregue a página (**F5**)
 
-### 🚀 Passo 3: Fazer Deploy (1 minuto)
+### 4️⃣ Testar o Tutor IA
 
-Abra o terminal na pasta do projeto e execute:
-
-```bash
-# Adicionar as mudanças
-git add index.html
-
-# Fazer commit
-git commit -m "Adicionar chave da API Groq"
-
-# Enviar para o GitHub
-git push
-
-# Fazer deploy no Cloudflare
-wrangler pages deploy . --project-name=sedes-12y
-```
+1. Vá em **"🤖 Tutor IA"** no menu
+2. Digite uma pergunta, por exemplo:
+   - "Explique o SUAS resumidamente"
+   - "Faça 3 questões sobre LOAS"
+   - "Diferença entre CRAS e CREAS"
+3. Pressione **Enter** ou clique em **➤**
+4. Aguarde a resposta (leva 2-5 segundos)
 
 ---
 
-## ✨ Pronto! Teste Agora
+## ✅ Verificar se Está Funcionando
 
-Acesse seu site e teste o Tutor IA:
-**https://sedes-12y.pages.dev**
+### Sinais de que está OK:
+- ✅ Não aparece mensagem de erro vermelha
+- ✅ O Tutor responde suas perguntas
+- ✅ As respostas são sobre o concurso SEDES DF
 
-Pergunte algo como:
-- "Explique o que é SUAS"
-- "Crie uma questão sobre LOAS"
-- "Quais são os principais temas da prova?"
+### Sinais de problema:
+- ❌ Mensagem: "Configure sua chave da API"
+  - **Solução**: Siga o passo 3 novamente
+- ❌ Mensagem: "Chave inválida"
+  - **Solução**: Verifique se copiou a chave completa (começa com `gsk_`)
+- ❌ Mensagem: "Erro de conexão"
+  - **Solução**: Verifique sua internet
 
 ---
 
-## 🆚 Comparação: Groq vs Anthropic
+## 🆓 Limites Gratuitos da Groq
 
-| Característica | Groq (Atual) | Anthropic (Anterior) |
-|---------------|--------------|----------------------|
-| **Custo** | 🆓 Gratuito | 💰 Pago |
-| **Velocidade** | ⚡ 1-2s | 🐌 3-5s |
-| **Modelo** | Llama 3.1 70B | Claude Sonnet |
-| **Limite** | 30 req/min | Depende do plano |
-| **Cartão** | ❌ Não precisa | ✅ Necessário |
-| **Qualidade** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+A API Groq é **100% gratuita** com limites generosos:
+
+- ✅ **6.000 requisições por minuto**
+- ✅ **30.000 tokens por minuto**
+- ✅ Modelo: **Llama 3.3 70B** (muito poderoso!)
+
+Para uso normal de estudos, você **nunca vai atingir o limite**!
 
 ---
 
 ## 🔒 Segurança
 
-### ⚠️ Avisos Importantes
+### ⚠️ IMPORTANTE:
 
-- Sua chave ficará **visível no código-fonte** do site
-- Qualquer pessoa pode **ver** sua chave
-- Configure **rate limiting** na console do Groq
-- Monitore o uso regularmente
+1. **NÃO compartilhe sua chave** com outras pessoas
+2. **NÃO poste sua chave** em redes sociais ou GitHub
+3. Se sua chave vazar:
+   - Vá em https://console.groq.com/
+   - Delete a chave antiga
+   - Crie uma nova chave
+   - Atualize na plataforma
 
-### 🛡️ Proteção Recomendada
+### Como a chave é armazenada:
 
-**Para uso pessoal:**
-1. ✅ Use a chave diretamente (como configurado)
-2. ✅ Monitore o uso na console do Groq
-3. ✅ Revogue a chave se notar uso suspeito
-4. ✅ Groq tem limite de 30 req/min (proteção automática)
-
-**Para uso público (muitos usuários):**
-Você precisaria criar um backend para proteger a chave:
-- Node.js + Express
-- Cloudflare Workers
-- Vercel Serverless Functions
+- A chave fica salva no **localStorage** do seu navegador
+- **NÃO é enviada** para nenhum servidor nosso
+- É usada **apenas** para se comunicar com a API da Groq
+- Se limpar o cache do navegador, precisará configurar novamente
 
 ---
 
 ## 🆘 Problemas Comuns
 
-### "401 Unauthorized"
-- ❌ Chave inválida ou expirada
-- ✅ Verifique se copiou corretamente (começa com `gsk_`)
-- ✅ Gere uma nova chave na console
+### "Limite de uso atingido"
+- **Causa**: Você fez muitas perguntas muito rápido
+- **Solução**: Aguarde 1 minuto e tente novamente
 
-### "429 Too Many Requests"
-- ❌ Limite de 30 requisições/minuto atingido
-- ✅ Aguarde 1 minuto
-- ✅ Reduza a frequência de uso
+### "Chave inválida"
+- **Causa**: Chave copiada errada ou expirada
+- **Solução**: Gere uma nova chave e configure novamente
 
-### "Tutor IA offline"
-- ❌ Sem conexão com internet
-- ❌ Chave não configurada
-- ✅ Abra o Console do navegador (F12) para ver erros detalhados
-
-### Resposta muito lenta
-- ⚡ Groq é normalmente muito rápido (1-2s)
-- ✅ Verifique sua conexão com internet
-- ✅ Tente novamente
-
----
-
-## 🎯 Alternativas Gratuitas
-
-Se quiser testar outras APIs gratuitas:
-
-### 1. **Google Gemini** (Gratuito)
-- API: `https://ai.google.dev/`
-- Modelo: Gemini 1.5 Flash
-- Limite: 15 req/min grátis
-
-### 2. **Hugging Face** (Gratuito)
-- API: `https://huggingface.co/inference-api`
-- Modelos: Vários open source
-- Limite: Variável
-
-### 3. **OpenRouter** (Freemium)
-- API: `https://openrouter.ai/`
-- Modelos: Vários (alguns grátis)
-- Limite: Depende do modelo
-
----
-
-## 📞 Links Úteis
-
-- **Groq Console:** https://console.groq.com/
-- **Documentação:** https://console.groq.com/docs
-- **Modelos Disponíveis:** https://console.groq.com/docs/models
-- **Seu Site:** https://sedes-12y.pages.dev
+### "Erro de conexão"
+- **Causa**: Problema de internet ou API fora do ar
+- **Solução**: Verifique sua internet e tente novamente
 
 ---
 
 ## 💡 Dicas de Uso
 
-1. **Seja específico** nas perguntas
-2. **Peça exemplos** de questões
-3. **Solicite explicações** detalhadas
-4. **Use para revisar** conteúdos
-5. **Crie simulados** personalizados
+### Perguntas que funcionam bem:
+- ✅ "Explique [tema] resumidamente"
+- ✅ "Faça 3 questões sobre [matéria]"
+- ✅ "Diferença entre [conceito A] e [conceito B]"
+- ✅ "Quais os pontos mais importantes de [lei]?"
+- ✅ "Crie um resumo de [assunto]"
 
-### Exemplos de Prompts:
-
-```
-"Crie 5 questões estilo Quadrix sobre LOAS"
-
-"Explique a diferença entre CRAS e CREAS"
-
-"Quais são os artigos mais cobrados da CF/88 sobre assistência social?"
-
-"Faça um resumo da NOB-SUAS 2012"
-
-"Crie um plano de estudos de 30 dias para Especialista"
-```
+### Perguntas específicas do concurso:
+- ✅ "Explique o SUAS para o concurso SEDES DF"
+- ✅ "Faça questões estilo Quadrix sobre LOAS"
+- ✅ "Estratégia para fazer os dois cargos"
+- ✅ "Diferença CRAS vs CREAS"
 
 ---
 
-**Boa sorte nos estudos! 🎓**
+## 🎯 Próximos Passos
 
-*Tutor IA configurado com Groq - 100% Gratuito e Super Rápido!* ⚡
+Depois de configurar o Tutor IA:
+
+1. ✅ Explore as **sugestões de perguntas** na página do Tutor
+2. ✅ Use o Tutor para **tirar dúvidas** durante os estudos
+3. ✅ Peça para criar **questões personalizadas**
+4. ✅ Solicite **resumos** dos temas mais difíceis
+5. ✅ Peça **análise dos seus pontos fracos**
+
+---
+
+## 📞 Suporte
+
+Se tiver dúvidas:
+- Consulte: `INICIO_RAPIDO.md`
+- Consulte: `GUIA_ADMIN.md`
+- Consulte: `SISTEMA_LOGIN.md`
+
+**Bons estudos! 🚀**

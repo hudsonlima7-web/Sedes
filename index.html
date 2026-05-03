@@ -536,7 +536,7 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
   <div class="page" id="page-ia">
    <div class="st2">🤖 Tutor IA — SEDES DF</div>
    <div class="ss2" id="iaSub">Especializado no seu perfil — Banca Quadrix</div>
-   <div class="ia-err show" id="iaErrBox">🆓 <strong>Tutor IA 100% GRATUITO!</strong> Configure sua chave da API Groq (grátis) para ativar. Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline;font-weight:600">console.groq.com</a> → Crie conta → Gere chave → Cole no código (linha 993).</div>
+   <div class="ia-err" id="iaErrBox">🆓 <strong>Tutor IA 100% GRATUITO!</strong> Configure sua chave da API Groq em <strong>Admin → Configurações</strong>.</div>
    <div class="card">
     <div class="iac" id="iaChat"></div>
     <div class="iainr"><input class="iain" id="iaInp" placeholder="Peça resumos, questões, explicações..." onkeydown="if(event.key==='Enter')sendIA()"><button class="iasd" onclick="sendIA()">➤</button></div>
@@ -1337,13 +1337,17 @@ function renderIASug(){
  testIAConn();
 }
 
-// CONFIGURE SUA CHAVE DA API GROQ AQUI (100% GRATUITA!)
-// Obtenha em: https://console.groq.com/
-const GROQ_API_KEY = localStorage.getItem('groqApiKey') || 'sua_chave_aqui'; // ⚠️ Configure via painel admin
+// Função para obter a chave da API (sempre atualizada)
+function getGroqApiKey(){
+ return localStorage.getItem('groqApiKey') || '';
+}
 
 async function testIAConn(){
+ const GROQ_API_KEY = getGroqApiKey();
+ 
  if(!GROQ_API_KEY || GROQ_API_KEY === 'sua_chave_aqui'){
-  document.getElementById('iaErrBox').innerHTML='🔑 <strong>Configure sua chave da API Groq (GRATUITA!)</strong> — Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>, crie uma conta e gere sua chave. Depois edite o arquivo index.html na linha 993.';
+  document.getElementById('iaErrBox').innerHTML='🔑 <strong>Configure sua chave da API Groq (GRATUITA!)</strong> — Vá em <strong>Admin → Configurações</strong> ou acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>, crie uma conta e gere sua chave.';
+  document.getElementById('iaErrBox').classList.add('show');
   return;
  }
  try{
@@ -1355,11 +1359,15 @@ async function testIAConn(){
    },
    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:10,messages:[{role:'user',content:'ok'}]})
   });
-  if(r.ok||r.status===401){
+  if(r.ok){
    document.getElementById('iaErrBox').classList.remove('show');
+  } else if(r.status === 401){
+   document.getElementById('iaErrBox').innerHTML='🔑 <strong>Chave da API inválida!</strong> — Verifique se copiou corretamente em <strong>Admin → Configurações</strong>.';
+   document.getElementById('iaErrBox').classList.add('show');
   }
  }catch(e){
   document.getElementById('iaErrBox').innerHTML='⚠️ <strong>Tutor IA offline</strong> — Verifique sua conexão com a internet. O resto da plataforma funciona normalmente.';
+  document.getElementById('iaErrBox').classList.add('show');
  }
 }
 
@@ -1376,8 +1384,10 @@ async function sendIA(){
  const e=getEsp(),t=getTec();
  const pSys=P.nivel_esp&&P.nivel_tec?`O candidato faz DOIS cargos: Especialista em ${e.nm} e Técnico ${t.nm}. Provas no mesmo dia.`:P.nivel_esp?`Especialista em ${e.nm}. Prova: 60q (20 gerais + 40 específicas de ${e.nm}) + Estudo de Caso.`:`Técnico ${t.nm}. Prova: 60q + Redação.`;
  
+ const GROQ_API_KEY = getGroqApiKey();
+ 
  if(!GROQ_API_KEY || GROQ_API_KEY === 'sua_chave_aqui'){
-  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">🔑 Configure sua chave da API Groq (GRATUITA!) no código (linha 993) para usar o Tutor IA. Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a></div>`;
+  document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">🔑 Configure sua chave da API Groq (GRATUITA!) em <strong>Admin → Configurações</strong>. Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> para obter sua chave.</div>`;
   return;
  }
  
@@ -1400,7 +1410,10 @@ Ao criar questões: use estilo Quadrix com 5 alternativas A-E, indique a correta
 Responda em português, de forma direta e pedagógica.`},
     {role:'user',content:msg}
    ]})});
-  if(!res.ok)throw new Error('HTTP '+res.status);
+  if(!res.ok){
+   const errorData = await res.json().catch(() => ({}));
+   throw new Error(`HTTP ${res.status}: ${errorData.error?.message || 'Erro desconhecido'}`);
+  }
   const d=await res.json();
   if(d.error)throw new Error(d.error.message);
   const r=d.choices?.[0]?.message?.content||'Sem resposta.';
@@ -1408,8 +1421,9 @@ Responda em português, de forma direta e pedagógica.`},
   document.getElementById('iaErrBox').classList.remove('show');
  }catch(err){
   let errMsg='⚠️ Erro de conexão com a API. Verifique sua internet e tente novamente.';
-  if(err.message.includes('401'))errMsg='🔑 Chave de API inválida ou não configurada. Acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> para obter uma chave GRATUITA.';
+  if(err.message.includes('401')||err.message.includes('invalid'))errMsg='🔑 Chave de API inválida. Verifique em <strong>Admin → Configurações</strong> ou acesse <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a> para obter uma nova chave GRATUITA.';
   else if(err.message.includes('429'))errMsg='⏳ Muitas requisições. Aguarde alguns segundos e tente novamente.';
+  else if(err.message.includes('quota'))errMsg='📊 Limite de uso atingido. Aguarde ou crie uma nova conta em <a href="https://console.groq.com/" target="_blank" style="color:var(--v2);text-decoration:underline">console.groq.com</a>.';
   document.getElementById(lid).innerHTML=`<div class="ms">🤖 Tutor</div><div class="mb" style="color:var(--vm)">${errMsg}</div>`;
   document.getElementById('iaErrBox').innerHTML=errMsg;
   document.getElementById('iaErrBox').classList.add('show');
@@ -1694,6 +1708,9 @@ function esconderMenuAdmin(){
 
 // Inicializar dados admin
 function initAdmin(){
+ // Configurar chave Groq padrão se não existir (apenas na primeira vez)
+ // A chave deve ser configurada pelo admin em Admin → Configurações
+ 
  if(!localStorage.getItem('alunos')){
   // Criar alunos demo para teste
   const alunosDemo = [
@@ -2089,7 +2106,12 @@ function salvarGroqKey(){
   return;
  }
  localStorage.setItem('groqApiKey', key);
- notif('✅ Chave salva! Recarregue a página para ativar o Tutor IA.');
+ notif('✅ Chave salva com sucesso!');
+ 
+ // Testar a chave automaticamente
+ setTimeout(() => {
+  testarGroqKey();
+ }, 500);
 }
 
 async function testarGroqKey(){
