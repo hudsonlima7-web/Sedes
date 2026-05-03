@@ -368,6 +368,53 @@ header{background:rgba(255,255,255,.98);backdrop-filter:blur(20px);color:var(--d
 .spin{display:inline-block;animation:sp 1s linear infinite}
 @keyframes sp{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
+
+/* ── MODAL ALTERAR SENHA ── */
+.modal-senha{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10001;align-items:center;justify-content:center;padding:16px}
+.modal-senha.show{display:flex}
+.modal-senha-box{background:var(--white);border-radius:var(--radius-xl);max-width:450px;width:100%;padding:32px;box-shadow:var(--shadow-xl)}
+.modal-senha-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--dark);margin-bottom:8px;text-align:center}
+.modal-senha-subtitle{color:var(--text-light);font-size:.9rem;margin-bottom:24px;text-align:center}
+.modal-senha-form{display:flex;flex-direction:column;gap:16px}
+.modal-senha-input{padding:12px 16px;border:2px solid var(--light-2);border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s}
+.modal-senha-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.modal-senha-btns{display:flex;gap:12px;margin-top:8px}
+.modal-senha-btn{flex:1;padding:12px;border-radius:var(--radius-full);font-family:'Poppins',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;transition:all .3s;border:none}
+.modal-senha-btn.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--white);box-shadow:var(--shadow)}
+.modal-senha-btn.primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.modal-senha-btn.secondary{background:var(--light-2);color:var(--text)}
+.modal-senha-btn.secondary:hover{background:var(--light-3)}
+.modal-senha-success{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(5,150,105,.1));border:2px solid var(--success);border-radius:var(--radius);padding:12px 16px;font-size:.85rem;color:var(--success);display:none;margin-bottom:16px;font-weight:600;text-align:center}
+.modal-senha-success.show{display:block}
+.modal-senha-error{background:rgba(239,68,68,.1);border:2px solid var(--danger);border-radius:var(--radius);padding:12px 16px;font-size:.85rem;color:var(--danger);display:none;margin-bottom:16px;font-weight:600;text-align:center}
+.modal-senha-error.show{display:block}
+
+/* ── MODAL EDITAR ALUNO ── */
+.modal-editar{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:10001;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal-editar.show{display:flex}
+.modal-editar-box{background:var(--white);border-radius:var(--radius-xl);max-width:600px;width:100%;padding:32px;box-shadow:var(--shadow-xl);margin:20px}
+.modal-editar-title{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:var(--dark);margin-bottom:8px;text-align:center}
+.modal-editar-subtitle{color:var(--text-light);font-size:.9rem;margin-bottom:24px;text-align:center}
+.modal-editar-form{display:flex;flex-direction:column;gap:16px}
+.modal-editar-group{display:flex;flex-direction:column;gap:6px}
+.modal-editar-label{font-size:.85rem;font-weight:600;color:var(--dark)}
+.modal-editar-input,.modal-editar-select{padding:12px 16px;border:2px solid var(--light-2);border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:all .3s;background:var(--white)}
+.modal-editar-input:focus,.modal-editar-select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.modal-editar-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:480px){.modal-editar-row{grid-template-columns:1fr}}
+.modal-editar-btns{display:flex;gap:12px;margin-top:8px}
+.modal-editar-btn{flex:1;padding:14px;border-radius:var(--radius-full);font-family:'Poppins',sans-serif;font-weight:700;font-size:.95rem;cursor:pointer;transition:all .3s;border:none}
+.modal-editar-btn.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--white);box-shadow:var(--shadow)}
+.modal-editar-btn.primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.modal-editar-btn.secondary{background:var(--light-2);color:var(--text)}
+.modal-editar-btn.secondary:hover{background:var(--light-3)}
+.modal-editar-success{background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(5,150,105,.1));border:2px solid var(--success);border-radius:var(--radius);padding:12px 16px;font-size:.85rem;color:var(--success);display:none;margin-bottom:16px;font-weight:600;text-align:center}
+.modal-editar-success.show{display:block}
+.modal-editar-error{background:rgba(239,68,68,.1);border:2px solid var(--danger);border-radius:var(--radius);padding:12px 16px;font-size:.85rem;color:var(--danger);display:none;margin-bottom:16px;font-weight:600;text-align:center}
+.modal-editar-error.show{display:block}
+.modal-editar-checkbox{display:flex;align-items:center;gap:8px;padding:12px;background:var(--light);border-radius:var(--radius);cursor:pointer}
+.modal-editar-checkbox input{width:20px;height:20px;cursor:pointer}
+.modal-editar-checkbox label{cursor:pointer;font-size:.9rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -384,6 +431,9 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
    <input type="email" class="login-input" id="loginEmail" placeholder="📧 Seu e-mail" required>
    <input type="password" class="login-input" id="loginSenha" placeholder="🔒 Sua senha" required>
    <button type="submit" class="login-btn" id="loginBtn">🚀 Entrar na Plataforma</button>
+   <div class="login-link">
+    <a href="#" onclick="recuperarSenha(event)">🔑 Esqueci minha senha</a>
+   </div>
   </form>
   
   <div class="login-divider">ou</div>
@@ -476,6 +526,7 @@ hr{border:none;border-top:1px solid var(--ci2);margin:14px 0}
    <button class="nav-i" onclick="pg('admin-login')" id="btnAdminLogin"><span class="ni">🔐</span>Admin</button>
   </div>
   <div class="sb-sec" style="margin-top:4px">
+   <button class="nav-i" onclick="abrirAlterarSenha()"><span class="ni">🔐</span>Alterar Senha</button>
    <button class="nav-i" onclick="alunoLogout()"><span class="ni">🚪</span>Sair</button>
   </div>
   <div class="sb-sec" style="margin-top:8px">
@@ -1821,6 +1872,122 @@ function alunoLogout(){
  }
 }
 
+// ================================================================
+// SISTEMA DE ALTERAÇÃO E RECUPERAÇÃO DE SENHA
+// ================================================================
+
+// Abrir modal de alterar senha
+function abrirAlterarSenha(){
+ document.getElementById('modalAlterarSenha').classList.add('show');
+ document.getElementById('senhaAtual').value = '';
+ document.getElementById('senhaNova').value = '';
+ document.getElementById('senhaConfirma').value = '';
+ document.getElementById('senhaError').classList.remove('show');
+ document.getElementById('senhaSuccess').classList.remove('show');
+}
+
+// Fechar modal de alterar senha
+function fecharAlterarSenha(){
+ document.getElementById('modalAlterarSenha').classList.remove('show');
+}
+
+// Alterar senha do aluno
+function alterarSenhaAluno(event){
+ event.preventDefault();
+ 
+ const senhaAtual = document.getElementById('senhaAtual').value;
+ const senhaNova = document.getElementById('senhaNova').value;
+ const senhaConfirma = document.getElementById('senhaConfirma').value;
+ const errorEl = document.getElementById('senhaError');
+ const successEl = document.getElementById('senhaSuccess');
+ 
+ // Limpar mensagens
+ errorEl.classList.remove('show');
+ successEl.classList.remove('show');
+ 
+ // Validar confirmação de senha
+ if(senhaNova !== senhaConfirma){
+  errorEl.textContent = '❌ As senhas não coincidem!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Validar tamanho mínimo
+ if(senhaNova.length < 4){
+  errorEl.textContent = '❌ A senha deve ter no mínimo 4 caracteres!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Pegar aluno logado
+ const alunoLogado = JSON.parse(localStorage.getItem('alunoLogado'));
+ if(!alunoLogado){
+  errorEl.textContent = '❌ Erro: aluno não está logado!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Buscar aluno no banco
+ let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const alunoIndex = alunos.findIndex(a => a.id === alunoLogado.id);
+ 
+ if(alunoIndex === -1){
+  errorEl.textContent = '❌ Erro: aluno não encontrado!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Verificar senha atual
+ if(alunos[alunoIndex].senha !== senhaAtual){
+  errorEl.textContent = '❌ Senha atual incorreta!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Atualizar senha
+ alunos[alunoIndex].senha = senhaNova;
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ // Mostrar sucesso
+ successEl.classList.add('show');
+ 
+ // Fechar modal após 2 segundos
+ setTimeout(() => {
+  fecharAlterarSenha();
+  notif('✅ Senha alterada com sucesso!');
+ }, 2000);
+ 
+ console.log('✅ Senha alterada com sucesso!');
+}
+
+// Recuperar senha (resetar para "Sedes")
+function recuperarSenha(event){
+ event.preventDefault();
+ 
+ const email = prompt('📧 Digite seu e-mail cadastrado:');
+ 
+ if(!email){
+  return;
+ }
+ 
+ // Buscar aluno
+ let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const alunoIndex = alunos.findIndex(a => a.email.toLowerCase() === email.toLowerCase());
+ 
+ if(alunoIndex === -1){
+  alert('❌ E-mail não encontrado!\n\nVerifique se digitou corretamente ou entre em contato com o suporte.');
+  return;
+ }
+ 
+ // Resetar senha para "Sedes"
+ alunos[alunoIndex].senha = 'Sedes';
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ alert(`✅ Senha resetada com sucesso!\n\n📧 E-mail: ${email}\n🔑 Nova senha: Sedes\n\n💡 Faça login com a senha "Sedes" e altere-a imediatamente no menu "Alterar Senha".`);
+ 
+ console.log('✅ Senha resetada para:', email);
+}
+
 // Mostrar login admin (separado do login de aluno)
 function mostrarLoginAdmin(event){
  event.preventDefault();
@@ -2152,6 +2319,168 @@ function toggleAtivoAluno(id){
   notif(aluno.ativo ? '✅ Aluno ativado' : '🚫 Aluno desativado');
  }
 }
+
+// ================================================================
+// EDITAR CADASTRO DE ALUNO (ADMIN)
+// ================================================================
+
+function editarAluno(id){
+ // Buscar aluno
+ const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const aluno = alunos.find(a => a.id === id);
+ 
+ if(!aluno){
+  notif('❌ Aluno não encontrado!');
+  return;
+ }
+ 
+ // Preencher formulário
+ document.getElementById('editarAlunoId').value = aluno.id;
+ document.getElementById('editarNome').value = aluno.nome;
+ document.getElementById('editarEmail').value = aluno.email;
+ document.getElementById('editarTelefone').value = aluno.telefone || '';
+ document.getElementById('editarCpf').value = aluno.cpf || '';
+ document.getElementById('editarCargo').value = aluno.cargo || 'Agente';
+ document.getElementById('editarPlano').value = aluno.plano || 'pro';
+ document.getElementById('editarValor').value = aluno.valorMensalidade || 197;
+ document.getElementById('editarSenha').value = ''; // Não mostrar senha atual
+ document.getElementById('editarAtivo').checked = aluno.ativo !== false;
+ 
+ // Limpar mensagens
+ document.getElementById('editarError').classList.remove('show');
+ document.getElementById('editarSuccess').classList.remove('show');
+ 
+ // Mostrar modal
+ document.getElementById('modalEditarAluno').classList.add('show');
+ 
+ console.log('📝 Editando aluno:', aluno.nome);
+}
+
+function fecharEditarAluno(){
+ document.getElementById('modalEditarAluno').classList.remove('show');
+}
+
+function salvarEdicaoAluno(event){
+ event.preventDefault();
+ 
+ const id = parseInt(document.getElementById('editarAlunoId').value);
+ const nome = document.getElementById('editarNome').value.trim();
+ const email = document.getElementById('editarEmail').value.trim().toLowerCase();
+ const telefone = document.getElementById('editarTelefone').value.trim();
+ const cpf = document.getElementById('editarCpf').value.trim();
+ const cargo = document.getElementById('editarCargo').value;
+ const plano = document.getElementById('editarPlano').value;
+ const valorMensalidade = parseFloat(document.getElementById('editarValor').value);
+ const novaSenha = document.getElementById('editarSenha').value;
+ const ativo = document.getElementById('editarAtivo').checked;
+ 
+ const errorEl = document.getElementById('editarError');
+ const successEl = document.getElementById('editarSuccess');
+ 
+ // Limpar mensagens
+ errorEl.classList.remove('show');
+ successEl.classList.remove('show');
+ 
+ // Validações
+ if(!nome || !email){
+  errorEl.textContent = '❌ Nome e e-mail são obrigatórios!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ if(valorMensalidade < 0){
+  errorEl.textContent = '❌ Valor da mensalidade inválido!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Buscar alunos
+ let alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+ const alunoIndex = alunos.findIndex(a => a.id === id);
+ 
+ if(alunoIndex === -1){
+  errorEl.textContent = '❌ Aluno não encontrado!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Verificar se email já existe em outro aluno
+ const emailExiste = alunos.some(a => a.id !== id && a.email.toLowerCase() === email);
+ if(emailExiste){
+  errorEl.textContent = '❌ Este e-mail já está cadastrado em outro aluno!';
+  errorEl.classList.add('show');
+  return;
+ }
+ 
+ // Atualizar dados
+ alunos[alunoIndex].nome = nome;
+ alunos[alunoIndex].email = email;
+ alunos[alunoIndex].telefone = telefone;
+ alunos[alunoIndex].cpf = cpf;
+ alunos[alunoIndex].cargo = cargo;
+ alunos[alunoIndex].plano = plano;
+ alunos[alunoIndex].valorMensalidade = valorMensalidade;
+ alunos[alunoIndex].ativo = ativo;
+ 
+ // Atualizar senha se foi fornecida
+ if(novaSenha && novaSenha.length >= 4){
+  alunos[alunoIndex].senha = novaSenha;
+  console.log('🔐 Senha alterada para:', novaSenha);
+ }
+ 
+ // Salvar
+ localStorage.setItem('alunos', JSON.stringify(alunos));
+ 
+ // Atualizar valor das mensalidades futuras
+ let mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+ const hoje = new Date();
+ mensalidades.forEach(m => {
+  if(m.alunoId === id && new Date(m.vencimento) > hoje){
+   m.valor = valorMensalidade;
+  }
+ });
+ localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+ 
+ // Mostrar sucesso
+ successEl.classList.add('show');
+ 
+ // Recarregar lista
+ carregarAlunos();
+ 
+ // Fechar modal após 2 segundos
+ setTimeout(() => {
+  fecharEditarAluno();
+  notif('✅ Cadastro atualizado com sucesso!');
+ }, 2000);
+ 
+ console.log('✅ Aluno atualizado:', nome);
+}
+
+// Máscaras para campos de edição
+document.addEventListener('DOMContentLoaded', function(){
+ // Máscara de telefone
+ const telInput = document.getElementById('editarTelefone');
+ if(telInput){
+  telInput.addEventListener('input', function(e){
+   let v = e.target.value.replace(/\D/g,'');
+   v = v.replace(/^(\d{2})(\d)/g,'($1) $2');
+   v = v.replace(/(\d)(\d{4})$/,'$1-$2');
+   e.target.value = v;
+  });
+ }
+ 
+ // Máscara de CPF
+ const cpfInput = document.getElementById('editarCpf');
+ if(cpfInput){
+  cpfInput.addEventListener('input', function(e){
+   let v = e.target.value.replace(/\D/g,'');
+   v = v.replace(/(\d{3})(\d)/,'$1.$2');
+   v = v.replace(/(\d{3})(\d)/,'$1.$2');
+   v = v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+   e.target.value = v;
+  });
+ }
+});
 
 function excluirAluno(id, nome, email){
  // Confirmação de segurança
@@ -2531,5 +2860,111 @@ initAdmin();
 
 init();
 </script>
+
+<!-- MODAL ALTERAR SENHA -->
+<div class="modal-senha" id="modalAlterarSenha">
+ <div class="modal-senha-box">
+  <div class="modal-senha-title">🔐 Alterar Senha</div>
+  <div class="modal-senha-subtitle">Digite sua senha atual e a nova senha</div>
+  
+  <div class="modal-senha-error" id="senhaError">❌ Erro ao alterar senha</div>
+  <div class="modal-senha-success" id="senhaSuccess">✅ Senha alterada com sucesso!</div>
+  
+  <form class="modal-senha-form" onsubmit="alterarSenhaAluno(event)">
+   <input type="password" class="modal-senha-input" id="senhaAtual" placeholder="🔒 Senha atual" required>
+   <input type="password" class="modal-senha-input" id="senhaNova" placeholder="🔑 Nova senha (mínimo 4 caracteres)" minlength="4" required>
+   <input type="password" class="modal-senha-input" id="senhaConfirma" placeholder="🔑 Confirme a nova senha" minlength="4" required>
+   
+   <div class="modal-senha-btns">
+    <button type="button" class="modal-senha-btn secondary" onclick="fecharAlterarSenha()">Cancelar</button>
+    <button type="submit" class="modal-senha-btn primary">Alterar Senha</button>
+   </div>
+  </form>
+ </div>
+</div>
+
+<!-- MODAL EDITAR ALUNO -->
+<div class="modal-editar" id="modalEditarAluno">
+ <div class="modal-editar-box">
+  <div class="modal-editar-title">✏️ Editar Cadastro do Aluno</div>
+  <div class="modal-editar-subtitle">Altere as informações do aluno</div>
+  
+  <div class="modal-editar-error" id="editarError">❌ Erro ao salvar</div>
+  <div class="modal-editar-success" id="editarSuccess">✅ Cadastro atualizado com sucesso!</div>
+  
+  <form class="modal-editar-form" onsubmit="salvarEdicaoAluno(event)">
+   <input type="hidden" id="editarAlunoId">
+   
+   <div class="modal-editar-group">
+    <label class="modal-editar-label">👤 Nome Completo</label>
+    <input type="text" class="modal-editar-input" id="editarNome" required>
+   </div>
+   
+   <div class="modal-editar-row">
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">📧 E-mail</label>
+     <input type="email" class="modal-editar-input" id="editarEmail" required>
+    </div>
+    
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">📱 Telefone</label>
+     <input type="tel" class="modal-editar-input" id="editarTelefone" placeholder="(00) 00000-0000">
+    </div>
+   </div>
+   
+   <div class="modal-editar-row">
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">📄 CPF</label>
+     <input type="text" class="modal-editar-input" id="editarCpf" placeholder="000.000.000-00">
+    </div>
+    
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">💼 Cargo Desejado</label>
+     <select class="modal-editar-select" id="editarCargo">
+      <option value="Agente">Agente</option>
+      <option value="Escrivão">Escrivão</option>
+      <option value="Papiloscopista">Papiloscopista</option>
+      <option value="Perito">Perito</option>
+      <option value="Delegado">Delegado</option>
+      <option value="Outro">Outro</option>
+     </select>
+    </div>
+   </div>
+   
+   <div class="modal-editar-row">
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">📦 Plano</label>
+     <select class="modal-editar-select" id="editarPlano">
+      <option value="basico">Básico - R$ 97/mês</option>
+      <option value="pro">Pro - R$ 197/mês</option>
+      <option value="vip">VIP - R$ 397/mês</option>
+     </select>
+    </div>
+    
+    <div class="modal-editar-group">
+     <label class="modal-editar-label">💰 Valor Mensalidade</label>
+     <input type="number" class="modal-editar-input" id="editarValor" min="0" step="0.01" required>
+    </div>
+   </div>
+   
+   <div class="modal-editar-group">
+    <label class="modal-editar-label">🔐 Nova Senha (deixe em branco para manter a atual)</label>
+    <input type="password" class="modal-editar-input" id="editarSenha" placeholder="Digite nova senha ou deixe em branco" minlength="4">
+    <small style="color:var(--text-light);font-size:.8rem;margin-top:4px">💡 Deixe em branco se não quiser alterar a senha</small>
+   </div>
+   
+   <div class="modal-editar-checkbox">
+    <input type="checkbox" id="editarAtivo">
+    <label for="editarAtivo">✅ Aluno ativo (pode acessar a plataforma)</label>
+   </div>
+   
+   <div class="modal-editar-btns">
+    <button type="button" class="modal-editar-btn secondary" onclick="fecharEditarAluno()">Cancelar</button>
+    <button type="submit" class="modal-editar-btn primary">💾 Salvar Alterações</button>
+   </div>
+  </form>
+ </div>
+</div>
+
 </body>
 </html>

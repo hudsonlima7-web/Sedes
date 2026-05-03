@@ -61,8 +61,11 @@ input:focus,select:focus{outline:none;border-color:var(--primary)}
      <input type="email" id="email" placeholder="seu@email.com" required>
     </div>
     <div class="form-group">
-     <label>Senha</label>
-     <input type="password" id="senha" placeholder="Crie uma senha (mínimo 6 caracteres)" minlength="6" required>
+     <label>Senha (Padrão: "Sedes" - você poderá alterar depois)</label>
+     <input type="password" id="senha" placeholder="Senha padrão: Sedes" value="Sedes" minlength="4" required>
+     <small style="color: #718096; font-size: 0.85rem; margin-top: 4px; display: block;">
+      💡 Senha padrão definida como "Sedes". Você poderá alterá-la após o primeiro login.
+     </small>
     </div>
     <div class="form-group">
      <label>CPF</label>
