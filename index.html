@@ -1423,6 +1423,9 @@ function notif(ic,msg){const n=document.getElementById('notif');document.getElem
 // START
 // ================================================================
 function init(){
+ // Configurar chave da API Groq se não existir (configure via painel admin)
+ // A chave é salva no localStorage do navegador
+ 
  syncLoad();
  renderOb();
  // Seta nível no onboarding
