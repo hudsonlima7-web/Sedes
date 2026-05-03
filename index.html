@@ -1231,45 +1231,45 @@ function proxQ(){qIdx++;renderQ(S.curQs||getQs(S.fQ));}
 // VÍDEOS — Sistema robusto com fallback e verificação
 // ================================================================
 
-// Vídeos com IDs reais e verificados do YouTube
-// IMPORTANTE: Estes são vídeos públicos e disponíveis sobre concursos
-// Sistema robusto: se thumbnail falhar, mostra placeholder SVG + link direto YouTube
+// Sistema de Videoaulas - 100% Funcional
+// SOLUÇÃO: Usa placeholder visual + busca direta no YouTube
+// NUNCA depende de IDs específicos que podem falhar
 const VIDEOS=[
  // Vídeos Gerais - Assistência Social
- {id:'v1',ti:'LOAS Completa para Concursos | Lei 8.742/93',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'Ks-_Mh1QhMc',du:'58min',nv:'Fundamental'},
- {id:'v2',ti:'SUAS | Sistema Único de Assistência Social',cn:'Gran Cursos',ma:'as',ca:'g',yt:'5qap5aO4i9A',du:'45min',nv:'Fundamental'},
- {id:'v3',ti:'Assistência Social | LOAS e SUAS para Concursos',cn:'Estratégia Concursos',ma:'as',ca:'g',yt:'jfKfPfyJRdk',du:'50min',nv:'Médio'},
- {id:'v4',ti:'BPC/LOAS | Benefício de Prestação Continuada',cn:'Gran Cursos',ma:'as',ca:'g',yt:'l482T0yNkeo',du:'35min',nv:'Médio'},
+ {id:'v1',ti:'LOAS | Lei 8.742/93',cn:'Videoaulas',ma:'as',ca:'g',search:'LOAS Lei 8742 concurso',du:'~60min',nv:'Fundamental'},
+ {id:'v2',ti:'SUAS | Sistema Único de Assistência Social',cn:'Videoaulas',ma:'as',ca:'g',search:'SUAS assistência social concurso',du:'~45min',nv:'Fundamental'},
+ {id:'v3',ti:'PNAS | Política Nacional de Assistência Social',cn:'Videoaulas',ma:'as',ca:'g',search:'PNAS política assistência social',du:'~50min',nv:'Médio'},
+ {id:'v4',ti:'BPC/LOAS | Benefício de Prestação Continuada',cn:'Videoaulas',ma:'as',ca:'g',search:'BPC LOAS benefício prestação continuada',du:'~35min',nv:'Médio'},
  
  // Direito Constitucional
- {id:'v5',ti:'Seguridade Social | CF/88 Art. 194-204',cn:'Estratégia Concursos',ma:'dc',ca:'g',yt:'dU1xS07y-FA',du:'41min',nv:'Médio'},
- {id:'v6',ti:'Direitos Sociais | CF/88 Completo',cn:'Gran Cursos',ma:'dc',ca:'g',yt:'videoseries',du:'38min',nv:'Fundamental'},
+ {id:'v5',ti:'Seguridade Social | CF/88 Art. 194-204',cn:'Videoaulas',ma:'dc',ca:'g',search:'seguridade social CF88 artigo 194',du:'~40min',nv:'Médio'},
+ {id:'v6',ti:'Direitos Sociais | CF/88 Art. 6º ao 11',cn:'Videoaulas',ma:'dc',ca:'g',search:'direitos sociais CF88 artigo 6',du:'~38min',nv:'Fundamental'},
  
  // Direito Administrativo
- {id:'v7',ti:'Princípios da Administração Pública',cn:'Gran Cursos',ma:'das',ca:'g',yt:'RKmxL8VYy0M',du:'52min',nv:'Médio'},
- {id:'v8',ti:'Atos Administrativos | Teoria Completa',cn:'Estratégia Concursos',ma:'das',ca:'g',yt:'ntoLk-lSRLI',du:'48min',nv:'Médio'},
- {id:'v9',ti:'Lei 14.133/2021 | Nova Lei de Licitações',cn:'Gran Cursos',ma:'das',ca:'g',yt:'FUp4bkYzPhA',du:'55min',nv:'Avançado'},
+ {id:'v7',ti:'Princípios da Administração Pública',cn:'Videoaulas',ma:'das',ca:'g',search:'princípios administração pública concurso',du:'~52min',nv:'Médio'},
+ {id:'v8',ti:'Atos Administrativos | Teoria Completa',cn:'Videoaulas',ma:'das',ca:'g',search:'atos administrativos concurso público',du:'~48min',nv:'Médio'},
+ {id:'v9',ti:'Lei 14.133/2021 | Nova Lei de Licitações',cn:'Videoaulas',ma:'das',ca:'g',search:'Lei 14133 2021 licitações',du:'~55min',nv:'Avançado'},
  
  // Língua Portuguesa
- {id:'v10',ti:'Concordância Verbal e Nominal',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'sTJ7AzBIJoI',du:'38min',nv:'Médio'},
- {id:'v11',ti:'Interpretação de Texto para Concursos',cn:'Estratégia Concursos',ma:'lp',ca:'g',yt:'videoseries',du:'42min',nv:'Fundamental'},
- {id:'v12',ti:'Redação para Concursos | Estrutura',cn:'Gran Cursos',ma:'lp',ca:'g',yt:'videoseries',du:'50min',nv:'Médio'},
+ {id:'v10',ti:'Concordância Verbal e Nominal',cn:'Videoaulas',ma:'lp',ca:'g',search:'concordância verbal nominal concurso',du:'~38min',nv:'Médio'},
+ {id:'v11',ti:'Interpretação de Texto para Concursos',cn:'Videoaulas',ma:'lp',ca:'g',search:'interpretação texto concurso público',du:'~42min',nv:'Fundamental'},
+ {id:'v12',ti:'Redação para Concursos | Estrutura',cn:'Videoaulas',ma:'lp',ca:'g',search:'redação concurso público estrutura',du:'~50min',nv:'Médio'},
  
  // Legislação DF
- {id:'v13',ti:'Legislação do Distrito Federal',cn:'Direção Concursos',ma:'lodf',ca:'t',yt:'videoseries',du:'44min',nv:'Fundamental'},
- {id:'v14',ti:'Lei Orgânica do DF | LODF',cn:'Gran Cursos',ma:'lodf',ca:'g',yt:'videoseries',du:'60min',nv:'Avançado'},
+ {id:'v13',ti:'Legislação do Distrito Federal',cn:'Videoaulas',ma:'lodf',ca:'t',search:'legislação Distrito Federal concurso',du:'~44min',nv:'Fundamental'},
+ {id:'v14',ti:'Lei Orgânica do DF | LODF',cn:'Videoaulas',ma:'lodf',ca:'g',search:'Lei Orgânica DF LODF concurso',du:'~60min',nv:'Avançado'},
  
  // Específico - Pedagogia
- {id:'v15',ti:'ECA | Estatuto da Criança e do Adolescente',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'55min',nv:'Fundamental'},
- {id:'v16',ti:'SINASE | Sistema Socioeducativo',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'40min',nv:'Médio'},
- {id:'v17',ti:'Pedagogia Social | Conceitos',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'pedagogia',yt:'videoseries',du:'45min',nv:'Médio'},
+ {id:'v15',ti:'ECA | Estatuto da Criança e do Adolescente',cn:'Videoaulas',ma:'esp',ca:'e',espId:'pedagogia',search:'ECA estatuto criança adolescente',du:'~55min',nv:'Fundamental'},
+ {id:'v16',ti:'SINASE | Sistema Socioeducativo',cn:'Videoaulas',ma:'esp',ca:'e',espId:'pedagogia',search:'SINASE sistema socioeducativo',du:'~40min',nv:'Médio'},
+ {id:'v17',ti:'Pedagogia Social | Conceitos',cn:'Videoaulas',ma:'esp',ca:'e',espId:'pedagogia',search:'pedagogia social concurso',du:'~45min',nv:'Médio'},
  
  // Específico - Serviço Social
- {id:'v18',ti:'Código de Ética do Assistente Social',cn:'Estratégia Concursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'38min',nv:'Fundamental'},
- {id:'v19',ti:'Política Nacional de Assistência Social',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'servico_social',yt:'videoseries',du:'52min',nv:'Avançado'},
+ {id:'v18',ti:'Código de Ética do Assistente Social',cn:'Videoaulas',ma:'esp',ca:'e',espId:'servico_social',search:'código ética assistente social',du:'~38min',nv:'Fundamental'},
+ {id:'v19',ti:'Política Nacional de Assistência Social',cn:'Videoaulas',ma:'esp',ca:'e',espId:'servico_social',search:'PNAS política assistência social',du:'~52min',nv:'Avançado'},
  
  // Específico - Psicologia
- {id:'v20',ti:'Psicologia Social e Comunitária',cn:'Gran Cursos',ma:'esp',ca:'e',espId:'psicologia',yt:'videoseries',du:'48min',nv:'Médio'},
+ {id:'v20',ti:'Psicologia Social e Comunitária',cn:'Videoaulas',ma:'esp',ca:'e',espId:'psicologia',search:'psicologia social comunitária',du:'~48min',nv:'Médio'},
 ];
 
 function filtrarVids(fil){
@@ -1295,78 +1295,24 @@ function filtrarVids(fil){
  const bdg={g:'g Geral',e:'e Especialista',t:'t Técnico'};
  document.getElementById('vGrd').innerHTML=vids.map(v=>{
   const[bc,bn]=(bdg[v.ca]||'g Geral').split(' ');
-  const ytUrl=`https://www.youtube.com/watch?v=${v.yt}`;
-  const searchUrl=`https://www.youtube.com/results?search_query=${encodeURIComponent(v.ti+' concurso')}`;
+  const searchUrl=`https://www.youtube.com/results?search_query=${encodeURIComponent(v.search)}`;
   
   return`<div class="vc">
-   <div class="vth" onclick="abrirVid('${v.yt}','${v.ti.replace(/'/g,"\\'")}','${ytUrl}','${searchUrl}')">
-    <img src="https://img.youtube.com/vi/${v.yt}/mqdefault.jpg" alt="${v.ti}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22%3E%3Crect fill=%22%23667eea%22 width=%22320%22 height=%22180%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-family=%22Arial%22 font-size=%2220%22 font-weight=%22bold%22%3E📺 Videoaula%3C/text%3E%3C/svg%3E'">
-    <div class="vpl">▶</div>
+   <div class="vth" onclick="window.open('${searchUrl}','_blank')">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='320' height='180'/%3E%3Ctext x='50%25' y='45%25' text-anchor='middle' fill='white' font-family='Arial' font-size='24' font-weight='bold'%3E📺%3C/text%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' fill='white' font-family='Arial' font-size='16' font-weight='bold'%3EBuscar no YouTube%3C/text%3E%3C/svg%3E" alt="${v.ti}">
+    <div class="vpl">🔍</div>
     <div class="vbd ${bc}">${bn}</div>
    </div>
    <div class="vinfo">
     <div class="vcan">${v.cn}</div>
     <div class="vtit">${v.ti}</div>
     <div class="vmeta"><span>⏱ ${v.du}</span><span>📊 ${v.nv}</span></div>
-    <a class="vyt" href="${ytUrl}" target="_blank" onclick="event.stopPropagation()">🔴 Abrir no YouTube</a>
+    <a class="vyt" href="${searchUrl}" target="_blank" onclick="event.stopPropagation()">🔴 Buscar no YouTube</a>
    </div>
   </div>`;}).join('');
 }
 
 function renderVids(){filtrarVids('g');}
-
-function abrirVid(ytid,titulo,ytUrl,searchUrl){
- const modal = document.getElementById('movl');
- const iframe = document.getElementById('vfrm');
- const fallback = document.getElementById('ytFb');
- const ytLink = document.getElementById('ytLink');
- const mvTit = document.getElementById('mvTit');
- 
- // Configurar modal
- mvTit.textContent = titulo;
- ytLink.href = ytUrl;
- fallback.style.display = 'none';
- 
- // Tentar carregar embed
- iframe.src = `https://www.youtube.com/embed/${ytid}?autoplay=1&rel=0&modestbranding=1`;
- modal.classList.add('show');
- 
- // Detectar erro de carregamento
- let embedLoaded = false;
- 
- iframe.onload = function(){
-  embedLoaded = true;
-  console.log('✅ Vídeo carregado com sucesso');
- };
- 
- iframe.onerror = function(){
-  console.log('❌ Erro ao carregar embed');
-  fallback.style.display = 'block';
- };
- 
- // Mostrar fallback após 3 segundos se não carregar
- setTimeout(() => {
-  if(!embedLoaded){
-   console.log('⚠️ Embed demorou muito, mostrando fallback');
-   fallback.style.display = 'block';
-  }
- }, 3000);
-}
-
-function fchModal(){
- const modal = document.getElementById('movl');
- const iframe = document.getElementById('vfrm');
- modal.classList.remove('show');
- iframe.src = '';
- iframe.onload = null;
- iframe.onerror = null;
-}
-
-function fvid(e){
- if(e.target === document.getElementById('movl')){
-  fchModal();
- }
-}
 
 // ================================================================
 // COMPARATIVO

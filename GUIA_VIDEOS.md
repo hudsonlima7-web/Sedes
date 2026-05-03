@@ -1,42 +1,47 @@
 # 🎬 Guia Rápido - Sistema de Videoaulas
 
-## 📺 Como Usar
+## 📺 Como Usar (NOVO - Ainda Melhor!)
 
 ### 1. Acessar Videoaulas
 1. Faça login no sistema
 2. Clique em **"📺 Videoaulas"** no menu lateral
 3. Use os filtros para encontrar o conteúdo desejado
 
-### 2. Filtros Disponíveis
-- **🎬 Todos** - Mostra todas as videoaulas
-- **🤝 Assist.Social** - LOAS, SUAS, BPC
-- **🏛️ Dir.Const.** - Constituição Federal, Direitos Sociais
-- **⚖️ Dir.Adm.** - Princípios, Atos, Licitações
-- **📖 LP** - Língua Portuguesa
-- **📜 Leg.DF** - Legislação do Distrito Federal
-- **🎓 Específico** - Conteúdo da sua especialidade (Pedagogia, Serviço Social, Psicologia)
-- **📋 Técnico** - Conteúdo para cargo técnico
+### 2. Buscar Vídeos (Sistema Inteligente)
+**Agora é ainda mais fácil:**
+1. Clique no card do tema que quer estudar
+2. Sistema abre busca no YouTube com termo otimizado
+3. Escolha o vídeo que preferir
+4. Assista com todos os recursos do YouTube
 
-### 3. Assistir Vídeo
-**Opção 1: Embed (dentro do sistema)**
-- Clique na thumbnail do vídeo
-- Modal abre com player do YouTube
-- Assista direto no sistema
+**Exemplo:**
+- Clica em "LOAS | Lei 8.742/93"
+- Abre: `youtube.com/results?search_query=LOAS+Lei+8742+concurso`
+- Vê vários vídeos sobre o tema
+- Escolhe o melhor para você
 
-**Opção 2: YouTube direto**
-- Clique no botão **"🔴 Abrir no YouTube"**
-- Abre em nova aba
-- Acesso a recursos completos do YouTube
+### 3. Vantagens do Novo Sistema
 
-### 4. Se o Vídeo Não Carregar
-O sistema tem fallback automático:
-1. Aguarda 3 segundos
-2. Se não carregar, mostra opções:
-   - Link direto para YouTube
-   - Botão de busca alternativa
-   - Mensagem explicativa
+**✅ Sempre Funciona**
+- Nunca dá erro
+- Sem problemas de carregamento
+- Sem vídeos indisponíveis
 
-**Você NUNCA fica sem opção!**
+**✅ Sempre Atualizado**
+- Busca mostra vídeos mais recentes
+- Conteúdo atual e relevante
+- Professores diversos
+
+**✅ Mais Controle**
+- Você escolhe o vídeo
+- Compara diferentes professores
+- Vê avaliações e comentários
+
+**✅ Recursos Completos**
+- Velocidade de reprodução
+- Legendas automáticas
+- Salvar em playlists
+- Qualidade ajustável
 
 ## 🔧 Testar Vídeos
 
