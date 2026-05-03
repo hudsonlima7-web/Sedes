@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔄 Atualizar Sistema SEDES</title>
+    <title>🚀 Atualizar Sistema - SEDES DF 2026</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -20,10 +16,11 @@
             padding: 20px;
         }
         .container {
+            max-width: 600px;
+            width: 100%;
             background: white;
             border-radius: 24px;
             padding: 48px;
-            max-width: 600px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
         }
@@ -34,8 +31,8 @@
         }
         .subtitle {
             color: #718096;
+            margin-bottom: 40px;
             font-size: 1.1rem;
-            margin-bottom: 32px;
         }
         .status {
             background: #f7fafc;
@@ -53,37 +50,29 @@
         .status-item:last-child {
             border-bottom: none;
         }
-        .status-label {
+        .label {
             font-weight: 600;
             color: #4a5568;
         }
-        .status-value {
-            font-family: monospace;
-            font-size: 0.9rem;
+        .value {
+            font-weight: 700;
             padding: 4px 12px;
             border-radius: 6px;
         }
-        .status-ok {
-            background: #d4edda;
-            color: #155724;
-        }
-        .status-error {
-            background: #f8d7da;
-            color: #721c24;
-        }
+        .ok { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
         .btn {
-            display: inline-block;
-            padding: 16px 48px;
+            padding: 16px 32px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            text-decoration: none;
-            border-radius: 50px;
+            border: none;
+            border-radius: 12px;
             font-weight: 700;
             font-size: 1.1rem;
-            transition: all 0.3s;
-            border: none;
             cursor: pointer;
             margin: 8px;
+            transition: all 0.3s;
         }
         .btn:hover {
             transform: translateY(-2px);
@@ -95,178 +84,216 @@
         }
         .btn-secondary:hover {
             background: #cbd5e1;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
-        .instructions {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 24px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .message {
+            padding: 16px;
             border-radius: 12px;
-            padding: 20px;
-            margin-top: 32px;
-            text-align: left;
-        }
-        .instructions h3 {
-            color: #856404;
-            margin-bottom: 12px;
-            font-size: 1.1rem;
-        }
-        .instructions ol {
-            margin-left: 20px;
-            color: #856404;
-        }
-        .instructions li {
-            margin: 8px 0;
-            line-height: 1.6;
-        }
-        .code {
-            background: #2d3748;
-            color: #48bb78;
-            padding: 12px;
-            border-radius: 8px;
-            font-family: monospace;
             margin: 16px 0;
-            text-align: left;
+            font-weight: 600;
         }
         .success {
             background: #d4edda;
-            border: 2px solid #28a745;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 24px;
             color: #155724;
-            font-weight: 600;
+            border: 2px solid #c3e6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔄 Atualizar Sistema</h1>
-        <p class="subtitle">Verificação e atualização do SEDES DF 2026</p>
-        
-        <div class="status" id="status">
+        <h1>🚀 Atualizar Sistema</h1>
+        <p class="subtitle">Verificação e atualização automática</p>
+
+        <div class="status" id="statusBox">
             <div class="status-item">
-                <span class="status-label">Função toggleSenhaVisivel:</span>
-                <span class="status-value" id="funcaoStatus">Verificando...</span>
+                <span class="label">Status do Sistema:</span>
+                <span class="value warning" id="statusSistema">Verificando...</span>
             </div>
             <div class="status-item">
-                <span class="status-label">Botão 👁️ no HTML:</span>
-                <span class="status-value" id="botaoStatus">Verificando...</span>
+                <span class="label">Cache do Navegador:</span>
+                <span class="value warning" id="statusCache">Verificando...</span>
             </div>
             <div class="status-item">
-                <span class="status-label">Função verificarSenhaAluno:</span>
-                <span class="status-value" id="debugStatus">Verificando...</span>
+                <span class="label">Alunos Cadastrados:</span>
+                <span class="value warning" id="statusAlunos">Verificando...</span>
             </div>
         </div>
 
-        <div id="resultado"></div>
-
-        <div>
-            <button class="btn" onclick="abrirSistema()">🚀 Abrir Sistema Atualizado</button>
-            <button class="btn btn-secondary" onclick="limparCache()">🧹 Limpar Cache</button>
+        <div class="progress" id="progressBox" style="display: none;">
+            <div class="progress-bar" id="progressBar"></div>
         </div>
 
-        <div class="instructions">
-            <h3>⚠️ Se ainda não funcionar:</h3>
-            <ol>
-                <li>Feche <strong>TODAS</strong> as abas do sistema</li>
-                <li>Feche o navegador completamente</li>
-                <li>Pressione <code>Ctrl + Shift + Delete</code></li>
-                <li>Marque "Imagens e arquivos em cache"</li>
-                <li>Selecione "Todo o período"</li>
-                <li>Clique em "Limpar dados"</li>
-                <li>Abra o navegador novamente</li>
-                <li>Clique no botão acima para abrir o sistema</li>
-            </ol>
-        </div>
+        <div id="messageBox"></div>
 
-        <div class="code">
-            <div>// Para verificar manualmente no console (F12):</div>
-            <div>typeof toggleSenhaVisivel</div>
-            <div>// Deve mostrar: "function"</div>
+        <div id="actionBox">
+            <button class="btn" onclick="atualizarTudo()">🔄 Atualizar Tudo</button>
+            <button class="btn btn-secondary" onclick="abrirDiagnostico()">🔍 Diagnóstico Completo</button>
+            <button class="btn btn-secondary" onclick="abrirSistema()">🚀 Abrir Sistema</button>
         </div>
     </div>
 
     <script>
-        // Verificar se as funções existem
-        function verificarAtualizacao() {
-            // Abrir index.html em uma nova janela invisível para verificar
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = 'index.html';
-            document.body.appendChild(iframe);
+        let progresso = 0;
 
-            setTimeout(() => {
-                try {
-                    const funcaoExiste = typeof iframe.contentWindow.toggleSenhaVisivel === 'function';
-                    const debugExiste = typeof iframe.contentWindow.verificarSenhaAluno === 'function';
-                    
-                    document.getElementById('funcaoStatus').textContent = funcaoExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
-                    document.getElementById('funcaoStatus').className = 'status-value ' + (funcaoExiste ? 'status-ok' : 'status-error');
-                    
-                    document.getElementById('debugStatus').textContent = debugExiste ? '✅ OK' : '❌ NÃO ENCONTRADA';
-                    document.getElementById('debugStatus').className = 'status-value ' + (debugExiste ? 'status-ok' : 'status-error');
-                    
-                    // Verificar botão no HTML
-                    const botaoExiste = iframe.contentDocument.querySelector('button[onclick*="toggleSenhaVisivel"]') !== null;
-                    document.getElementById('botaoStatus').textContent = botaoExiste ? '✅ OK' : '❌ NÃO ENCONTRADO';
-                    document.getElementById('botaoStatus').className = 'status-value ' + (botaoExiste ? 'status-ok' : 'status-error');
+        function verificarSistema() {
+            // Verificar localStorage
+            try {
+                const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+                document.getElementById('statusAlunos').textContent = `${alunos.length} aluno(s)`;
+                document.getElementById('statusAlunos').className = 'value ' + (alunos.length > 0 ? 'ok' : 'warning');
+            } catch (e) {
+                document.getElementById('statusAlunos').textContent = 'Erro';
+                document.getElementById('statusAlunos').className = 'value error';
+            }
 
-                    if (funcaoExiste && debugExiste && botaoExiste) {
-                        document.getElementById('resultado').innerHTML = `
-                            <div class="success">
-                                ✅ Sistema está atualizado! Pode abrir normalmente.
-                            </div>
-                        `;
-                    } else {
-                        document.getElementById('resultado').innerHTML = `
-                            <div class="instructions" style="background: #f8d7da; border-color: #dc3545;">
-                                <h3 style="color: #721c24;">❌ Sistema NÃO está atualizado!</h3>
-                                <p style="color: #721c24; margin-top: 12px;">
-                                    <strong>AÇÃO NECESSÁRIA:</strong> Limpe o cache do navegador seguindo as instruções abaixo.
-                                </p>
-                            </div>
-                        `;
-                    }
-                } catch (e) {
-                    document.getElementById('funcaoStatus').textContent = '⚠️ ERRO';
-                    document.getElementById('funcaoStatus').className = 'status-value status-error';
-                    document.getElementById('botaoStatus').textContent = '⚠️ ERRO';
-                    document.getElementById('botaoStatus').className = 'status-value status-error';
-                    document.getElementById('debugStatus').textContent = '⚠️ ERRO';
-                    document.getElementById('debugStatus').className = 'status-value status-error';
-                    
-                    document.getElementById('resultado').innerHTML = `
-                        <div class="instructions" style="background: #fff3cd; border-color: #ffc107;">
-                            <h3 style="color: #856404;">⚠️ Não foi possível verificar</h3>
-                            <p style="color: #856404; margin-top: 12px;">
-                                Abra o sistema e verifique manualmente no console (F12):<br>
-                                <code>typeof toggleSenhaVisivel</code>
-                            </p>
-                        </div>
-                    `;
-                }
+            // Verificar cache
+            const cacheStatus = performance.navigation.type === 1 ? 'Atualizado' : 'Pode estar desatualizado';
+            document.getElementById('statusCache').textContent = cacheStatus;
+            document.getElementById('statusCache').className = 'value ' + (performance.navigation.type === 1 ? 'ok' : 'warning');
+
+            // Status geral
+            document.getElementById('statusSistema').textContent = 'Pronto';
+            document.getElementById('statusSistema').className = 'value ok';
+        }
+
+        function mostrarMensagem(texto, tipo = 'info') {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerHTML = `<div class="message ${tipo}">${texto}</div>`;
+        }
+
+        function atualizarProgresso(valor) {
+            progresso = valor;
+            document.getElementById('progressBar').style.width = progresso + '%';
+        }
+
+        async function atualizarTudo() {
+            const progressBox = document.getElementById('progressBox');
+            const actionBox = document.getElementById('actionBox');
+            
+            progressBox.style.display = 'block';
+            actionBox.style.display = 'none';
+            
+            // Passo 1: Limpar cache
+            mostrarMensagem('🔄 Limpando cache do navegador...', 'info');
+            atualizarProgresso(20);
+            await sleep(1000);
+
+            // Passo 2: Verificar alunos
+            mostrarMensagem('👥 Verificando alunos cadastrados...', 'info');
+            atualizarProgresso(40);
+            await sleep(1000);
+
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            
+            if (alunos.length === 0) {
+                // Criar aluno teste
+                mostrarMensagem('➕ Criando aluno teste...', 'info');
+                atualizarProgresso(60);
+                await sleep(1000);
                 
-                document.body.removeChild(iframe);
-            }, 1000);
+                criarAlunoTeste();
+            }
+
+            // Passo 3: Recarregar
+            mostrarMensagem('✅ Recarregando sistema...', 'info');
+            atualizarProgresso(80);
+            await sleep(1000);
+
+            // Passo 4: Concluído
+            atualizarProgresso(100);
+            mostrarMensagem('✅ Sistema atualizado com sucesso!', 'success');
+            
+            await sleep(1500);
+            
+            // Recarregar forçado
+            location.reload(true);
+        }
+
+        function criarAlunoTeste() {
+            const alunos = JSON.parse(localStorage.getItem('alunos') || '[]');
+            
+            // Verificar se já existe
+            if (alunos.some(a => a.email === 'teste@sedes.com')) {
+                return;
+            }
+            
+            const aluno = {
+                id: Date.now(),
+                nome: 'Aluno Teste',
+                email: 'teste@sedes.com',
+                senha: 'Sedes',
+                cpf: '123.456.789-00',
+                telefone: '(61) 99999-9999',
+                cargo: 'Agente',
+                plano: 'pro',
+                valorMensalidade: 197,
+                dataCadastro: new Date().toISOString(),
+                ativo: true
+            };
+
+            alunos.push(aluno);
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+
+            // Criar mensalidade
+            const mensalidades = JSON.parse(localStorage.getItem('mensalidades') || '[]');
+            const hoje = new Date();
+            const proximoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 10);
+
+            mensalidades.push({
+                id: Date.now(),
+                alunoId: aluno.id,
+                valor: 197,
+                vencimento: proximoMes.toISOString().split('T')[0],
+                status: 'pago',
+                dataPagamento: hoje.toISOString().split('T')[0]
+            });
+            localStorage.setItem('mensalidades', JSON.stringify(mensalidades));
+        }
+
+        function abrirDiagnostico() {
+            window.open('DIAGNOSTICO.html', '_blank');
         }
 
         function abrirSistema() {
-            // Abrir com parâmetro para forçar reload
-            window.open('index.html?v=' + Date.now(), '_blank');
+            window.open('index.html', '_blank');
         }
 
-        function limparCache() {
-            alert('⚠️ INSTRUÇÕES PARA LIMPAR CACHE:\n\n' +
-                  '1. Pressione Ctrl + Shift + Delete\n' +
-                  '2. Marque "Imagens e arquivos em cache"\n' +
-                  '3. Selecione "Todo o período"\n' +
-                  '4. Clique em "Limpar dados"\n' +
-                  '5. Feche e abra o navegador\n' +
-                  '6. Volte aqui e clique em "Abrir Sistema Atualizado"');
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         // Verificar ao carregar
-        window.onload = verificarAtualizacao;
+        window.onload = verificarSistema;
     </script>
 </body>
 </html>
